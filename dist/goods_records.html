@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>提货记录</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" href="../dist/css/main.css" />
+    <style>
+        .data-table{
+            width: 95%;
+            margin:0 auto;
+            height: auto;
+            position: relative;
+            top: 0.2rem;
+        }
+
+        .first-tr{
+            height: 1.2rem;
+        }
+
+        .line-first-cell{
+            width: 60%;
+        }
+
+        .first-tr-cell2{
+            width: 20%;
+            color: #4a4a4a;
+            text-align: right;
+        }
+        .first-tr-cell-end{
+            width: 20%;
+            text-align: right;
+        }
+
+        .tr2{
+            height: 0.9rem;
+        }
+
+        .tr2-cell-title{
+            width: 40%;
+        }
+
+        .tr2-cell-value{
+            width: 60%;
+        }
+
+    </style>
+
+    <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
+    <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
+    <script type="text/javascript" src="../dist/js/main.js" ></script>
+</head>
+<body>
+<!-- 页面头部 -->
+<div id="header" class="header">
+    <div id="return_key" class="return-key">
+        <div id="back-img"></div>&nbsp;返回</lable>
+    </div>
+    <div id="app-title" class="app-title">
+        <label>提货记录</label>
+    </div>
+    <hr class="title-hr" color="#E5E5E5"/>
+</div>
+
+<div id="data-div" class="data-table">
+    <table data-role="table" id="goods-records-data" data-mode="reflow">
+        <thead>
+        <tr></tr>
+        </thead>
+        <tbody>
+        <tr class="first-tr">
+            <td class="line-first-cell goodsName" colspan="2">气流纺棉32S机织纱</td>
+            <td class="first-tr-cell2">申请时间</td>
+            <td class="first-tr-cell-end">2017.10.16</td>
+        </tr>
+        <tr class="tr2">
+            <td class="tr2-cell-title normal-title">提货申请码</td><td class="tr2-cell-value normal-value" colspan="3">ZSTH2017101600007</td>
+        </tr>
+        <tr class="tr2">
+            <td class="tr2-cell-title normal-title">所在仓库</td><td class="tr2-cell-value normal-value" colspan="3">中实湖塘库</td>
+        </tr>
+        <tr class="tr2">
+            <td class="tr2-cell-title normal-title">申请件数</td><td class="tr2-cell-value normal-value" colspan="3">100</td>
+        </tr>
+        <tr class="tr2">
+            <td class="tr2-cell-title normal-title">申请重量（kg）</td><td class="tr2-cell-value normal-value" colspan="3">100</td>
+        </tr>
+        <tr class="tr2">
+            <td class="tr2-cell-title normal-title">提货时间</td><td class="tr2-cell-value normal-value" colspan="3">2017.10.17</td>
+        </tr>
+        <tr class="tr2">
+            <td class="tr2-cell-title normal-title">应付（元）</td><td class="tr2-cell-value normal-value" colspan="3">180,000.00</td>
+        </tr>
+        <tr class="tr2">
+            <td class="tr2-cell-title normal-title">当前状态</td><td class="tr2-cell-value normal-value" colspan="3">已出库</td>
+        </tr>
+        <tr class="tr2">
+            <td colspan="4"><hr color="#F8F8FF"/></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

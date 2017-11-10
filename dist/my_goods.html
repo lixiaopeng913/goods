@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>我的货物</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" href="../dist/css/main.css" />
+    <style>
+
+        .search-div{
+            float: left;
+            position: relative;
+            top: 0.15rem;
+            height: 0.8rem;
+            width: 100%;
+            box-shadow: 0 4px 4px 2px #dbdbdb;
+        }
+
+        .search{
+            position: relative;
+            float: left;
+            height: 0.62rem;
+            width: 4.2rem;
+            left: 0.3rem;
+            border: 1px solid #d4d6df;
+            border-radius: 0.62rem;
+            background: url(images/search.png) no-repeat 0.2rem center;
+            background-size: 0.33rem 0.25rem;
+            padding-left: 0.6rem;
+            font-size: 0 !important;
+        }
+
+        .search>input{
+            height: 0.56rem;
+            line-height: 0.56rem;
+            width: 3rem;
+            border: none;
+            outline: none;
+        }
+
+        .search>input::-moz-placeholder{
+            color: #dee0e7;
+        }
+
+        .search>input::-webkit-input-placeholder{
+            color: #dee0e7;
+        }
+
+        .search>input::-ms-input-placeholder{
+            color: #dee0e7;
+        }
+
+        .warehouse-search{
+            position: relative;
+            float: right;
+            right: 0.2rem;
+            width: 2.7rem;
+            height: 0.62rem;
+            line-height: 0.62rem;
+            background: #f3f5fe;
+            border-radius: 0.62rem;
+            overflow: hidden;
+        }
+
+        .warehouse-search>select{
+            width: 100%;
+            padding: 0 0.1rem;
+            background: #f3f5fe;
+            height: 0.62rem;
+            outline: none;
+            border: none;
+            text-align-last: center;
+        }
+
+        .warehouse-search>select>option{
+            text-align: center;
+            text-align-last: center;
+        }
+        .data-table{
+             width: 95%;
+             margin:0 auto;
+             height: auto;
+             position: relative;
+             top: 0.65rem;
+        }
+
+         .line-first{
+             height: 1.2rem;
+         }
+
+         .line-first-cell{
+             width: 60%;
+         }
+
+        .line-second{
+            height: 0.9rem;
+            width: 60%;
+        }
+
+        .line-second-cell-value{
+            width: 20%;
+            text-align: center;
+            font-size: 0.33rem;
+            font-weight:bold;
+        }
+
+         .orderNumber-title{
+             width: 20%;
+             text-align: right;
+             font-weight:bold;
+         }
+
+        .line-end-cell3{
+            width: 20%;
+            text-align: right;
+        }
+
+        a{
+            color: #00a796;
+        }
+
+    </style>
+    <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
+    <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
+    <script type="text/javascript" src="../dist/js/main.js" ></script>
+    <!--<script type="text/javascript" src="../dist/js/jquery.mobile-1.4.5.min.css" ></script>-->
+    <!--<script type="text/javascript" src="../dist/js/jquery.mobile-1.4.5.min.js" ></script>-->
+</head>
+<body>
+<!-- 页面头部 -->
+<div id="header" class="header">
+    <div id="return_key" class="return-key">
+        <div id="back-img"></div>&nbsp;返回</lable>
+    </div>
+    <div id="app-title" class="app-title">
+        <label>我的货物</label>
+    </div>
+    <hr class="title-hr" color="#E5E5E5"/>
+</div>
+<!-- 搜索条件部分 -->
+<div class="search-div">
+    <div class="search">
+        <input type="search" placeholder="输入货物名称" />
+    </div>
+    <div class="warehouse-search">
+        <select id="warehouse-options">
+            <option value="0">全部仓库</option>
+        </select>
+    </div>
+</div>
+
+<div id="data-div" class="data-table">
+    <table data-role="table" id="warehouse-data" data-mode="reflow">
+        <thead>
+        <tr></tr>
+        </thead>
+        <tbody>
+        <tr class="line-first">
+            <td id="goodsName" class="line-first-cell goodsName" colspan="2">气流纺棉</td>
+            <td class="orderNumber orderNumber-title">批号</td>
+            <td class="line-second-cell-value" colspan="2">121313</td>
+        </tr>
+        <tr class="line-second">
+            <td id="warehouseName" class="orderNumber">所在仓库</td>
+            <td class="line-second-cell-value">中实</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="line-second">
+            <td id="storeCount" class="orderNumber">库存数量（吨）</td>
+            <td class="line-second-cell-value">100.00</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="line-second">
+            <td id="status" class="orderNumber">当前状态</td>
+            <td class="line-second-cell-value">已入库</td>
+            <td class="line-end-cell3"><a href="javascript:void(0)">提货历史</a></td>
+            <td class="line-end-cell3"><a href="javascript:void(0)">去提货</a></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr color="#F8F8FF"/></td>
+        </tr>
+        <tr class="line-first">
+            <td id="goodsName1" class="line-first-cell goodsName" colspan="2">气流纺棉</td>
+            <td class="orderNumber orderNumber-title">批号</td>
+            <td class="line-second-cell-value" colspan="2">121313</td>
+        </tr>
+        <tr class="line-second">
+            <td id="warehouseName1" class="orderNumber">所在仓库</td>
+            <td class="line-second-cell-value">中实</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="line-second">
+            <td id="storeCount1" class="orderNumber">库存数量（吨）</td>
+            <td class="line-second-cell-value">100.00</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="line-second">
+            <td id="status1" class="orderNumber">当前状态</td>
+            <td class="line-second-cell-value">已入库</td>
+            <td class="line-end-cell3"><a href="javascript:void(0)">提货历史</a></td>
+            <td class="line-end-cell3"><a href="javascript:void(0)">去提货</a></td>
+        </tr>
+        <tr>
+            <td colspan="4"><hr color="#F8F8FF"/></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        //加载全部仓库
+        loadWarehouses();
+    });
+
+    //加载全部仓库
+    function loadWarehouses() {
+        //获取仓库列表——初始
+        $.ajax({
+            type:"post",
+            url:"https://wei.wiyarn.com/actiz/rs/b",
+            async:true,
+            data:{
+                fromType:2,
+                mobile:true,
+                loc:"zh-Hans",
+                versionID:"1.0.0",
+                _m:"listStorageHosue",
+                _s:"coop",
+                loginId: "ur4qqtjxnm",
+                mtn: "a210213a55154d08a24275cd2d890406"
+            },
+            success:function(rep){
+                var reps = JSON.parse(rep);
+                if(reps.result){
+                    var str = '<li data-id="0"><div class="warehouse-option"></div>全部仓库</li>',
+                        list = reps.content;
+                    for(var i=0;i<list.length;i++){
+                        str += '<option data-id="'+list[i].storeHouseId +'">'+list[i].storeHouseName+'</option>'
+//                        str += '<li data-id="'+ list[i].storeHouseId +'"><div class="warehouse-option">'+ list[i].storeHouseName +'</div></li>'
+                    };
+                    $('#warehouse-options').append(str);
+                }
+            }
+        });
+    }
+
+    $("#return_key").click(function () {
+        back();
+    });
+
+</script>
+</body>
+</html>
