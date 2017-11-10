@@ -126,33 +126,33 @@
     </div>
     <script type="text/javascript">
         angular.module('recordDetailModules', [])
-                .controller('recordDetailCtrls', ['$scope', '$http', function($scope, $http) {
-                    var params={
-                        _vt:'dlk_weishatest',
-                        fromType:2,
-                        mobile:'true',
-                        _m:'getDelivery',
-                        loginId:'ur4qqtjxnm',
-                        _s:'coop',
-                        mtn:'a210213a55154d08a24275cd2d890406',
-                        buildID:'201608071700',
-                        loc:'zh-Hans',
-                        versionID:'1.0.0',
-                        _svt:'',
-                        deliveryId:145
+            .controller('recordDetailCtrls', ['$scope', '$http', function($scope, $http) {
+                var params={
+                    _vt:'dlk_weishatest',
+                    fromType:2,
+                    mobile:'true',
+                    _m:'getDelivery',
+                    loginId:'ur4qqtjxnm',
+                    _s:'coop',
+                    mtn:'a210213a55154d08a24275cd2d890406',
+                    buildID:'201608071700',
+                    loc:'zh-Hans',
+                    versionID:'1.0.0',
+                    _svt:'',
+                    deliveryId:145
+                }
+                $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",params}).then(function(rep) {
+                    console.log('rep:',rep)
+                    if(rep.status==200){
+                        $scope.list=rep.data.content
+                        console.log('rep:',$scope.list)
                     }
-                    $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",params}).then(function(rep) {
-                        console.log('rep:',rep)
-                        if(rep.status==200){
-                            $scope.list=rep.data.content
-                            console.log('rep:',$scope.list)
-                        }
 
-                    })
-                    $scope.comeback=function(){
-                        back();
-                    }
-                }])
+                })
+                $scope.comeback=function(){
+                    back();
+                }
+            }])
     </script>
 </div>
 </body>
