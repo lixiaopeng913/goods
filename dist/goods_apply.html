@@ -5,11 +5,228 @@
     <title>提货申请</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
     <link rel="stylesheet" href="../dist/css/main.css" />
+    <link rel="stylesheet" href="../dist/css/jedate.css" />
     <style>
+        .goods-title{
+            background-color: #F3F5FE;
+        }
+
+        .table-tr1-td{
+            position: relative;
+            left: 0.3rem;
+            width: 100%;
+            font-size: 0.5rem;
+        }
+
+        .table-tr2{
+            height: 0.8rem;
+        }
+        .table-tr2-td1{
+            width: 50%;
+            padding-left: 0.3rem;
+        }
+        .table-tr2-td2{
+            width: 50%;
+        }
+
+        .form_table{
+            margin:0 auto;
+            height: auto;
+            width: 95%;
+        }
+
+        .form_table-tr{
+            height: 1.0rem;
+        }
+
+        .form_table-field{
+            padding-left: 0.2rem;
+            width: 55%;
+        }
+        .required{
+            color: red;
+        }
+
+        .jeinpbox{
+            float: left;
+            width: 3rem;
+            margin-right: 0px;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+        }
+        .jeinput{
+            display: block;
+            width: 100%;
+            padding-left: .1rem;
+            height: .5rem;
+            line-height: .36rem;
+            border: 1px solid #e6e6e6;
+            background-color: #fff;
+            border-radius: 3px;
+        }
+        .jebtns{
+            width: .5rem;
+            margin-left: 5px;
+            margin-left: 3px;
+            height: .6rem;
+            line-height: 1;
+            border: 1px solid #e6e6e6;
+            background-color: #fff;
+            border-radius: 3px;
+            background-position:right center;
+            float: left;
+            cursor: pointer;
+        }
 
     </style>
+    <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
+    <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
+    <script type="text/javascript" src="../dist/js/main.js" ></script>
+    <script type="text/javascript" src="../dist/js/jquery.jedate.min.js" ></script>
 </head>
 <body>
+<!-- 页面头部 -->
+<div id="header" class="header">
+    <div id="return_key" class="return-key">
+        <div id="back-img"></div><span>&nbsp;返回</span>
+    </div>
+    <div id="app-title" class="app-title">
+        <span>提货申请</span>
+    </div>
+</div>
+<!-- 表头样式 -->
+<div id="title">
+    <table id="page_head" class="goods-title">
+        <tr class="table-tr1">
+            <td colspan="2" class="table-tr1-td goodsName">中实湖塘库</td>
+        </tr>
+        <tr class="table-tr2">
+            <td class="table-tr2-td1 normal-title">地址</td>
+            <td class="table-tr2-td2 normal-value">北京市海淀区</td>
+        </tr>
+        <tr class="table-tr2">
+            <td class="table-tr2-td1 normal-title">仓库联系人</td>
+            <td class="table-tr2-td2 normal-value">顾棋成</td>
+        </tr>
+        <tr class="table-tr2">
+            <td class="table-tr2-td1 normal-title">电话</td>
+            <td class="table-tr2-td2 normal-value">13688888888</td>
+        </tr>
+    </table>
+</div>
+<br>
+<!-- 表单填写部分 -->
+<div id="form-div">
+    <form id="goods_apply_form">
+        <table id="form_table" class="form_table">
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">PID</td>
+                <td class="normal-value">00012365411710</td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">商品名称</td>
+                <td class="normal-value">气流纺棉32S机织棉</td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">批号</td>
+                <td class="normal-value">1235651</td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">库存件数</td>
+                <td class="normal-value">1630.00</td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">库存重量（吨）</td>
+                <td class="normal-value">190.00</td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">包装规格</td>
+                <td class="normal-value">25*20</td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title"><span class="required">*</span>&nbsp;提货件数</td>
+                <td class="normal-value">
+                    <input type="text" id="goods_count" class="input"/>
+                </td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title"><span class="required">*</span>&nbsp;提货重量（吨）</td>
+                <td class="normal-value">
+                    <input type="text" id="goods_weight"/>
+                </td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">回款单价（元/吨）</td>
+                <td class="normal-value">18000</td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">应回贷款金额（元）</td>
+                <td class="normal-value"><input type="text" id="goods_loan"/></td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">保证金释放金额（元）</td>
+                <td class="normal-value"><input type="text" id="goods_caution_money"/></td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">应付金额（元）</td>
+                <td class="normal-value"><input type="text" id="goods_pay_money"/></td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title"><span class="required">*</span>&nbsp;提货人姓名</td>
+                <td class="normal-value">
+                    <input type="text" id="goods_person"/>
+                </td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title"><span class="required">*</span>&nbsp;提货人身份证</td>
+                <td class="normal-value">
+                    <input type="text" id="goods_id_card"/>
+                </td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">提货人手机号</td>
+                <td class="normal-value"><input type="text" id="goods_phone" class=""/></td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title"><span class="required">*</span>&nbsp;提货日期</td>
+                <td class="normal-value">
+                    <div class="jewarp content jeitem" onclick="dateSelect(this)">
+                        <div class="jeinpbox" style="width: 80%;"><input type="text" class="jeinput" id="testico" readonly></div>
+                        <div class="icons jebtns" ></div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title">提货方式</td>
+                <td class="normal-value"><input type="text" id="goods_method"/></td>
+            </tr>
+            <tr class="form_table-tr">
+                <td class="form_table-field normal-title"><span class="required">*</span>&nbsp;提货车牌号</td>
+                <td class="normal-value">
+                    <input type="text" id="goods_carNo"/>
+                </td>
+            </tr>
+        </table>
+        <br><br>
+        <div class="submit" onclick="submitGoodsApply()">提交</div>
+    </form>
 
+</div>
+<script type="text/javascript">
+    $(function(){
+
+    });
+
+    function dateSelect(inputobj){
+        var a = $(inputobj);
+        $.jeDate(a.find("#testico"),{trigger:false,format: 'YYYY-MM-DD'})
+    }
+
+    function submitGoodsApply() {
+
+    }
+
+</script>
 </body>
 </html>
