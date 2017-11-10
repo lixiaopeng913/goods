@@ -10,4 +10,5 @@
 
 提货申请            goods_apply.html
 
-搜索               goods_search.html
+搜索               goods_search.html\
+add gyx
