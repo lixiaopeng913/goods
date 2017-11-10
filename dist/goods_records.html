@@ -14,10 +14,6 @@
             top: 0.2rem;
         }
 
-        .first-tr{
-            height: 1.2rem;
-        }
-
         .line-first-cell{
             width: 60%;
         }
@@ -54,10 +50,10 @@
 <!-- 页面头部 -->
 <div id="header" class="header">
     <div id="return_key" class="return-key">
-        <div id="back-img"></div>&nbsp;返回</lable>
+        <div id="back-img"></div>&nbsp;<span>返回</span>
     </div>
     <div id="app-title" class="app-title">
-        <label>提货记录</label>
+        <span>提货记录</span>
     </div>
     <hr class="title-hr" color="#E5E5E5"/>
 </div>
@@ -68,7 +64,7 @@
         <tr></tr>
         </thead>
         <tbody>
-        <tr class="first-tr">
+        <tr class="table-tr1">
             <td class="line-first-cell goodsName" colspan="2">气流纺棉32S机织纱</td>
             <td class="first-tr-cell2">申请时间</td>
             <td class="first-tr-cell-end">2017.10.16</td>
@@ -100,5 +96,20 @@
         </tbody>
     </table>
 </div>
+<script type="text/javascript">
+    $(function(){
+        //加载提货记录
+        loadDeliveryGoodsRecords();
+    });
+
+    //远程ajax请求提货记录
+    function loadDeliveryGoodsRecords() {
+
+    }
+
+    $("#return_key").click(function () {
+        back();
+    });
+</script>
 </body>
 </html>

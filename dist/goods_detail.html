@@ -3,8 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <title>货物详情</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" href="../dist/css/main.css" />
+    <style>
+        .data-table{
+            width: 95%;
+            margin:0 auto;
+            height: auto;
+            position: relative;
+            top: 0.35rem;
+        }
+
+        #operate-table{
+            width: 100%;
+            margin:0 auto;
+        }
+
+        .tr1-td1{
+            width: 55%;
+        }
+
+        .tr1-td2{
+            width: 20%;
+            text-align: right;
+        }
+
+        .tr1-td3{
+            width: 30%;
+
+        }
+
+        .tr2{
+            height: 0.9rem;
+        }
+        .tr2-td1{
+            width: 50%;
+            color: #555455;
+        }
+        .tr2-td2{
+            width: 50%;
+        }
+
+        .tr-end{
+            height: 1.2rem;
+        }
+
+        .tr-end-td1{
+            width: 30%;
+            height: 1.8rem;
+            line-height: 30%;
+            text-align: center;
+            background-color: #f3f5fe;
+        }
+        .tr-end-td1>a{
+            font-weight: bold;
+            font-size: 0.45rem;
+            color: #00a796;
+            text-decoration:none;
+            display:inline-block;
+        }
+        .tr-end-td1>a:hover{
+            color: #00a796;
+        }
+
+        .tr-end-td2{
+            width: 70%;
+            height: 1.8rem;
+            line-height: 70%;
+            text-align: center;
+            background-color: #00a796;
+        }
+        .tr-end-td2>a{
+            font-weight: bold;
+            font-size: 0.45rem;
+            color: #ffffff;
+            text-decoration:none;
+            display:inline-block;
+        }
+        .tr-end-td2>a:hover{
+            color: #ffffff;
+        }
+
+    </style>
+
+    <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
+    <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
+    <script type="text/javascript" src="../dist/js/main.js" ></script>
 </head>
 <body>
-
+<!-- 页面头部 -->
+<div id="header" class="header">
+    <div id="return_key" class="return-key">
+        <div id="back-img"></div><span>&nbsp;返回</span>
+    </div>
+    <div id="app-title" class="app-title">
+        <span>货物详情</span>
+    </div>
+    <!-- 数据部分 -->
+    <div id="data-div" class="data-table">
+        <table id="warehouse-data">
+            <thead>
+            <tr></tr>
+            </thead>
+            <tbody>
+                <tr class="table-tr1">
+                    <td class="goodsName tr1-td1">气流纺棉32S机织棉</td>
+                    <td class="tr1-td2 normal-title">批号</td>
+                    <td class="tr1-td3 normal-title">121313</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">PID</td>
+                    <td colspan="2" class="tr2-td2 normal-value">00012365411710</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">订单编号</td>
+                    <td colspan="2" class="tr2-td2 normal-value">ZSJY1017101600087</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">仓库名称</td>
+                    <td colspan="2" class="tr2-td2 normal-value">中实湖塘库</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">包装</td>
+                    <td colspan="2" class="tr2-td2 normal-value">25*20</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">库存数量</td>
+                    <td colspan="2" class="tr2-td2 normal-value">1900.00</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">库存重量（吨）</td>
+                    <td colspan="2" class="tr2-td2 normal-value">1900.00</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">入库单价（元）</td>
+                    <td colspan="2" class="tr2-td2 normal-value">20,000.00</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">可提货重量（吨）</td>
+                    <td colspan="2" class="tr2-td2 normal-value">20,000.00</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">可融资金额（元）</td>
+                    <td colspan="2" class="tr2-td2 normal-value">0.0</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">已融资金额（元）</td>
+                    <td colspan="2" class="tr2-td2 normal-value">0.0</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">货权人</td>
+                    <td colspan="2" class="tr2-td2 normal-value">张三宝</td>
+                </tr>
+                <tr class="tr2">
+                    <td class="tr2-td1 normal-title">订单类型</td>
+                    <td colspan="2" class="tr2-td2 normal-value">质押</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- 操作功能区 -->
+        <div id="operate-div">
+            <table id="operate-table">
+                <tr class="tr-end">
+                    <td class="tr-end-td1"><a href="goods_records.html">提货历史</a></td>
+                    <td colspan="2" class="tr-end-td2"><a href="goods_apply.html">去提货</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>
