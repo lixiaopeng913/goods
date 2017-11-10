@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <title>我的货物</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
-    <link rel="stylesheet" href="../dist/css/main.css" />
+    <link rel="stylesheet" href="css/my_goods.css" />
+    <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
+    <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
+    <script type="text/javascript" src="../dist/js/angular-1.3.10.min.js" ></script>
+    <script type="text/javascript" src="../dist/js/main.js" ></script>
     <style>
 
         .search-div{
@@ -109,7 +113,7 @@
         .line-second-cell-value{
             width: 20%;
             text-align: center;
-            font-size: 0.33rem;
+            font-size: 0.27rem;
             font-weight:bold;
         }
 
@@ -120,12 +124,13 @@
          }
 
         .line-end-cell3{
-            width: 20%;
+            width: 14%;
             text-align: right;
         }
 
         .good-op{
             color: #00a796;
+            font-size:0.32rem;
         }
 
     </style>
@@ -135,10 +140,10 @@
     <!--<script type="text/javascript" src="../dist/js/jquery.mobile-1.4.5.min.css" ></script>-->
     <!--<script type="text/javascript" src="../dist/js/jquery.mobile-1.4.5.min.js" ></script>-->
 </head>
-<body>
+<body ng-app="myGoodsModules" ng-controller="myGoodsCtrls">
 <!-- 页面头部 -->
 <div id="header" class="header">
-    <div id="return_key" class="return-key">
+    <div id="return_key" class="return-key" ng-click="comeback()">
         <div id="back-img"></div>&nbsp;返回</lable>
     </div>
     <div id="app-title" class="app-title">
@@ -153,7 +158,7 @@
     </div>
     <div class="warehouse-search">
         <select id="warehouse-options">
-            <option value="0">全部仓库</option>
+            <option value="" ng-repeat="node in list">{{node.storeHouseName}}</option>
         </select>
     </div>
 </div>
@@ -219,49 +224,31 @@
         </tbody>
     </table>
 </div>
-
 <script type="text/javascript">
-    $(function(){
-        //加载全部仓库
-        loadWarehouses();
-    });
-
-    //加载全部仓库
-    function loadWarehouses() {
-        //获取仓库列表——初始
-        $.ajax({
-            type:"post",
-            url:"https://wei.wiyarn.com/actiz/rs/b",
-            async:true,
-            data:{
-                fromType:2,
-                mobile:true,
-                loc:"zh-Hans",
-                versionID:"1.0.0",
-                _m:"listStorageHosue",
-                _s:"coop",
-                loginId: "ur4qqtjxnm",
-                mtn: "a210213a55154d08a24275cd2d890406"
-            },
-            success:function(rep){
-                var reps = JSON.parse(rep);
-                if(reps.result){
-                    var str = '<li data-id="0"><div class="warehouse-option"></div>全部仓库</li>',
-                        list = reps.content;
-                    for(var i=0;i<list.length;i++){
-                        str += '<option data-id="'+list[i].storeHouseId +'">'+list[i].storeHouseName+'</option>'
-//                        str += '<li data-id="'+ list[i].storeHouseId +'"><div class="warehouse-option">'+ list[i].storeHouseName +'</div></li>'
-                    };
-                    $('#warehouse-options').append(str);
+    angular.module('myGoodsModules', [])
+            .controller('myGoodsCtrls', ['$scope', '$http', function($scope, $http) {
+                var params={
+                    fromType:2,
+                    mobile:true,
+                    loc:"zh-Hans",
+                    versionID:"1.0.0",
+                    _m:"listStorageHosue",
+                    _s:"coop",
+                    loginId: "ur4qqtjxnm",
+                    mtn: "a210213a55154d08a24275cd2d890406"
                 }
-            }
-        });
-    }
-
-    $("#return_key").click(function () {
-        back();
-    });
-
+                $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",params}).then(function(rep) {
+                    if(rep.status==200){
+                        if(rep.data.content){
+                            $scope.list=rep.data.content
+                            $scope.list.unshift({"storeHouseName":"全部仓库"})
+                        }
+                    }
+                })
+                $scope.comeback=function(){
+                    back();
+                }
+            }])
 </script>
 </body>
 </html>

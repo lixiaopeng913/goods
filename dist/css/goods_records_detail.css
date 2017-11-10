@@ -1,0 +1,66 @@
+#recordDetail .headerContent{
+    padding:0.35rem 0.2rem 0.35rem 0.3rem;
+    background-color:#F3F5FE;
+}
+#recordDetail .headerContent>p{
+    color: #000;
+    font-size: 0.32rem;
+    font-weight: bold;
+}
+#recordDetail .headerContent>table{
+    margin-top:0.2rem;
+}
+#recordDetail .headerContent>table td{
+    padding-top:0.18rem;
+    padding-bottom:0.18rem;
+}
+#recordDetail .headerContent>table td.left{
+    color:#4a4a4a;
+    font-size:0.27rem;
+    width:2rem;
+}
+#recordDetail .headerContent>table td.right{
+    color:#000;
+    font-size: 0.3rem;
+    font-weight:bold;
+}
+#recordDetail .middleContent{
+    padding:0rem 0.2rem 0.35rem 0.3rem;
+}
+#recordDetail .middleContent>table{
+}
+#recordDetail .middleContent>table td{
+    padding-top:0.18rem;
+    padding-bottom:0.18rem;
+}
+#recordDetail .middleContent>table td.left{
+    color:#555455;
+    font-size:0.27rem;
+    width:3rem;
+}
+#recordDetail .middleContent>table td.right{
+    color:#000;
+    font-weight:bold;
+    font-size:0.3rem;
+
+}
+#recordDetail .footContent{
+    border-top:3px solid #F3F5FE;
+    padding:0rem 0.2rem 0.35rem 0.3rem;
+}
+#recordDetail .footContent>table td{
+    padding-top:0.18rem;
+    padding-bottom:0.18rem;
+}
+#recordDetail .footContent>table td.left{
+    color:#4a4a4a;
+    font-size:0.27rem;
+    width:3rem;
+}
+#recordDetail .footContent>table td.right{
+    color:#000;
+    font-weight:bold;
+}
+#recordDetail .footContent>table td.right a{
+    color:#00a796;
+}

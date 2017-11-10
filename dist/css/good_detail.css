@@ -1,0 +1,58 @@
+#goodDetail .detailTitle,#goodDetail .detailContent{
+    padding:0.35rem 0.2rem 0.35rem 0.3rem;
+}
+#goodDetail .detailTitle span.title{
+    color:#000;
+    font-size:0.32rem;
+    font-weight:bold;
+}
+#goodDetail .detailTitle span.batchNum{
+    color:#4a4a4a;
+    font-size:0.27rem;
+    font-weight:bold;
+    float:right;
+    margin-right: 0.35rem;
+}
+#goodDetail .detailContent{
+    border-top:2px solid #F3F5FE;
+}
+#goodDetail .detailContent>table{
+}
+#goodDetail .detailContent>table td{
+    padding-top:0.18rem;
+    padding-bottom:0.18rem;
+}
+#goodDetail .detailContent>table td.left{
+    color:#555455;
+    font-size:0.27rem;
+    width:3rem;
+}
+#goodDetail .detailContent>table td.right{
+    color:#000;
+    font-weight:bold;
+    font-size:0.3rem;
+
+}
+#goodDetail .detailFoot{
+    background-color:#00a796;
+    height:1.5rem;
+    line-height:1.5rem;
+}
+#goodDetail .detailFoot span.history{
+    width:2.5rem;
+    display:inline-block;
+    text-align:center;
+    color:#00a796;
+    font-size:0.27rem;
+    background-color:#F3F5FE;
+    padding-top:1px;
+
+}
+#goodDetail .detailFoot span.take{
+    width:4.65rem;
+    display:inline-block;
+    text-align:center;
+    color:#fff;
+    font-size:0.3rem;
+    font-weight:bold;
+}

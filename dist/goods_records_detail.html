@@ -2,9 +2,158 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>提货记录详细</title>
+    <title>提货记录详情</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/goods_records_detail.css" />
+    <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
+    <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
+    <script type="text/javascript" src="../dist/js/angular-1.3.10.min.js" ></script>
+    <script type="text/javascript" src="../dist/js/main.js" ></script>
 </head>
-<body>
+<body ng-app="recordDetailModules" ng-controller="recordDetailCtrls">
+<div id="header" class="header">
+    <span class="back" ng-click="comeback()"><strong><</strong>&nbsp;返回</span>
+    <span class="title">提货记录详情</span>
+    <hr color="#E5E5E5"/>
+</div>
 
+<div id="recordDetail" ng-cloak="">
+    <div class="headerContent">
+        <p>{{list.storeHouseName}}</p>
+        <table>
+            <tr>
+                <td class="left">地址</td>
+                <td class="right"><p>{{list.address.split('联系人')[0]}}</p></td>
+            </tr>
+            <tr>
+                <td class="left">仓库联系人</td>
+                <td class="right">{{list.address.split('联系人')[1].slice(1,-11)}}</td>
+            </tr>
+            <tr>
+                <td class="left">电话</td>
+                <td class="right">{{list.address.split('联系人')[1].slice(-11)}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="middleContent">
+        <table>
+            <tr>
+                <td class="left">PID</td>
+                <td class="right"><p>{{list.pid}}</p></td>
+            </tr>
+            <tr>
+                <td class="left">商品名称</td>
+                <td class="right">{{list.productName}}</td>
+            </tr>
+            <tr>
+                <td class="left">批号</td>
+                <td class="right">{{list.batchNum}}</td>
+            </tr>
+            <tr>
+                <td class="left">库存件数</td>
+                <td class="right"><p>{{list.storeJianshu}}</p></td>
+            </tr>
+            <tr>
+                <td class="left">库存重量（吨）</td>
+                <td class="right">{{list.storeWeight}}</td>
+            </tr>
+            <tr>
+                <td class="left">包装规格</td>
+                <td class="right">{{list.packingSpecification}}</td>
+            </tr>
+            <tr>
+                <td class="left">提货件数</td>
+                <td class="right"><p>{{list.itemNumber}}</p></td>
+            </tr>
+            <tr>
+                <td class="left">提货重量（吨）</td>
+                <td class="right">{{list.weight}}</td>
+            </tr>
+            <tr>
+                <td class="left">回款单价（元/吨）</td>
+                <td class="right">{{list.repaymentUnitPrice}}</td>
+            </tr>
+            <tr>
+                <td class="left">应回贷款金额（元）</td>
+                <td class="right">{{list.needBackGoodsMoney}}</td>
+            </tr>
+            <tr>
+                <td class="left">保证金释放金额（元）</td>
+                <td class="right">{{list.releaseBond}}</td>
+            </tr>
+            <tr>
+                <td class="left">应付金额（元）</td>
+                <td class="right">{{list.money}}</td>
+            </tr>
+            <tr>
+                <td class="left">提货人姓名</td>
+                <td class="right">{{list.name}}</td>
+            </tr>
+            <tr>
+                <td class="left">提货人身份证</td>
+                <td class="right">{{list.idCard}}</td>
+            </tr>
+            <tr>
+                <td class="left">提货人手机号</td>
+                <td class="right">{{list.telephone}}</td>
+            </tr>
+            <tr>
+                <td class="left">提货日期</td>
+                <td class="right">{{list.time}}</td>
+            </tr>
+            <tr>
+                <td class="left">提货方式</td>
+                <td class="right">{{list.type}}</td>
+            </tr>
+            <tr>
+                <td class="left">提货车牌号</td>
+                <td class="right">{{list.carNumber}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="footContent">
+        <table>
+            <tr>
+                <td class="left">提货委托书签章版</td>
+                <td class="right"><a href="">未上传</a></td>
+            </tr>
+            <tr>
+                <td class="left">提货委托书信息变更</td>
+                <td class="right">无</td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        angular.module('recordDetailModules', [])
+                .controller('recordDetailCtrls', ['$scope', '$http', function($scope, $http) {
+                    var params={
+                        _vt:'dlk_weishatest',
+                        fromType:2,
+                        mobile:'true',
+                        _m:'getDelivery',
+                        loginId:'ur4qqtjxnm',
+                        _s:'coop',
+                        mtn:'a210213a55154d08a24275cd2d890406',
+                        buildID:'201608071700',
+                        loc:'zh-Hans',
+                        versionID:'1.0.0',
+                        _svt:'',
+                        deliveryId:145
+                    }
+                    $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",params}).then(function(rep) {
+                        console.log('rep:',rep)
+                        if(rep.status==200){
+                            $scope.list=rep.data.content
+                            console.log('rep:',$scope.list)
+                        }
+
+                    })
+                    $scope.comeback=function(){
+                        back();
+                    }
+                }])
+    </script>
+</div>
 </body>
 </html>

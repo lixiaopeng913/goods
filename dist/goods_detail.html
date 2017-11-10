@@ -3,8 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <title>货物详情</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/good_detail.css" />
+    <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
+    <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
+    <script type="text/javascript" src="../dist/js/angular-1.3.10.min.js" ></script>
+    <script type="text/javascript" src="../dist/js/main.js" ></script>
 </head>
-<body>
+<body ng-app="takeDeliveryModules" ng-controller="takeDeliveryCtrls">
+<div id="header" class="header">
+    <span class="back" ng-click="comeback()"><strong><</strong>&nbsp;返回</span>
+    <span class="title">货物详情</span>
+    <hr color="#E5E5E5"/>
+</div>
 
+<div id="goodDetail" ng-cloak="">
+    <div class="detailTitle">
+        <span class="title">气流纺棉32S机制纱</span>
+        <span class="batchNum">批号1212313</span>
+    </div>
+    <div class="detailContent">
+        <table>
+            <tr>
+                <td class="left">PID</td>
+                <td class="right">{{node.number}}</td>
+            </tr>
+            <tr>
+                <td class="left">订单编号</td>
+                <td class="right">{{node.storeHouseName}}</td>
+            </tr>
+            <tr>
+                <td class="left">仓库名称</td>
+                <td class="right">{{node.itemNumber}}</td>
+            </tr>
+            <tr>
+                <td class="left">包装</td>
+                <td class="right">{{node.weight}}</td>
+            </tr>
+            <tr>
+                <td class="left">库存数量</td>
+                <td class="right">{{node.time}}</td>
+            </tr>
+            <tr>
+                <td class="left">库存重量（吨）</td>
+                <td class="right">{{node.money}}</td>
+            </tr>
+            <tr>
+                <td class="left">入库单价（元）</td>
+                <td class="right">{{node.deliveryStatus}}</td>
+            </tr>
+            <tr>
+                <td class="left">可提货重量（吨）</td>
+                <td class="right">{{node.deliveryStatus}}</td>
+            </tr>
+            <tr>
+                <td class="left">可融资金额（元）</td>
+                <td class="right">{{node.deliveryStatus}}</td>
+            </tr>
+            <tr>
+                <td class="left">已融资金额（元）</td>
+                <td class="right">{{node.deliveryStatus}}</td>
+            </tr>
+            <tr>
+                <td class="left">货权人</td>
+                <td class="right">{{node.deliveryStatus}}</td>
+            </tr>
+            <tr>
+                <td class="left">订单类型</td>
+                <td class="right">{{node.deliveryStatus}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="detailFoot">
+        <span class="history">提货历史</span>
+        <span class="take">去提货</span>
+    </div>
+</div>
+
+
+    <script type="text/javascript">
+        angular.module('takeDeliveryModules', [])
+                .controller('takeDeliveryCtrls', ['$scope', '$http', function($scope, $http) {
+                    var params={
+                        _vt:'dlk_weishatest',
+                        fromType:2,
+                        mobile:true,
+                        loc:"zh-Hans",
+                        versionID:"1.0.0",
+                        _m:"listDelivery",
+                        _s:"coop",
+                        loginId:"ur4qqtjxnm",
+                        mtn:"a210213a55154d08a24275cd2d890406",
+                        buildID:"201608071700",
+                        loc:"zh-Hans",
+                        versionID:"1.0.0",
+                        _svt:'',
+                        storeHouseId:10,
+                        orderId:372,
+                        productId:75,
+                        productOwnerId:0
+                    }
+                    $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",params}).then(function(rep) {
+                        if(rep.status==200){
+                            $scope.list=rep.data.content
+                            console.log('$scope.list:',$scope.list)
+                        }
+
+                    })
+                    $scope.comeback=function(){
+                        back();
+                    }
+                }])
+    </script>
+</div>
 </body>
 </html>

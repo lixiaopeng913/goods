@@ -71,14 +71,15 @@ title-hr{
 }
 
 .goodsName{
-    font-size: 0.4rem;
+    font-size: 0.32rem;
     font-weight:bold;
 }
 
 .orderNumber{
-    font-size: 0.36rem;
+    font-size: 0.27rem;
     color: #4a4a4a;
     font-weight:bold;
+    width: 23%;
 }
 
 .normal-title{
