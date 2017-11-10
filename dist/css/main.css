@@ -71,7 +71,7 @@ title-hr{
 }
 
 .goodsName{
-    font-size: 0.4rem;
+    font-size: 0.5rem;
     font-weight:bold;
 }
 
@@ -94,4 +94,34 @@ title-hr{
 
 .table-tr1{
     height: 1.2rem;
+}
+
+input{
+    width: 90%;
+    height: 0.8rem;
+    line-height: 0.62rem;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #f3f5fe;
+}
+
+.submit{
+    width: 6.6rem;
+    text-align: center;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    color: #FFFFFF;
+    font-size: 0.36rem;
+    margin: 0 auto 0.4rem;
+    border-radius: 0.9rem;
+    background: linear-gradient(left,#03ddcb,#00d186);
+    background: -moz-linear-gradient(left,#03ddcb,#00d186);
+    background: -webkit-linear-gradient(left,#03ddcb,#00d186);
+    background: -ms-linear-gradient(left,#03ddcb,#00d186);
+    box-shadow:  0 0 4px 4px #d2e0fd;
+}
+.icons{
+    background: url(../images/date.png) no-repeat;
+    z-index: 99999;
+    background-size:100% 100%;
 }
