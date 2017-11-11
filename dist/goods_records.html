@@ -13,7 +13,9 @@
 </head>
 <body ng-app="takeDeliveryModules" ng-controller="takeDeliveryCtrls">
 <div id="header" class="header">
-    <span class="back" ng-click="comeback()"><strong><</strong>&nbsp;返回</span>
+    <div id="return_key" class="return-key">
+        <div id="back-img"></div>&nbsp;<span>返回</span>
+    </div>
     <span class="title">提货记录</span>
     <hr color="#E5E5E5"/>
 </div>
@@ -22,7 +24,7 @@
     <div class="takeDeliveryRecord" ng-repeat="node in list" ng-cloak="">
         <div class="recordTitle">
             <span class="title">{{node.productName}}</span>
-            <span class="time">{{node.applyTime}}</span>
+            <span class="time">申请时间&nbsp;{{node.applyTime}}</span>
         </div>
         <div class="recordMess">
             <table>
@@ -91,6 +93,11 @@
                         back();
                     }
                 }])
+
+        //返回
+        $("#return_key").click(function () {
+            back();
+        });
     </script>
 </div>
 </body>
