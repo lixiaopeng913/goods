@@ -35,11 +35,11 @@
 }
 #goodDetail .detailFoot{
     background-color:#00a796;
-    height:1.89rem;
-    line-height:1.89rem;
+    height:1.25rem;
+    line-height:1.25rem;
 }
 #goodDetail .detailFoot span.history{
-    width:2.5rem;
+    width:2.0rem;
     display:inline-block;
     text-align:center;
     color:#00a796;
