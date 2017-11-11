@@ -77,9 +77,7 @@
 </head>
 <body ng-app="goodApplyModules" ng-controller="goodApplyCtrls">
 <div id="header" class="header">
-    <div id="return_key" class="return-key">
-        <div id="back-img"></div>&nbsp;<span>返回</span>
-    </div>
+    <span class="back" ng-click="comeback()"><strong><</strong>&nbsp;返回</span>
     <span class="title">提货申请</span>
     <hr color="#E5E5E5"/>
 </div>
@@ -256,11 +254,10 @@
                         })
 
                     }
+                    $scope.comeback=function(){
+                        back();
+                    }
                 }])
-
-        $("#return_key").click(function () {
-            back();
-        });
     </script>
 </div>
 </body>
