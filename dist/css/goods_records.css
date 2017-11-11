@@ -1,33 +1,33 @@
-.takeDeliveryRecord{
+.deliveryHistoryRecord{
     border-bottom:2px solid #f3f5fe;
 }
 
-.takeDeliveryRecord .recordTitle{
+.deliveryHistoryRecord .recordTitle{
     height: 1rem;
     line-height: 1rem;
 }
-.takeDeliveryRecord .recordTitle span.title{
+.deliveryHistoryRecord .recordTitle span.title{
     color:#000;
     font-size:0.32rem;
     font-weight:bold;
 }
-.takeDeliveryRecord .recordTitle span.time{
+.deliveryHistoryRecord .recordTitle span.time{
     color:#4a4a4a;
     font-size:0.27rem;
     font-weight:bold;
     float:right;
     margin-right: 0.35rem;
 }
-.takeDeliveryRecord .recordMess table td{
+.deliveryHistoryRecord .recordMess table td{
     height: 0.5rem;
     line-height: 0.5rem;
 }
-.takeDeliveryRecord .recordMess table td.left{
+.deliveryHistoryRecord .recordMess table td.left{
     color:#4a4a4a;
     font-size:0.27rem;
     font-weight:bold;
     width:2.5rem;
 }
-.takeDeliveryRecord .recordMess table td.right{
+.deliveryHistoryRecord .recordMess table td.right{
     color:#000;
 }

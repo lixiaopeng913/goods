@@ -136,8 +136,8 @@
                 <tr>
                     <td class="left">订单类型</td>
                     <td class="right">{{item.orderstatus}}</td>
-                    <td class="right op"><a href="javascript:void(0);" >提货历史</a></td>
-                    <td class="right op"><a href="javascript:void(0)" ng-hide="{{item.deliverableWeight<0}}">去提货</a></td>
+                    <td class="right op"><a href="goods_records.html?productId={{item.productId}}&storeHouseId={{item.storeHouseId}}&orderId={{item.orderId}}&productOwnerId={{item.productOwnerId}}" ng-cloak>提货历史</a></td>
+                    <td class="right op"><a href="goods_apply.html?" ng-hide="{{item.deliverableWeight<0}}" ng-cloak>去提货</a></td>
                 </tr>
                 <tr>
                     <td colspan="4"><hr color="#F8F8FF"/></td>
@@ -167,8 +167,6 @@
             loginId:"ur4qqtjxnm",
             mtn:"a210213a55154d08a24275cd2d890406",
             buildID:"201608071700",
-            loc:"zh-Hans",
-            versionID:"1.0.0",
             _svt:''
         }
         $http({method: 'POST', url: remote_url,params}).then(function(rep) {
