@@ -8,6 +8,7 @@
     <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
     <script type="text/javascript" src="../dist/js/main.js" ></script>
     <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
+
     <script type="text/javascript" src="../dist/js/angular-1.3.10.min.js" ></script>
     <style>
         .search-div{
@@ -116,26 +117,27 @@
 </div>
 <!-- 数据部分 -->
 <div class="content">
-    <div class="myGoodsRecord" ng-repeat="node in list" ng-cloak="">
+    <div class="myGoodsRecord" ng-repeat="item in list" ng-cloak="">
         <div class="recordTitle">
-            <span class="title">{{node.productName}}</span>
-            <span class="batchNum">批号&nbsp;{{node.batchNumber}}</span>
+            <span class="title" ng-click="toGoodsDetail(item.productId)">{{item.productName}}</span>
+            <span class="batchNum">批号&nbsp;{{item.batchNumber}}</span>
+            </span>
         </div>
         <div class="recordItem">
             <table>
                 <tr>
                     <td class="left">所在仓库</td>
-                    <td colspan="3" class="right">{{node.storeHouseName}}</td>
+                    <td colspan="3" class="right">{{item.storeHouseName}}</td>
                 </tr>
                 <tr>
                     <td class="left">库存数量（吨）</td>
-                    <td colspan="3" class="right">{{node.storeJianshu}}</td>
+                    <td colspan="3" class="right">{{item.storeJianshu}}</td>
                 </tr>
                 <tr>
-                    <td class="left">当前状态</td>
-                    <td class="right">{{node.orderstatus}}</td>
-                    <td class="right op"><a href="javascript:void(0)">提货历史</a></td>
-                    <td class="right op"><a href="javascript:void(0)">去提货</a></td>
+                    <td class="left">订单类型</td>
+                    <td class="right">{{item.orderstatus}}</td>
+                    <td class="right op"><a href="javascript:void(0);" >提货历史</a></td>
+                    <td class="right op"><a href="javascript:void(0)" ng-hide="{{item.deliverableWeight<0}}">去提货</a></td>
                 </tr>
                 <tr>
                     <td colspan="4"><hr color="#F8F8FF"/></td>
@@ -144,11 +146,16 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     //请求数据
     angular.module('myGoodsModules', [])
-        .controller('myGoodsCtrls', ['$scope', '$http', function($scope, $http) {
+        .controller('myGoodsCtrls', ['$scope','$http',function($scope, $http) {
+            $scope.toGoodsDetail=function (productId) {
+                var detail = 'goods_detail.html?productId='+productId;
+                //传递对象：先将对象转成字符串（序列化）
+                location.href = detail;
+            };
+
         var params={
             _vt:const_vt,
             fromType:2,
@@ -170,6 +177,9 @@
             }
 
         });
+
+
+
     }])
 
     $(function(){
@@ -206,9 +216,13 @@
                     $('#warehouse-options').append(str);
                 }
             }
+
         });
     }
 
+    function goodsDetail(productId) {
+
+    }
 
     $("#return_key").click(function () {
         back();

@@ -11,3 +11,19 @@ var const_vt = "dlk_weishatest";
 function back() {
     window.history.back(-1);
 }
+
+//获取订单类型
+function getOrderStatus(code) {
+    // 1.代购.2.代开证3.质押4.存储
+    if(code==1){
+        return "代购";
+    }else if(code==2){
+        return "代开证";
+    }else if(code==3){
+        return "质押";
+    }else if(code==4){
+        return "存储";
+    }else {
+        return "未知";
+    }
+}
