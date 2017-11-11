@@ -150,7 +150,7 @@
     angular.module('myGoodsModules', [])
         .controller('myGoodsCtrls', ['$scope', '$http', function($scope, $http) {
         var params={
-            _vt:'dlk_weishatest',
+            _vt:const_vt,
             fromType:2,
             mobile:true,
             loc:"zh-Hans",
@@ -166,8 +166,7 @@
         }
         $http({method: 'POST', url: remote_url,params}).then(function(rep) {
             if(rep.status==200){
-                $scope.list=rep.data.content
-                console.log('my_goods.list:',$scope.list)
+                $scope.list=rep.data.content.list
             }
 
         });

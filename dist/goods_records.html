@@ -64,7 +64,7 @@
         angular.module('takeDeliveryModules', [])
                 .controller('takeDeliveryCtrls', ['$scope', '$http', function($scope, $http) {
                     var params={
-                        _vt:'dlk_weishatest',
+                        _vt:const_vt,
                         fromType:2,
                         mobile:true,
                         loc:"zh-Hans",
@@ -85,7 +85,6 @@
                     $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                         if(rep.status==200){
                             $scope.list=rep.data.content
-                            console.log('$scope.list:',$scope.list)
                         }
 
                     })
