@@ -27,6 +27,22 @@ body{
     font-size:0.264rem;
     margin-left: 0.12rem;
 }
+.return-key{
+    float: left;
+    color:#cccccc;
+    font-size:0.264rem;
+    position:absolute;
+    left: 0.3rem;
+
+}
+
+#back-img{
+    display: inline-block;
+    width: .3rem;
+    height: .3rem;
+    background: url("../images/back.png") no-repeat;
+    background-size:100% 100%;
+}
 .header .title{
     font-size: 0.36rem;
     margin-left: -0.7rem;
