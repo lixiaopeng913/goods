@@ -137,7 +137,7 @@
                     <td class="left">订单类型</td>
                     <td class="right">{{item.orderstatus}}</td>
                     <td class="right op"><a href="goods_records.html?productId={{item.productId}}&storeHouseId={{item.storeHouseId}}&orderId={{item.orderId}}&productOwnerId={{item.productOwnerId}}" ng-cloak>提货历史</a></td>
-                    <td class="right op"><a href="goods_apply.html?" ng-hide="{{item.deliverableWeight<0}}" ng-cloak>去提货</a></td>
+                    <td class="right op"><a href="goods_apply.html?storeHouseAddress={{item.storeHouseAddress}}" ng-hide="{{item.deliverableWeight<0}}" ng-cloak>去提货</a></td>
                 </tr>
                 <tr>
                     <td colspan="4"><hr color="#F8F8FF"/></td>

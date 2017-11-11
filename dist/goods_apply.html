@@ -84,72 +84,89 @@
     <hr color="#E5E5E5"/>
 </div>
 
-<div id="recordDetail" ng-cloak="">
-    <div class="headerContent">
-        <p>{{list.storeHouseName}}</p>
+<div id="recordDetail">
+    <div class="headerContent" ng-cloak="">
         <table>
             <tr>
-                <td class="left">地址</td>
-                <td class="right"><p>{{list.address.split('联系人')[0]}}</p></td>
+                <td class="left">交货仓库</td>
+                <td class="right">
+                    <select id="warehouses"></select>
+                </td>
             </tr>
             <tr>
-                <td class="left">仓库联系人</td>
-                <td class="right">{{list.address.split('联系人')[1].slice(1,-11)}}</td>
-            </tr>
-            <tr>
-                <td class="left">电话</td>
-                <td class="right">{{list.address.split('联系人')[1].slice(-11)}}</td>
+                <td colspan="3" style="text-align: center"><span id="storeHouseAddress"></span></td>
             </tr>
         </table>
     </div>
     <div class="middleContent">
         <table>
             <tr>
-                <td class="left">PID</td>
-                <td class="right"><p>{{list.pid}}</p></td>
-            </tr>
-            <tr>
-                <td class="left">商品名称</td>
-                <td class="right">{{list.productName}}</td>
+                <td class="left">商品类型</td>
+                <td class="right"><select id="goodsTypesOptions"></select>&nbsp;&nbsp;<select id="goodsOptions"></select></td>
             </tr>
             <tr>
                 <td class="left">批号</td>
-                <td class="right">{{list.batchNum}}</td>
+                <td class="right"><input type="text" class="input" ng-model="batchNumber"></td>
             </tr>
             <tr>
-                <td class="left">库存件数</td>
-                <td class="right"><p>{{list.storeJianshu}}</p></td>
+                <td class="left">包装</td>
+                <td class="right"><input type="text" class="input" ng-model="packaging"></td>
             </tr>
             <tr>
-                <td class="left">库存重量（吨）</td>
-                <td class="right">{{list.storeWeight}}</td>
+                <td class="left">产地</td>
+                <td class="right"><input type="text" class="input" ng-model="origin"></td>
             </tr>
             <tr>
-                <td class="left">包装规格</td>
-                <td class="right">{{list.packingSpecification}}</td>
+                <td class="left">重量（吨）</td>
+                <td class="right"><input type="text" class="input" ng-model="weight"></td>
             </tr>
             <tr>
-                <td class="left"><span>*&nbsp;</span>提货件数</td>
+                <td class="left">件数</td>
                 <td class="right input"><input type="text" class="input" ng-model="itemNumber"></td>
+            </tr>
+            <tr>
+                <td class="left">入库时间</td>
+                <td class="right input">
+                    <div class="rightinput">
+                        <div class="jewarp jeitem" onclick="dateSelect(this)">
+                            <div class="jeinpbox" style="width: 80%;">
+                                <input type="text" class="jeinput" id="testico" readonly ng-model="inboundDate">
+                            </div>
+                            <div class="icons jebtns"></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="left">车号</td>
+                <td class="right"><input type="text" class="input" ng-model="carNumber"></td>
+            </tr>
+            <tr>
+                <td class="left">司机名称</td>
+                <td class="right"><input type="text" class="input" ng-model="driverName"></td>
+            </tr>
+            <tr>
+                <td class="left">司机号码</td>
+                <td class="right"><input type="text" class="input" ng-model="driverPhone"></td>
+            </tr>
             </tr>
             <tr>
                 <td class="left"><span>*&nbsp;</span>提货重量（吨）</td>
                 <td class="right input"><input type="text" class="input" ng-model="weight"></td>
             </tr>
-            <tr>
+            <tr ng-hide="{{item.orderstatus==4}}">
                 <td class="left">回款单价（元/吨）</td>
                 <td class="right">{{list.repaymentUnitPrice}}</td>
             </tr>
-            <tr>
+            <tr ng-hide="{{item.orderstatus==4}}">
                 <td class="left">应回贷款金额（元）</td>
                 <td class="right">{{list.needBackGoodsMoney}}</td>
             </tr>
-            <tr>
+            <tr ng-hide="{{item.orderstatus==4}}">
                 <td class="left">保证金释放金额（元）</td>
                 <td class="right">{{list.releaseBond}}</td>
             </tr>
-            </tr>
-            <tr>
+            <tr ng-hide="{{item.orderstatus==4}}">
                 <td class="left">应付金额（元）</td>
                 <td class="right">{{list.money}}</td>
             </tr>
@@ -204,6 +221,15 @@
             var a = $(inputobj);
             $.jeDate(a.find("#testico"),{trigger:false,format: 'YYYY-MM-DD'})
         }
+
+        var urlParam=getURLParams();
+        $(function(){
+            //加载全部仓库
+            loadWarehouses();
+            $("#storeHouseAddress").html(decodeURI(urlParam.storeHouseAddress));
+        });
+
+
         angular.module('goodApplyModules', [])
                 .controller('goodApplyCtrls', ['$scope', '$http', function($scope, $http) {
                     $scope.submit=function(){
@@ -222,10 +248,12 @@
                             batchNum:'',//批号
                             repaymentUnitprice:'',//
                             orderId:'',//订单id
-                            productId:'',//商品id
+                            productId:productId,//商品id
                             thjianshu:'',//提货件数
                             thweight:''//提货重量
                         }
+
+
                         $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",params}).then(function(rep) {
                             var content=rep.data.content
                             var data={
@@ -253,10 +281,44 @@
                             $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",data}).then(function(rep) {
 
                             })
-                        })
 
+                        })
                     }
                 }])
+
+        //加载全部仓库
+        function loadWarehouses() {
+            //获取仓库列表——初始
+            $.ajax({
+                type:"post",
+                url:remote_url,
+                async:true,
+                data:{
+                    fromType:2,
+                    mobile:true,
+                    loc:"zh-Hans",
+                    versionID:"1.0.0",
+                    _m:"listStorageHosue",
+                    _s:"coop",
+                    loginId: "ur4qqtjxnm",
+                    mtn: "a210213a55154d08a24275cd2d890406"
+                },
+                success:function(rep){
+                    var reps = JSON.parse(rep);
+                    if(reps.result){
+                        var str = '<li data-id="0"><div class="warehouse-option"></div>全部仓库</li>',
+                            list = reps.content;
+                        for(var i=0;i<list.length;i++){
+                            str += '<option data-id="'+list[i].storeHouseId +'">'+list[i].storeHouseName+'</option>'
+//                        str += '<li data-id="'+ list[i].storeHouseId +'"><div class="warehouse-option">'+ list[i].storeHouseName +'</div></li>'
+                        };
+                        $('#warehouses').append(str);
+                    }
+                }
+
+            });
+        }
+
 
         $("#return_key").click(function () {
             back();
