@@ -44,17 +44,15 @@ input,select,textarea{
     padding: 0.14rem 0.24rem;
 }
 
-
 .return-key{
     float: left;
     width: 100%;
     height: 5%;
     color:#cccccc;
-    font-size: 0.35rem;
+    font-size:0.264rem;
     position:absolute;
-    top: 0.35rem;
+    top: 0.30rem;
     left: 0.3rem;
-
 }
 
 #back-img{

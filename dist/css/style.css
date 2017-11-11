@@ -23,9 +23,20 @@ body{
 }
 .header .back{
     float:left;
+    margin-left: 0.12rem;
+}
+#back-img{
+    display: inline-block;
+    width: .3rem;
+    height: .3rem;
+    background: url("../images/back.png") no-repeat;
+    background-size:100% 100%;
+}
+.return-key{
+    float: left;
     color:#A1A1A1;
     font-size:0.264rem;
-    margin-left: 0.12rem;
+    left: 0.3rem;
 }
 .header .title{
     font-size: 0.36rem;
