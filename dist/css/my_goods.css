@@ -1,3 +1,53 @@
+.content{
+    margin-left: 0.35rem;
+    margin-top:0.8rem
+}
+.myGoodsRecord{
+    border-bottom:2px solid #f3f5fe;
+}
+
+.myGoodsRecord .recordTitle{
+    height: 1.7rem;
+    line-height: 1.7rem;
+}
+
+.myGoodsRecord .recordTitle span.title{
+    color:#000;
+    font-size:0.32rem;
+    font-weight:bold;
+}
+.myGoodsRecord .recordTitle span.batchNum{
+    color:#4a4a4a;
+    font-size:0.27rem;
+    font-weight:bold;
+    float:right;
+    margin-right: 0.35rem;
+}
+
+.myGoodsRecord .recordItem table td{
+    height: 0.65rem;
+    line-height: 0.65rem;
+}
+.myGoodsRecord .recordItem table td.left{
+    color:#4a4a4a;
+    font-size:0.27rem;
+    font-weight:bold;
+    width:2.5rem;
+}
+.myGoodsRecord .recordItem table td.right{
+    color:#000000;
+    width:2.0rem;
+}
+.myGoodsRecord .recordItem table td.op{
+    width: 1.16rem;
+    text-align: center;
+}
+.myGoodsRecord .recordItem table td.right a{
+    color: #00a796;
+    width: 3rem;
+    font-weight:bold;
+}
+
 *{
     margin: 0;
     padding: 0;

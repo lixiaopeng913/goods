@@ -5,6 +5,10 @@
     <title>我的货物</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
     <link rel="stylesheet" href="../dist/css/my_goods.css" />
+    <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
+    <script type="text/javascript" src="../dist/js/main.js" ></script>
+    <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
+    <script type="text/javascript" src="../dist/js/angular-1.3.10.min.js" ></script>
     <style>
         .search-div{
             float: left;
@@ -75,17 +79,6 @@
             text-align: center;
             text-align-last: center;
         }
-        .data-table{
-             width: 95%;
-             margin:0 auto;
-             height: auto;
-             position: relative;
-             top: 0.65rem;
-        }
-
-         .line-first-cell{
-             width: 60%;
-         }
 
          #goodsName>a{
              text-decoration:none;
@@ -96,39 +89,10 @@
             color: #000000;
         }
 
-        .line-second{
-            height: 0.9rem;
-            width: 60%;
-        }
-
-        .line-second-cell-value{
-            width: 20%;
-            text-align: center;
-            font-size: 0.27rem;
-            font-weight:bold;
-        }
-
-         .orderNumber-title{
-             width: 20%;
-             text-align: right;
-             font-weight:bold;
-         }
-
-        .line-end-cell3{
-            width: 20%;
-            text-align: right;
-        }
-
-        .good-op{
-            color: #00a796;
-        }
-
     </style>
-    <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
-    <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
-    <script type="text/javascript" src="../dist/js/main.js" ></script>
+
 </head>
-<body>
+<body ng-app="myGoodsModules" ng-controller="myGoodsCtrls">
 <!-- 页面头部 -->
 <div id="header" class="header">
     <div id="return_key" class="return-key">
@@ -151,69 +115,64 @@
     </div>
 </div>
 <!-- 数据部分 -->
-<div id="data-div" class="data-table">
-    <table id="warehouse-data">
-        <thead>
-        <tr></tr>
-        </thead>
-        <tbody>
-        <tr class="table-tr1">
-            <td id="goodsName" class="line-first-cell goodsName" colspan="2"><a href="goods_detail.html">气流纺棉32S机织棉</a></td>
-            <td class="orderNumber orderNumber-title">批号</td>
-            <td class="line-second-cell-value" colspan="2">121313</td>
-        </tr>
-        <tr class="line-second">
-            <td id="warehouseName" class="orderNumber">所在仓库</td>
-            <td class="line-second-cell-value">中实</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr class="line-second">
-            <td id="storeCount" class="orderNumber">库存数量（吨）</td>
-            <td class="line-second-cell-value">100.00</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr class="line-second">
-            <td id="status" class="orderNumber">当前状态</td>
-            <td class="line-second-cell-value">已入库</td>
-            <td class="line-end-cell3"><a class="good-op" href="javascript:void(0)">提货历史</a></td>
-            <td class="line-end-cell3"><a class="good-op" href="javascript:void(0)">去提货</a></td>
-        </tr>
-        <tr>
-            <td colspan="4"><hr color="#F8F8FF"/></td>
-        </tr>
-        <tr class="line-first">
-            <td id="goodsName1" class="line-first-cell goodsName" colspan="2">气流纺棉</td>
-            <td class="orderNumber orderNumber-title">批号</td>
-            <td class="line-second-cell-value" colspan="2">121313</td>
-        </tr>
-        <tr class="line-second">
-            <td id="warehouseName1" class="orderNumber">所在仓库</td>
-            <td class="line-second-cell-value">中实</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr class="line-second">
-            <td id="storeCount1" class="orderNumber">库存数量（吨）</td>
-            <td class="line-second-cell-value">100.00</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr class="line-second">
-            <td id="status1" class="orderNumber">当前状态</td>
-            <td class="line-second-cell-value">已入库</td>
-            <td class="line-end-cell3"><a class="good-op" href="javascript:void(0)">提货历史</a></td>
-            <td class="line-end-cell3"><a class="good-op" href="javascript:void(0)">去提货</a></td>
-        </tr>
-        <tr>
-            <td colspan="4"><hr color="#F8F8FF"/></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="content">
+    <div class="myGoodsRecord" ng-repeat="node in list" ng-cloak="">
+        <div class="recordTitle">
+            <span class="title">{{node.productName}}</span>
+            <span class="batchNum">批号&nbsp;{{node.batchNumber}}</span>
+        </div>
+        <div class="recordItem">
+            <table>
+                <tr>
+                    <td class="left">所在仓库</td>
+                    <td colspan="3" class="right">{{node.storeHouseName}}</td>
+                </tr>
+                <tr>
+                    <td class="left">库存数量（吨）</td>
+                    <td colspan="3" class="right">{{node.storeJianshu}}</td>
+                </tr>
+                <tr>
+                    <td class="left">当前状态</td>
+                    <td class="right">{{node.orderstatus}}</td>
+                    <td class="right op"><a href="javascript:void(0)">提货历史</a></td>
+                    <td class="right op"><a href="javascript:void(0)">去提货</a></td>
+                </tr>
+                <tr>
+                    <td colspan="4"><hr color="#F8F8FF"/></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
+    //请求数据
+    angular.module('myGoodsModules', [])
+        .controller('myGoodsCtrls', ['$scope', '$http', function($scope, $http) {
+        var params={
+            _vt:'dlk_weishatest',
+            fromType:2,
+            mobile:true,
+            loc:"zh-Hans",
+            versionID:"1.0.0",
+            _m:"listStoreGoods",
+            _s:"coop",
+            loginId:"ur4qqtjxnm",
+            mtn:"a210213a55154d08a24275cd2d890406",
+            buildID:"201608071700",
+            loc:"zh-Hans",
+            versionID:"1.0.0",
+            _svt:''
+        }
+        $http({method: 'POST', url: remote_url,params}).then(function(rep) {
+            if(rep.status==200){
+                $scope.list=rep.data.content
+                console.log('my_goods.list:',$scope.list)
+            }
+
+        });
+    }])
+
     $(function(){
         //加载全部仓库
         loadWarehouses();
@@ -224,7 +183,7 @@
         //获取仓库列表——初始
         $.ajax({
             type:"post",
-            url:"https://wei.wiyarn.com/actiz/rs/b",
+            url:remote_url,
             async:true,
             data:{
                 fromType:2,

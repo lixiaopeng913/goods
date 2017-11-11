@@ -82,7 +82,7 @@
                         productId:75,
                         productOwnerId:0
                     }
-                    $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",params}).then(function(rep) {
+                    $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                         if(rep.status==200){
                             $scope.list=rep.data.content
                             console.log('$scope.list:',$scope.list)
