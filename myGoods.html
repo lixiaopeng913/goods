@@ -110,7 +110,7 @@
 <!-- 搜索条件部分 -->
 <div class="search-div">
     <div class="search">
-        <input type="search" id="productName" placeholder="输入货物名称" />
+        <input type="search" id="productName" ng-focus="goSearch()" ng-model="placeName" placeholder="输入货物名称" />
     </div>
     <div class="warehouse-search">
         <select id="warehouse-options">
@@ -225,7 +225,9 @@
             });
         })
 
-
+        $scope.goSearch = function () {
+            location.href="goods_search.html?query="+$("#productName").val();
+        }
 
         //货物详情
         $scope.toGoodsDetail=function (productId) {
@@ -288,6 +290,9 @@
 
 
     $(function(){
+        if(urlParams.query!='undefined'){
+            $("#productName").val(decodeURI(urlParams.query));
+        }
         //加载全部仓库
         loadWarehouses();
     });
