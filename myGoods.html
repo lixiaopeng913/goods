@@ -175,7 +175,7 @@
         //分页配置
         $scope.pagination = {
             currentPage: $location.search().currentPage ? $location.search().currentPage : 1,
-            itemsPerPage: 3,//页容量
+            itemsPerPage: pageSize,//页容量
             isLinkPage : false,
             onChange: function(){}
         };
@@ -215,8 +215,6 @@
 
         $scope.$watch('pagination.currentPage + pagination.itemPageLimit' , function(news){
             params.page=$scope.pagination.currentPage;
-
-            // 把你的http请求放到这里
             $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                 if(rep.status==200){
                     $scope.pagination.totalItems = rep.data.content.total; //总条数
@@ -225,9 +223,9 @@
             });
         })
 
-        $scope.goSearch = function () {
-            location.href="goods_search.html?query="+$("#productName").val();
-        }
+//        $scope.goSearch = function () {
+//            location.href="goods_search.html?query="+$("#productName").val();
+//        }
 
         //货物详情
         $scope.toGoodsDetail=function (productId) {
@@ -290,9 +288,9 @@
 
 
     $(function(){
-        if(urlParams.query!='undefined'){
-            $("#productName").val(decodeURI(urlParams.query));
-        }
+//        if(urlParams.query!='undefined'){
+//            $("#productName").val(decodeURI(urlParams.query));
+//        }
         //加载全部仓库
         loadWarehouses();
     });
