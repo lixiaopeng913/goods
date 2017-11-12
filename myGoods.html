@@ -118,7 +118,7 @@
 <div class="content">
     <div class="myGoodsRecord" ng-repeat="item in list" ng-cloak="">
         <div class="recordTitle">
-            <span class="title" ng-click="toGoodsDetail(item.productId)">{{item.productName}}</span>
+            <span class="title" ng-click="toGoodsDetail(item.productId,item.orderstatus)">{{item.productName}}</span>
             <span class="batchNum">批号&nbsp;{{item.batchNumber}}</span>
             </span>
         </div>
@@ -202,7 +202,7 @@
             }
         });
 
-            $scope.toGoodsDetail=function (productId) {
+            $scope.toGoodsDetail=function (productId,orderstatus) {
                 var urlParams = new Object();
                 urlParams._vt=const_vt;
                 urlParams.fromType=2;
@@ -216,8 +216,7 @@
                 urlParams._svt='';
 
                 var params = "?_vt="+urlParams._vt+"&fromType="+urlParams.fromType+"&mobile="+urlParams.mobile+"&loc="+urlParams.loc+"&versionID="+urlParams.versionID+"&loginId="+urlParams.loginId+"&mtn="+urlParams.mtn+"&buildID="+urlParams.buildID+"&_svt="+urlParams._svt+"&_s=coop";
-                var detail = 'goods_detail.html'+params+"&productId="+productId;
-                //传递对象：先将对象转成字符串（序列化）
+                var detail = 'goods_detail.html'+params+"&productId="+productId+"&orderstatus="+orderstatus;
                 location.href = detail;
             };
 
