@@ -84,9 +84,7 @@
     </div>
 </div>
     <script type="text/javascript">
-        var productId;
-        var href = location.href; //取得整个地址栏
-        productId = href.substr(href.indexOf("=") + 1);
+        var urlParams = getURLParams();
         angular.module('takeDeliveryModules', [])
                 .controller('takeDeliveryCtrls', ['$scope', '$http', function($scope, $http) {
                     var params={
@@ -101,7 +99,7 @@
                         mtn:"a210213a55154d08a24275cd2d890406",
                         buildID:"201608071700",
                         _svt:'',
-                        productId:productId
+                        productId:urlParams.productId
                     }
                     $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                         if(rep.status==200){
