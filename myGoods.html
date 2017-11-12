@@ -118,7 +118,7 @@
 <div class="content">
     <div class="myGoodsRecord" ng-repeat="item in list" ng-cloak="">
         <div class="recordTitle">
-            <span class="title" ng-click="toGoodsDetail(item.productId,item.orderstatus)">{{item.productName}}</span>
+            <span class="title" ng-click="toGoodsDetail(item.productId)">{{item.productName}}</span>
             <span class="batchNum">批号&nbsp;{{item.batchNumber}}</span>
             </span>
         </div>
@@ -165,21 +165,21 @@
     //请求数据
     angular.module('myGoodsModules', [])
         .controller('myGoodsCtrls', ['$scope','$http',function($scope, $http) {
-        var params={
-            _vt:const_vt,
-            fromType:2,
-            mobile:true,
-            loc:"zh-Hans",
-            versionID:"1.0.0",
-            _m:"listStoreGoods",
-            _s:"coop",
-            loginId:"ur4qqtjxnm",
-            mtn:"a210213a55154d08a24275cd2d890406",
-            buildID:"201608071700",
-            _svt:'',
-            storeHouseId:$("#storeHouseId").val(),
-            productName:$("#productName").val(),
-        }
+            var params={
+                _vt:const_vt,
+                fromType:2,
+                mobile:true,
+                loc:"zh-Hans",
+                versionID:"1.0.0",
+                _m:"listStoreGoods",
+                _s:"coop",
+                loginId:"ur4qqtjxnm",
+                mtn:"a210213a55154d08a24275cd2d890406",
+                buildID:"201608071700",
+                _svt:'',
+                storeHouseId:$("#storeHouseId").val(),
+                productName:$("#productName").val(),
+            }
 
 //            var params = {
 //                _vt:urlParams._vt,
@@ -202,7 +202,7 @@
             }
         });
 
-            $scope.toGoodsDetail=function (productId,orderstatus) {
+            $scope.toGoodsDetail=function (productId) {
                 var urlParams = new Object();
                 urlParams._vt=const_vt;
                 urlParams.fromType=2;
@@ -216,7 +216,7 @@
                 urlParams._svt='';
 
                 var params = "?_vt="+urlParams._vt+"&fromType="+urlParams.fromType+"&mobile="+urlParams.mobile+"&loc="+urlParams.loc+"&versionID="+urlParams.versionID+"&loginId="+urlParams.loginId+"&mtn="+urlParams.mtn+"&buildID="+urlParams.buildID+"&_svt="+urlParams._svt+"&_s=coop";
-                var detail = 'goods_detail.html'+params+"&productId="+productId+"&orderstatus="+orderstatus;
+                var detail = 'goods_detail.html'+params+"&productId="+productId;
                 location.href = detail;
             };
 

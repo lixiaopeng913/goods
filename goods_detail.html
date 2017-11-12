@@ -21,67 +21,67 @@
     <hr color="#E5E5E5"/>
 </div>
 
-<div id="goodDetail" ng-cloak="">
-    <div class="detailTitle">
-        <span class="title">{{record.productName}}</span>
-        <span class="batchNum">批号&nbsp;{{record.batchNumber}}</span>
-    </div>
-    <div class="detailContent">
+<div id="goodDetail" style="width: 100%" ng-repeat="item in list" ng-cloak="">
+        <div class="detailTitle">
+            <span class="title">{{item.productName}}</span>
+            <span class="batchNum">批号&nbsp;{{item.batchNumber}}</span>
+        </div>
+        <div class="detailContent">
         <table>
             <tr>
                 <td class="left">PID</td>
-                <td class="right">{{record.number}}</td>
+                <td class="right">{{item.number}}</td>
             </tr>
             <tr>
                 <td class="left">订单编号</td>
-                <td class="right">{{record.number}}</td>
+                <td class="right">{{item.number}}</td>
             </tr>
             <tr>
                 <td class="left">仓库名称</td>
-                <td class="right">{{record.storeHouseName}}</td>
+                <td class="right">{{item.storeHouseName}}</td>
             </tr>
             <tr>
                 <td class="left">包装</td>
-                <td class="right">{{record.packingSpecification}}</td>
+                <td class="right">{{item.packingSpecification}}</td>
             </tr>
             <tr>
                 <td class="left">库存数量</td>
-                <td class="right">{{record.storeJianshu || 0}}</td>
+                <td class="right">{{item.storeJianshu || 0}}</td>
             </tr>
             <tr>
                 <td class="left">库存重量（吨）</td>
-                <td class="right">{{record.storeWeight || 0}}</td>
+                <td class="right">{{item.storeWeight || 0}}</td>
             </tr>
             <tr>
                 <td class="left">入库单价（元）</td>
-                <td class="right">{{record.unitPrice || "0.00"}}</td>
+                <td class="right">{{item.unitPrice || "0.00"}}</td>
             </tr>
             <tr>
                 <td class="left">可提货重量（吨）</td>
-                <td class="right">{{record.deliverableWeight || '0'}}</td>
+                <td class="right">{{item.deliverableWeight || '0'}}</td>
             </tr>
             <tr>
                 <td class="left">可融资金额（元）</td>
-                <td class="right">{{record.financableMoney || "0.00"}}</td>
+                <td class="right">{{item.financableMoney || "0.00"}}</td>
             </tr>
             <tr>
                 <td class="left">已融资金额（元）</td>
-                <td class="right">{{record.financedMoney || "0.00"}}</td>
+                <td class="right">{{item.financedMoney || "0.00"}}</td>
             </tr>
             <tr>
                 <td class="left">货权人</td>
-                <td class="right">{{record.productOwner}}</td>
+                <td class="right">{{item.productOwner}}</td>
             </tr>
             <tr>
                 <td class="left">订单类型</td>
-                <td class="right">{{record.orderstatus}}</td>
+                <td class="right">{{item.orderstatus}}</td>
             </tr>
         </table>
     </div>
-    <div class="detailFoot">
-        <span class="history" ng-click="toDeliveryHistoryDetail(record.productId,record.storeHouseId,record.orderId,record.productOwnerId)">提货历史</span>
-        <span class="take" ng-click="toGoodsApply(record.productId,record.orderstatus)">去提货</span>
-    </div>
+        <div class="detailFoot">
+            <span class="history" ng-click="toDeliveryHistoryDetail(item.productId,item.storeHouseId,item.orderId,item.productOwnerId)">提货历史</span>
+            <span class="take" ng-click="toGoodsApply(item.productId,item.orderstatus)">去提货</span>
+        </div>
 </div>
     <script type="text/javascript">
         var urlParams = getURLParams();
@@ -105,7 +105,7 @@
 
                     $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                         if(rep.status==200){
-                            $scope.record=rep.data.content.list[0];
+                            $scope.list=rep.data.content.list;
                         }
                     })
 
