@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/goods_apply.css" />
-    <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
-    <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
-    <script type="text/javascript" src="../dist/js/angular-1.3.10.min.js" ></script>
-    <script type="text/javascript" src="../dist/js/main.js" ></script>
-    <link rel="stylesheet" href="../dist/css/zepto.mdatetimer.css" />
+    <link rel="stylesheet" href="css/zepto.mdatetimer.css" />
+
+    <script type="text/javascript" src="js/main.js" ></script>
+    <script type="text/javascript" src="js/selfFit.js" ></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js" ></script>
+    <script type="text/javascript" src="js/angular-1.3.10.min.js" ></script>
     <style>
         #recordDetail .jeinpbox{
             float: left;
@@ -72,8 +73,8 @@
             text-align-last: center;
         }
     </style>
-    <script type="text/javascript" src="../dist/js/jquery.jedate.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../dist/css/jedate.css">
+    <script type="text/javascript" src="js/jquery.jedate.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jedate.css">
 </head>
 <body ng-app="goodApplyModules" ng-controller="goodApplyCtrls">
 <div id="header" class="header">
@@ -89,9 +90,7 @@
         <table>
             <tr>
                 <td class="left">交货仓库</td>
-                <td class="right">
-                    <select id="warehouses"></select>
-                </td>
+                <td class="right"><span id="warehouse"></span></td>
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center"><span id="storeHouseAddress"></span></td>
@@ -101,8 +100,8 @@
     <div class="middleContent">
         <table>
             <tr>
-                <td class="left">商品类型</td>
-                <td class="right"><select id="goodsTypesOptions"></select>&nbsp;&nbsp;<select id="goodsOptions"></select></td>
+                <td class="left">商品名称</td>
+                <td class="right"><input type="text" class="input" ng-model="productName"></td>
             </tr>
             <tr>
                 <td class="left">批号</td>
@@ -223,35 +222,38 @@
         }
 
         var urlParam=getURLParams();
+        $("#warehouse").html(decodeURI(urlParam.storeHouseName));
+        $("#storeHouseAddress").html(decodeURI(urlParam.storeHouseAddress));
+
         $(function(){
-            //加载全部仓库
-            loadWarehouses();
-            $("#storeHouseAddress").html(decodeURI(urlParam.storeHouseAddress));
+
         });
 
 
         angular.module('goodApplyModules', [])
                 .controller('goodApplyCtrls', ['$scope', '$http', function($scope, $http) {
                     $scope.submit=function(){
-                        var params={
-                            fromType:2,
-                            mobile:'true',
-                            loginId:'ur4qqtjxnm',
-                            mtn:'a210213a55154d08a24275cd2d890406',
-                            buildID:'201608071700',
-                            loc:'zh-Hans',
-                            versionID:'1.0.0',
-                            _svt:'',
-                            orderstatus:1,  //订单类型（应该需要传值判断）
-                            calType:1,//计算类型 1：件数 2:重量
-                            storeHouseId:'',//仓库id
-                            batchNum:'',//批号
-                            repaymentUnitprice:'',//
-                            orderId:'',//订单id
-                            productId:productId,//商品id
-                            thjianshu:'',//提货件数
-                            thweight:''//提货重量
-                        }
+//                        var params={
+//                            fromType:2,
+//                            mobile:'true',
+//                            loginId:'ur4qqtjxnm',
+//                            mtn:'a210213a55154d08a24275cd2d890406',
+//                            buildID:'201608071700',
+//                            loc:'zh-Hans',
+//                            versionID:'1.0.0',
+//                            _svt:'',
+//                            orderstatus:1,  //订单类型（应该需要传值判断）
+//                            calType:1,//计算类型 1：件数 2:重量
+//                            storeHouseId:'',//仓库id
+//                            batchNum:'',//批号
+//                            repaymentUnitprice:'',//
+//                            orderId:'',//订单id
+//                            productId:productId,//商品id
+//                            thjianshu:'',//提货件数
+//                            thweight:''//提货重量
+//                        }
+
+
 
 
                         $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",params}).then(function(rep) {
@@ -285,39 +287,6 @@
                         })
                     }
                 }])
-
-        //加载全部仓库
-        function loadWarehouses() {
-            //获取仓库列表——初始
-            $.ajax({
-                type:"post",
-                url:remote_url,
-                async:true,
-                data:{
-                    fromType:2,
-                    mobile:true,
-                    loc:"zh-Hans",
-                    versionID:"1.0.0",
-                    _m:"listStorageHosue",
-                    _s:"coop",
-                    loginId: "ur4qqtjxnm",
-                    mtn: "a210213a55154d08a24275cd2d890406"
-                },
-                success:function(rep){
-                    var reps = JSON.parse(rep);
-                    if(reps.result){
-                        var str = '<li data-id="0"><div class="warehouse-option"></div>全部仓库</li>',
-                            list = reps.content;
-                        for(var i=0;i<list.length;i++){
-                            str += '<option data-id="'+list[i].storeHouseId +'">'+list[i].storeHouseName+'</option>'
-//                        str += '<li data-id="'+ list[i].storeHouseId +'"><div class="warehouse-option">'+ list[i].storeHouseName +'</div></li>'
-                        };
-                        $('#warehouses').append(str);
-                    }
-                }
-
-            });
-        }
 
 
         $("#return_key").click(function () {

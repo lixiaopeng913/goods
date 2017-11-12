@@ -6,14 +6,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/goods_records_detail.css" />
-    <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
-    <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
-    <script type="text/javascript" src="../dist/js/angular-1.3.10.min.js" ></script>
-    <script type="text/javascript" src="../dist/js/main.js" ></script>
+    <script type="text/javascript" src="js/selfFit.js" ></script>
+    <script type="text/javascript" src="js/main.js" ></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js" ></script>
+    <script type="text/javascript" src="js/angular-1.3.10.min.js" ></script>
 </head>
 <body ng-app="recordDetailModules" ng-controller="recordDetailCtrls">
 <div id="header" class="header">
-    <span class="back" ng-click="comeback()"><strong><</strong>&nbsp;返回</span>
+    <div id="return_key" class="return-key">
+        <div id="back-img"></div>&nbsp;<span>返回</span>
+    </div>
     <span class="title">提货记录详情</span>
     <hr color="#E5E5E5"/>
 </div>
@@ -128,32 +130,33 @@
         var urlParams=getURLParams();
         angular.module('recordDetailModules', [])
             .controller('recordDetailCtrls', ['$scope', '$http', function($scope, $http) {
-                var params={
-                    _vt:'dlk_weishatest',
-                    fromType:2,
-                    mobile:'true',
-                    _m:'getDelivery',
-                    loginId:'ur4qqtjxnm',
-                    _s:'coop',
-                    mtn:'a210213a55154d08a24275cd2d890406',
-                    buildID:'201608071700',
-                    loc:'zh-Hans',
-                    versionID:'1.0.0',
-                    _svt:'',
+                var params = {
+                    _vt:urlParams._vt,
+                    fromType:urlParams.fromType,
+                    mobile:urlParams.mobile,
+                    loc:urlParams.loc,
+                    versionID:urlParams.versionID,
+                    loginId:urlParams.loginId,
+                    mtn:urlParams.mtn,
+                    buildID:urlParams.buildID,
+                    _svt:urlParams._svt,
+                    _s:"coop",
+                    _m:"getDelivery",
                     deliveryId:urlParams.deliveryId
                 }
+
                 $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",params}).then(function(rep) {
-                    console.log('rep:',rep)
                     if(rep.status==200){
                         $scope.list=rep.data.content
-                        console.log('rep:',$scope.list)
                     }
-
                 })
-                $scope.comeback=function(){
-                    back();
-                }
             }])
+
+        //返回
+        $("#return_key").click(function () {
+            back();
+        });
+
     </script>
 </div>
 </body>

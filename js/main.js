@@ -1,6 +1,6 @@
 /****************************************************** APP 常量设置部分 ********************************************************/
 //APP 常量设置
-var remote_url = "https://wei.wiyarn.com/actiz/rs/b";
+var remote_url = "https://wei.wiyarn.com/actiz/rs/b?";
 var const_vt = "dlk_weishatest";
 
 //货物状态
