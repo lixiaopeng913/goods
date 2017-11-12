@@ -23,7 +23,7 @@
 <div class="content">
     <div class="deliveryHistoryRecord" ng-repeat="node in list" ng-cloak="">
         <div class="recordTitle">
-            <span class="title">{{node.productName}}</span>
+            <span class="title" ng-click="toDeliveryHistoryDetail(node.deliveryId)">{{node.productName}}</span>
             <span class="time">申请时间&nbsp;{{node.applyTime}}</span>
         </div>
         <div class="recordMess">
@@ -64,6 +64,12 @@
         var urlParams = getURLParams();
         angular.module('deliveryHistoryModules', [])
             .controller('deliveryHistoryCtrls', ['$scope', '$http', function($scope, $http) {
+                $scope.toDeliveryHistoryDetail=function (deliveryId) {
+                    var detail = 'goods_records_detail.html?deliveryId='+deliveryId;
+                    //传递对象：先将对象转成字符串（序列化）
+                    location.href = detail;
+                };
+
                 var params={
                     _vt:const_vt,
                     fromType:2,

@@ -125,6 +125,7 @@
         </table>
     </div>
     <script type="text/javascript">
+        var urlParams=getURLParams();
         angular.module('recordDetailModules', [])
             .controller('recordDetailCtrls', ['$scope', '$http', function($scope, $http) {
                 var params={
@@ -139,13 +140,12 @@
                     loc:'zh-Hans',
                     versionID:'1.0.0',
                     _svt:'',
-                    deliveryId:145
+                    deliveryId:urlParams.deliveryId
                 }
                 $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",params}).then(function(rep) {
                     console.log('rep:',rep)
                     if(rep.status==200){
                         $scope.list=rep.data.content
-                        console.log('rep:',$scope.list)
                     }
 
                 })
