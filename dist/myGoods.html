@@ -134,7 +134,22 @@
                 </tr>
                 <tr>
                     <td class="left">订单类型</td>
-                    <td class="right">{{item.orderstatus}}</td>
+                    <td class="right">
+                        <div ng-switch="item.orderstatus">
+                            <div ng-switch-when="1">
+                                <span>代购</span>
+                            </div>
+                            <div ng-switch-when="2">
+                                <span>代开证</span>
+                            </div>
+                            <div ng-switch-when="3">
+                                <span>质押</span>
+                            </div>
+                            <div ng-switch-when="4">
+                                <span>存储</span>
+                            </div>
+                        </div>
+                    </td>
                     <td class="right op"><a href="goods_records.html?productId={{item.productId}}&storeHouseId={{item.storeHouseId}}&orderId={{item.orderId}}&productOwnerId={{item.productOwnerId}}" ng-cloak>提货历史</a></td>
                     <td class="right op"><a href="goods_apply.html?storeHouseAddress={{item.storeHouseAddress}}" ng-hide="{{item.deliverableWeight<0}}" ng-cloak>去提货</a></td>
                 </tr>
