@@ -8,7 +8,6 @@
     <script type="text/javascript" src="../dist/js/selfFit.js" ></script>
     <script type="text/javascript" src="../dist/js/main.js" ></script>
     <script type="text/javascript" src="../dist/js/jquery-3.2.1.min.js" ></script>
-
     <script type="text/javascript" src="../dist/js/angular-1.3.10.min.js" ></script>
     <style>
         .search-div{
@@ -107,7 +106,7 @@
 <!-- 搜索条件部分 -->
 <div class="search-div">
     <div class="search">
-        <input type="search" placeholder="输入货物名称" />
+        <input type="search" id="productName" placeholder="输入货物名称" />
     </div>
     <div class="warehouse-search">
         <select id="warehouse-options">
@@ -167,17 +166,15 @@
             loginId:"ur4qqtjxnm",
             mtn:"a210213a55154d08a24275cd2d890406",
             buildID:"201608071700",
-            _svt:''
+            _svt:'',
+            storeHouseId:$("#storeHouseId").val(),
+            productName:$("#productName").val(),
         }
         $http({method: 'POST', url: remote_url,params}).then(function(rep) {
             if(rep.status==200){
                 $scope.list=rep.data.content.list
             }
-
         });
-
-
-
     }])
 
     $(function(){
@@ -216,10 +213,6 @@
             }
 
         });
-    }
-
-    function goodsDetail(productId) {
-
     }
 
     $("#return_key").click(function () {
