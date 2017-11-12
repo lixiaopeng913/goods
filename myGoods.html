@@ -5,10 +5,14 @@
     <title>我的货物</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
     <link rel="stylesheet" href="css/my_goods.css" />
+
     <script type="text/javascript" src="js/selfFit.js" ></script>
     <script type="text/javascript" src="js/main.js" ></script>
     <script type="text/javascript" src="js/jquery-3.2.1.min.js" ></script>
-    <script type="text/javascript" src="./js/angular-1.3.10.min.js" ></script>
+    <script type="text/javascript" src="js/angular-1.3.10.min.js" ></script>
+    <script type="text/javascript" src="js/pagination/tm.pagination.min.js" ></script>
+    <link rel="stylesheet" href="js/pagination/pagination.css" />
+
     <style>
         .search-div{
             float: left;
@@ -156,29 +160,41 @@
             </table>
         </div>
     </div>
+    <!-- 分页插件 -->
+    <tm-pagination conf="pagination"></tm-pagination>
 </div>
 <script type="text/javascript">
     var urlParams = getURLParams();
     var storeHouseId = $("#storeHouseId").val();
     var productName = $("#productName").val();
 
+    var myGoodsModule = angular.module('myGoodsModules', ['tm.pagination']);
+
     //请求数据
-    angular.module('myGoodsModules', [])
-        .controller('myGoodsCtrls', ['$scope','$http',function($scope, $http) {
-            var params={
-                _vt:const_vt,
-                fromType:2,
-                mobile:true,
-                loc:"zh-Hans",
-                versionID:"1.0.0",
-                _m:"listStoreGoods",
-                _s:"coop",
-                loginId:"ur4qqtjxnm",
-                mtn:"a210213a55154d08a24275cd2d890406",
-                buildID:"201608071700",
-                _svt:'',
-                storeHouseId:$("#storeHouseId").val(),
-                productName:$("#productName").val(),
+    myGoodsModule.controller('myGoodsCtrls', ['$scope','$http','$location',function($scope, $http,$location) {
+        //分页配置
+        $scope.pagination = {
+            currentPage: $location.search().currentPage ? $location.search().currentPage : 1,
+            itemsPerPage: 3,//页容量
+            isLinkPage : false,
+            onChange: function(){}
+        };
+
+        var params={
+            rows:$scope.pagination.itemsPerPage,
+            _vt:const_vt,
+            fromType:2,
+            mobile:true,
+            loc:"zh-Hans",
+            versionID:"1.0.0",
+            _m:"listStoreGoods",
+            _s:"coop",
+            loginId:"ur4qqtjxnm",
+            mtn:"a210213a55154d08a24275cd2d890406",
+            buildID:"201608071700",
+            _svt:'',
+            storeHouseId:storeHouseId,
+            productName:productName
             }
 
 //            var params = {
@@ -196,13 +212,23 @@
 //                storeHouseId:storeHouseId,
 //                productName:productName
 //            }
-        $http({method: 'POST', url: remote_url,params}).then(function(rep) {
-            if(rep.status==200){
-                $scope.list=rep.data.content.list
-            }
-        });
 
-            $scope.toGoodsDetail=function (productId) {
+        $scope.$watch('pagination.currentPage + pagination.itemPageLimit' , function(news){
+            params.page=$scope.pagination.currentPage;
+
+            // 把你的http请求放到这里
+            $http({method: 'POST', url: remote_url,params}).then(function(rep) {
+                if(rep.status==200){
+                    $scope.pagination.totalItems = rep.data.content.total; //总条数
+                    $scope.list=rep.data.content.list;
+                }
+            });
+        })
+
+
+
+        //货物详情
+        $scope.toGoodsDetail=function (productId) {
                 var urlParams = new Object();
                 urlParams._vt=const_vt;
                 urlParams.fromType=2;
@@ -220,8 +246,8 @@
                 location.href = detail;
             };
 
-            //提货历史
-            $scope.toDeliveryHistory=function (productId,storeHouseId,orderId,productOwnerId) {
+        //提货历史
+        $scope.toDeliveryHistory=function (productId,storeHouseId,orderId,productOwnerId) {
                 var urlParams = new Object();
                 urlParams._vt=const_vt;
                 urlParams.fromType=2;
@@ -239,26 +265,27 @@
                 location.href=delivery_history;
             }
 
-            //提货申请
-            $scope.toDeliveryApply=function (storeHouseName,storeHouseAddress) {
-                var urlParams = new Object();
-                urlParams._vt=const_vt;
-                urlParams.fromType=2;
-                urlParams.mobile=true;
-                urlParams.loc="zh-Hans";
-                urlParams.versionID="1.0.0";
-                urlParams._s="coop";
-                urlParams.loginId="ur4qqtjxnm";
-                urlParams.mtn="a210213a55154d08a24275cd2d890406";
-                urlParams.buildID="201608071700";
-                urlParams._svt='';
+        //提货申请
+        $scope.toDeliveryApply=function (storeHouseName,storeHouseAddress) {
+            var urlParams = new Object();
+            urlParams._vt=const_vt;
+            urlParams.fromType=2;
+            urlParams.mobile=true;
+            urlParams.loc="zh-Hans";
+            urlParams.versionID="1.0.0";
+            urlParams._s="coop";
+            urlParams.loginId="ur4qqtjxnm";
+            urlParams.mtn="a210213a55154d08a24275cd2d890406";
+            urlParams.buildID="201608071700";
+            urlParams._svt='';
 
-                var params = "?_vt="+urlParams._vt+"&fromType="+urlParams.fromType+"&mobile="+urlParams.mobile+"&loc="+urlParams.loc+"&versionID="+urlParams.versionID+"&loginId="+urlParams.loginId+"&mtn="+urlParams.mtn+"&buildID="+urlParams.buildID+"&_svt="+urlParams._svt+"&_s=coop";
-                var delivery_apply = 'goods_apply.html'+params+"&storeHouseName="+storeHouseName+"&storeHouseAddress="+storeHouseAddress;
-                location.href=delivery_apply;
-            }
+            var params = "?_vt="+urlParams._vt+"&fromType="+urlParams.fromType+"&mobile="+urlParams.mobile+"&loc="+urlParams.loc+"&versionID="+urlParams.versionID+"&loginId="+urlParams.loginId+"&mtn="+urlParams.mtn+"&buildID="+urlParams.buildID+"&_svt="+urlParams._svt+"&_s=coop";
+            var delivery_apply = 'goods_apply.html'+params+"&storeHouseName="+storeHouseName+"&storeHouseAddress="+storeHouseAddress;
+            location.href=delivery_apply;
+        }
 
     }])
+
 
     $(function(){
         //加载全部仓库
