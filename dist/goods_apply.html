@@ -222,7 +222,7 @@
             $.jeDate(a.find("#testico"),{trigger:false,format: 'YYYY-MM-DD'})
         }
 
-        var urlParams=getURLParams();
+        var urlParam=getURLParams();
         $(function(){
             //加载全部仓库
             loadWarehouses();
@@ -234,15 +234,14 @@
                 .controller('goodApplyCtrls', ['$scope', '$http', function($scope, $http) {
                     $scope.submit=function(){
                         var params={
-                            fromType:urlParams.fromType,
-                            mobile:urlParams.mobile,
-                            _vt:urlParams._vt,
-                            loc:urlParams.loc,
-                            versionID:urlParams.versionID,
-                            loginId:urlParams.loginId,
-                            mtn:urlParams.mtn,
-                            buildID:urlParams.buildID,
-                            _svt:urlParams._svt,
+                            fromType:2,
+                            mobile:'true',
+                            loginId:'ur4qqtjxnm',
+                            mtn:'a210213a55154d08a24275cd2d890406',
+                            buildID:'201608071700',
+                            loc:'zh-Hans',
+                            versionID:'1.0.0',
+                            _svt:'',
                             orderstatus:1,  //订单类型（应该需要传值判断）
                             calType:1,//计算类型 1：件数 2:重量
                             storeHouseId:'',//仓库id

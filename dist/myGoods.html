@@ -158,41 +158,49 @@
     </div>
 </div>
 <script type="text/javascript">
-    var urlParams = getURLParams();
-    //请求数据
-    angular.module('myGoodsModules', [])
-        .controller('myGoodsCtrls', ['$scope','$http',function($scope, $http) {
-            $scope.toGoodsDetail=function (productId) {
-                var detail = 'goods_detail.html?productId='+productId;
-                //传递对象：先将对象转成字符串（序列化）
-                location.href = detail;
-            };
+    //    var urlParams = getURLParams();
+    var storeHouseId = $("#storeHouseId").val();
+    var productName = $("#productName").val();
 
-        var params={
-            _vt:const_vt,
-            fromType:2,
-            mobile:true,
-            loc:"zh-Hans",
-            versionID:"1.0.0",
-            _m:"listStoreGoods",
-            _s:"coop",
-            loginId:"ur4qqtjxnm",
-            mtn:"a210213a55154d08a24275cd2d890406",
-            buildID:"201608071700",
-            _svt:'',
-            storeHouseId:$("#storeHouseId").val(),
-            productName:$("#productName").val(),
-        }
-        $http({method: 'POST', url: remote_url,params}).then(function(rep) {
-            if(rep.status==200){
-                $scope.list=rep.data.content.list
-            }
-        });
-    }])
+    //请求数据
+
+    function loadData(storeHouseId, productName) {
+        angular.module('myGoodsModules', [])
+            .controller('myGoodsCtrls', ['$scope','$http',function($scope, $http) {
+                $scope.toGoodsDetail=function (productId) {
+                    var detail = 'goods_detail.html?productId='+productId;
+                    //传递对象：先将对象转成字符串（序列化）
+                    location.href = detail;
+                };
+
+                var params={
+                    _vt:const_vt,
+                    fromType:2,
+                    mobile:true,
+                    loc:"zh-Hans",
+                    versionID:"1.0.0",
+                    _m:"listStoreGoods",
+                    _s:"coop",
+                    loginId:"ur4qqtjxnm",
+                    mtn:"a210213a55154d08a24275cd2d890406",
+                    buildID:"201608071700",
+                    _svt:'',
+                    storeHouseId:storeHouseId,
+                    productName:productName
+                }
+                $http({method: 'POST', url: remote_url,params}).then(function(rep) {
+                    if(rep.status==200){
+                        $scope.list=rep.data.content.list
+                    }
+                });
+            }])
+    }
+
 
     $(function(){
         //加载全部仓库
         loadWarehouses();
+        loadData(storeHouseId,productName);
     });
 
     //加载全部仓库

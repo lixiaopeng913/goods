@@ -129,23 +129,24 @@
         angular.module('recordDetailModules', [])
             .controller('recordDetailCtrls', ['$scope', '$http', function($scope, $http) {
                 var params={
-                    fromType:urlParams.fromType,
-                    mobile:urlParams.mobile,
-                    _vt:urlParams._vt,
-                    loc:urlParams.loc,
-                    versionID:urlParams.versionID,
-                    loginId:urlParams.loginId,
-                    mtn:urlParams.mtn,
-                    buildID:urlParams.buildID,
-                    _svt:urlParams._svt,
-                    _s:'coop',
+                    _vt:'dlk_weishatest',
+                    fromType:2,
+                    mobile:'true',
                     _m:'getDelivery',
+                    loginId:'ur4qqtjxnm',
+                    _s:'coop',
+                    mtn:'a210213a55154d08a24275cd2d890406',
+                    buildID:'201608071700',
+                    loc:'zh-Hans',
+                    versionID:'1.0.0',
+                    _svt:'',
                     deliveryId:urlParams.deliveryId
                 }
                 $http({method: 'POST', url: "https://wei.wiyarn.com/actiz/rs/b",params}).then(function(rep) {
                     console.log('rep:',rep)
                     if(rep.status==200){
                         $scope.list=rep.data.content
+                        console.log('rep:',$scope.list)
                     }
 
                 })
