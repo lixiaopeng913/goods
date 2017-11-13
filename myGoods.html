@@ -231,48 +231,22 @@
 
         //货物详情
         $scope.toGoodsDetail=function (productId) {
-            _url.page = $scope.pagination.currentPage;
-            _url.rows = $scope.pagination.itemsPerPage;
                 var params = "?_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
-                var detail = 'goods_detail.html'+params+"&page="+_url.page+"&rows="+_url.rows+"&productId="+productId;
+                var detail = 'goods_detail.html'+params+"&page=1&rows=5&productId="+productId;
                 location.href = detail;
             };
 
         //提货历史
         $scope.toDeliveryHistory=function (productId,storeHouseId,orderId,productOwnerId) {
-                var urlParams = new Object();
-                urlParams._vt=const_vt;
-                urlParams.fromType=2;
-                urlParams.mobile=true;
-                urlParams.loc="zh-Hans";
-                urlParams.versionID="1.0.0";
-                urlParams._s="coop";
-                urlParams.loginId="ur4qqtjxnm";
-                urlParams.mtn="a210213a55154d08a24275cd2d890406";
-                urlParams.buildID="201608071700";
-                urlParams._svt='';
-
-                var params = "?_vt="+urlParams._vt+"&fromType="+urlParams.fromType+"&mobile="+urlParams.mobile+"&loc="+urlParams.loc+"&versionID="+urlParams.versionID+"&loginId="+urlParams.loginId+"&mtn="+urlParams.mtn+"&buildID="+urlParams.buildID+"&_svt="+urlParams._svt+"&_s=coop";
-                var delivery_history = 'goods_records.html'+params+"&productId="+productId+"&storeHouseId="+storeHouseId+"&orderId="+orderId+"&productOwnerId="+productOwnerId;
+                var params = "?_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
+                var delivery_history = 'goods_records.html'+params+"&page=1&rows=5&productId="+productId+"&storeHouseId="+storeHouseId+"&orderId="+orderId+"&productOwnerId="+productOwnerId;
                 location.href=delivery_history;
             }
 
         //提货申请
         $scope.toDeliveryApply=function (orderstatus) {
-            var apply = new Object();
-            urlParams._vt=const_vt;
-            urlParams.fromType=2;
-            urlParams.mobile=true;
-            urlParams.loc="zh-Hans";
-            urlParams.versionID="1.0.0";
-            urlParams._s="coop";
-            urlParams.loginId="ur4qqtjxnm";
-            urlParams.mtn="a210213a55154d08a24275cd2d890406";
-            urlParams.buildID="201608071700";
-            urlParams._svt='';
-
-            var params = "?_vt="+urlParams._vt+"&fromType="+urlParams.fromType+"&mobile="+urlParams.mobile+"&loc="+urlParams.loc+"&versionID="+urlParams.versionID+"&loginId="+urlParams.loginId+"&mtn="+urlParams.mtn+"&buildID="+urlParams.buildID+"&_svt="+urlParams._svt+"&_s=coop";
-            var delivery_apply = 'goods_apply.html'+params+"&storeHouseName="+storeHouseName+"&storeHouseAddress="+storeHouseAddress;
+            var params = "?_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
+            var delivery_apply = 'goods_apply.html';
             location.href=delivery_apply;
         }
 
