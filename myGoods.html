@@ -246,7 +246,7 @@
         //提货申请
         $scope.toDeliveryApply=function (orderstatus) {
             var params = "?_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
-            var delivery_apply = 'goods_apply.html';
+            var delivery_apply = 'goods_apply.html'+params;
             location.href=delivery_apply;
         }
 
@@ -256,17 +256,17 @@
             var productName = $("#productName").val();
             var params={
                 rows:$scope.pagination.itemsPerPage,
-                _vt:const_vt,
-                fromType:2,
-                mobile:true,
-                loc:"zh-Hans",
-                versionID:"1.0.0",
+                _vt:_url._vt,
+                fromType:_url.fromType,
+                mobile:_url.mobile,
+                loc:_url.loc,
+                versionID:_url.versionID,
                 _m:"listStoreGoods",
                 _s:"coop",
-                loginId:"ur4qqtjxnm",
-                mtn:"a210213a55154d08a24275cd2d890406",
-                buildID:"201608071700",
-                _svt:'',
+                loginId:_url.loginId,
+                mtn:_url.mtn,
+                buildID:_url.buildID,
+                _svt:_url._svt,
                 query:productName,
                 storeHouseId:storeHouseId
             }
