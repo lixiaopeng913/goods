@@ -110,11 +110,11 @@
 <!-- 搜索条件部分 -->
 <div class="search-div">
     <div class="search">
-        <input type="search" id="productName" ng-focus="goSearch()" ng-model="placeName" placeholder="输入货物名称" />
+        <input type="search" id="productName" ng-blur="search()" ng-model="placeName" placeholder="输入货物名称" />
     </div>
     <div class="warehouse-search">
-        <select id="warehouse-options">
-            <option value="0">全部仓库</option>
+        <select id="warehouse-options" ng-model="warehouseList" ng-change="search()">
+            <option value="">全部仓库</option>
         </select>
     </div>
 </div>
@@ -155,7 +155,7 @@
                         </div>
                     </td>
                     <td class="right op"><a href="javascript:void(0)" ng-click="toDeliveryHistory(item.productId,item.storeHouseId,item.orderId,item.productOwnerId)" ng-cloak>提货历史</a></td>
-                    <td class="right op"><a href="javascript:void(0);" ng-click="toDeliveryApply(item.storeHouseName,item.storeHouseAddress)" ng-hide="{{item.deliverableWeight<0}}" ng-cloak>去提货</a></td>
+                    <td class="right op"><a href="javascript:void(0);" ng-click="toDeliveryApply(item.orderstatus)" ng-hide="{{item.deliverableWeight<0}}" ng-cloak>去提货</a></td>
                 </tr>
             </table>
         </div>
@@ -165,7 +165,7 @@
 </div>
 <script type="text/javascript">
     var urlParams = getURLParams();
-    var storeHouseId = $("#storeHouseId").val();
+    var storeHouseId = $("#warehouse-options").val();
     var productName = $("#productName").val();
 
     var myGoodsModule = angular.module('myGoodsModules', ['tm.pagination']);
@@ -266,8 +266,8 @@
             }
 
         //提货申请
-        $scope.toDeliveryApply=function (storeHouseName,storeHouseAddress) {
-            var urlParams = new Object();
+        $scope.toDeliveryApply=function (orderstatus) {
+            var apply = new Object();
             urlParams._vt=const_vt;
             urlParams.fromType=2;
             urlParams.mobile=true;
@@ -282,6 +282,38 @@
             var params = "?_vt="+urlParams._vt+"&fromType="+urlParams.fromType+"&mobile="+urlParams.mobile+"&loc="+urlParams.loc+"&versionID="+urlParams.versionID+"&loginId="+urlParams.loginId+"&mtn="+urlParams.mtn+"&buildID="+urlParams.buildID+"&_svt="+urlParams._svt+"&_s=coop";
             var delivery_apply = 'goods_apply.html'+params+"&storeHouseName="+storeHouseName+"&storeHouseAddress="+storeHouseAddress;
             location.href=delivery_apply;
+        }
+
+
+        $scope.search = function () {
+            var storeHouseId = $("#warehouse-options").val();
+            var productName = $("#productName").val();
+            var params={
+                rows:$scope.pagination.itemsPerPage,
+                _vt:const_vt,
+                fromType:2,
+                mobile:true,
+                loc:"zh-Hans",
+                versionID:"1.0.0",
+                _m:"listStoreGoods",
+                _s:"coop",
+                loginId:"ur4qqtjxnm",
+                mtn:"a210213a55154d08a24275cd2d890406",
+                buildID:"201608071700",
+                _svt:'',
+                query:productName,
+                storeHouseId:storeHouseId
+            }
+
+            $scope.$watch('pagination.currentPage + pagination.itemPageLimit' , function(news){
+                params.page=$scope.pagination.currentPage;
+                $http({method: 'POST', url: remote_url,params}).then(function(rep) {
+                    if(rep.status==200){
+                        $scope.pagination.totalItems = rep.data.content.total; //总条数
+                        $scope.list=rep.data.content.list;
+                    }
+                });
+            })
         }
 
     }])
@@ -318,7 +350,7 @@
                     var str = '<li data-id="0"><div class="warehouse-option"></div>全部仓库</li>',
                         list = reps.content;
                     for(var i=0;i<list.length;i++){
-                        str += '<option data-id="'+list[i].storeHouseId +'">'+list[i].storeHouseName+'</option>'
+                        str += '<option value="'+list[i].storeHouseId +'">'+list[i].storeHouseName+'</option>'
 //                        str += '<li data-id="'+ list[i].storeHouseId +'"><div class="warehouse-option">'+ list[i].storeHouseName +'</div></li>'
                     };
                     $('#warehouse-options').append(str);
