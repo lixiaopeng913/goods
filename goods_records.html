@@ -100,7 +100,6 @@
             params.page=$scope.pagination.currentPage;
             $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                 if(rep.status==200){
-                    console.log(rep)
                     $scope.pagination.totalItems = rep.data.content.length; //总条数
                     $scope.list=rep.data.content;
                 }
