@@ -66,13 +66,14 @@
     <tm-pagination conf="pagination"></tm-pagination>
 </div>
 <script type="text/javascript">
-    var urlParams = getURLParams();
+
     var deliveryHistoryModules = angular.module('deliveryHistoryModules', ['tm.pagination']);
     deliveryHistoryModules.controller('deliveryHistoryCtrls', ['$scope', '$http', '$location',function($scope, $http,$location) {
+        var urlParams = getURLParams();
         //分页配置
         $scope.pagination = {
             currentPage: $location.search().currentPage ? $location.search().currentPage : 1,
-            itemsPerPage: pageSize,//页容量
+            itemsPerPage: 5,//页容量
             isLinkPage : false,
             onChange: function(){}
         };
