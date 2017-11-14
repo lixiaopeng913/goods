@@ -227,13 +227,13 @@
 
         $http({method: 'POST', url: remote_url,params}).then(function(rep) {
             if(rep.status==200){
-                if(rep.data.content.total=0){
+                if(rep.data.content.total==0){
                     $(".no-data").show();
                     $("#load-more-div").hide();
                 }else if(rep.data.content.total < $scope.rows) {
                     $(".no-data").hide();
                     $("#load-more-div").hide();
-                }else {
+                }else if(rep.data.content.total > $scope.rows){
                     $(".no-data").hide();
                     $("#load-more-div").show();
                 }
@@ -313,12 +313,13 @@
                     }else if(rep.data.content.total < $scope.rows) {
                         $(".no-data").hide();
                         $("#load-more-div").hide();
-                    }else {
+                    }else if(rep.data.content.total > $scope.rows){
                         $(".no-data").hide();
                         $("#load-more-div").show();
                     }
                     $scope.pages = rep.data.content.pages; //总页数
                     $scope.list=rep.data.content.list;
+                    $scope.data=$scope.list
                 }
             });
         }

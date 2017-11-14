@@ -128,7 +128,7 @@
                     }else if(rep.data.content.total < $scope.rows) {
                         $(".no-data").hide();
                         $("#load-more-div").hide();
-                    }else {
+                    }else if(rep.data.content.total > $scope.rows){
                         $(".no-data").hide();
                         $("#load-more-div").show();
                     }

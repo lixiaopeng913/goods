@@ -110,12 +110,12 @@
                 }else if(rep.data.content.total < $scope.rows) {
                     $(".no-data").hide();
                     $("#load-more-div").hide();
-                }else {
+                }else if(rep.data.content.total > $scope.rows){
                     $(".no-data").hide();
                     $("#load-more-div").show();
                 }
                 $scope.pages = rep.data.content.pages; //总页数
-                $scope.list=rep.data.content.list;
+                $scope.list=rep.data.content;
                 $scope.data = $scope.list;
             }
         });

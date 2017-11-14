@@ -31,3 +31,13 @@
 .deliveryHistoryRecord .recordMess table td.right{
     color:#000;
 }
+
+#load-more-div>a{
+    text-decoration:none;
+    display:inline-block;
+    color: #BFBFBF;
+}
+
+#load-more-div>a:hover{
+    color: #BFBFBF;
+}
