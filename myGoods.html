@@ -10,8 +10,8 @@
     <script type="text/javascript" src="js/main.js" ></script>
     <script type="text/javascript" src="js/jquery-3.2.1.min.js" ></script>
     <script type="text/javascript" src="js/angular-1.3.10.min.js" ></script>
-    <script type="text/javascript" src="js/pagination/tm.pagination.min.js" ></script>
-    <link rel="stylesheet" href="js/pagination/pagination.css" />
+    <!--<script type="text/javascript" src="js/pagination/tm.pagination.min.js" ></script>-->
+    <!--<link rel="stylesheet" href="js/pagination/pagination.css" />-->
 
     <style>
         .search-div{
@@ -93,7 +93,13 @@
         #goodsName>a:hover{
             color: #000000;
         }
-
+        .no-data{
+            margin-left: 1.35rem;
+            margin-top:4.0rem;
+            height: 6rem;
+            background: url(images/nothing.png) no-repeat;
+            background-size: 3.33rem 3.25rem;
+        }
     </style>
 
 </head>
@@ -121,6 +127,7 @@
 </div>
 <!-- 数据部分 -->
 <div class="content">
+    <div class="no-data"></div>
     <div class="myGoodsRecord" ng-repeat="item in list" ng-cloak="">
         <div class="recordTitle">
             <span class="title" ng-click="toGoodsDetail(item.productId)">{{item.productName}}</span>
@@ -162,68 +169,94 @@
         </div>
     </div>
     <!-- 分页插件 -->
-    <tm-pagination conf="pagination"></tm-pagination>
+    <div id="load-more-div" style="text-align: center;height: 1.0rem;line-height:1.0rem;">
+        <a href="javascript:void(0);" ng-click="loadMore()">点击加载更多</a>
+    </div>
 </div>
+
 <script type="text/javascript">
     var storeHouseId = $("#warehouse-options").val();
     var productName = $("#productName").val();
     var _url;
 
-    var myGoodsModule = angular.module('myGoodsModules', ['tm.pagination']);
     //请求数据
-    myGoodsModule.controller('myGoodsCtrls', ['$scope','$http','$location',function($scope, $http,$location) {
+    angular.module('myGoodsModules', []).controller('myGoodsCtrls', ['$scope','$http',function($scope, $http) {
+
         _url= getURLParams();
-        //分页配置
-        $scope.pagination = {
-            currentPage: $location.search().currentPage ? $location.search().currentPage : 1,
-            itemsPerPage: 5,//页容量
-            isLinkPage : false,
-            onChange: function(){}
-        };
-
-//        var params={
-//            rows:$scope.pagination.itemsPerPage,
-//            _vt:const_vt,
-//            fromType:2,
-//            mobile:true,
-//            loc:"zh-Hans",
-//            versionID:"1.0.0",
-//            _m:"listStoreGoods",
-//            _s:"coop",
-//            loginId:"ur4qqtjxnm",
-//            mtn:"a210213a55154d08a24275cd2d890406",
-//            buildID:"201608071700",
-//            _svt:'',
-//            storeHouseId:storeHouseId,
-//            query:productName
-//            }
-
-            var params = {
-                rows:$scope.pagination.itemsPerPage,
-                _vt:_url._vt,
-                fromType:_url.fromType,
-                mobile:_url.mobile,
-                loc:_url.loc,
-                versionID:_url.versionID,
-                loginId:_url.loginId,
-                mtn:_url.mtn,
-                buildID:_url.buildID,
-                _svt:_url._svt,
-                _s:"coop",
-                _m:"listStoreGoods",
-                storeHouseId:storeHouseId,
-                query:productName
+        $scope.currentPage = 1;
+        $scope.rows = 5;
+        $scope.pages;
+        $scope.busy = false;
+        $scope.data = [];
+        var params={
+            page:$scope.currentPage,
+            rows:$scope.rows,
+            _vt:const_vt,
+            fromType:2,
+            mobile:true,
+            loc:"zh-Hans",
+            versionID:"1.0.0",
+            _m:"listStoreGoods",
+            _s:"coop",
+            loginId:"ur4qqtjxnm",
+            mtn:"a210213a55154d08a24275cd2d890406",
+            buildID:"201608071700",
+            _svt:'',
+            storeHouseId:storeHouseId,
+            query:productName
             }
 
-        $scope.$watch('pagination.currentPage + pagination.itemPageLimit' , function(news){
-            params.page=$scope.pagination.currentPage;
+//            var params = {
+//                page:$scope.currentPage,
+//                rows:$scope.rows,
+//                _vt:_url._vt,
+//                fromType:_url.fromType,
+//                mobile:_url.mobile,
+//                loc:_url.loc,
+//                versionID:_url.versionID,
+//                loginId:_url.loginId,
+//                mtn:_url.mtn,
+//                buildID:_url.buildID,
+//                _svt:_url._svt,
+//                _s:"coop",
+//                _m:"listStoreGoods",
+//                storeHouseId:storeHouseId,
+//                query:productName
+//            }
+
+        $http({method: 'POST', url: remote_url,params}).then(function(rep) {
+            if(rep.status==200){
+                if(rep.data.content.total=0){
+                    $(".no-data").show();
+                    $("#load-more-div").hide();
+                }else {
+                    $(".no-data").hide();
+                    $("#load-more-div").show();
+                }
+                $scope.pages = rep.data.content.pages; //总页数
+                $scope.list=rep.data.content.list;
+                $scope.data = $scope.list;
+            }
+        });
+
+        //加载更多
+        $scope.loadMore= function () {
+            $("#load-more-div").show();
+            $("#load-more-div a").text("正在努力加载中...");
+            $scope.currentPage++;
+            params.page = $scope.currentPage;
             $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                 if(rep.status==200){
-                    $scope.pagination.totalItems = rep.data.content.total; //总条数
-                    $scope.list=rep.data.content.list;
+                    $("#load-more-div a").text("点击加载更多");
+                    for(var i=0;i<$scope.rows;i++){
+                        $scope.data.push(rep.data.content.list[i]);
+                    }
+                    if($scope.currentPage==$scope.pages){
+                        $("#load-more-div a").text("没有更多数据了");
+                    }
                 }
             });
-        })
+        };
 
 //        $scope.goSearch = function () {
 //            location.href="goods_search.html?query="+$("#productName").val();
@@ -254,7 +287,8 @@
             var storeHouseId = $("#warehouse-options").val();
             var productName = $("#productName").val();
             var params={
-                rows:$scope.pagination.itemsPerPage,
+                page:$scope.page,
+                rows:$scope.rows,
                 _vt:_url._vt,
                 fromType:_url.fromType,
                 mobile:_url.mobile,
@@ -270,15 +304,19 @@
                 storeHouseId:storeHouseId
             }
 
-            $scope.$watch('pagination.currentPage + pagination.itemPageLimit' , function(news){
-                params.page=$scope.pagination.currentPage;
-                $http({method: 'POST', url: remote_url,params}).then(function(rep) {
-                    if(rep.status==200){
-                        $scope.pagination.totalItems = rep.data.content.total; //总条数
-                        $scope.list=rep.data.content.list;
+            $http({method: 'POST', url: remote_url,params}).then(function(rep) {
+                if(rep.status==200){
+                    if(rep.data.content.pages==0){
+                        $(".no-data").show();
+                        $("#load-more-div").hide();
+                    }else {
+                        $(".no-data").hide();
+                        $("#load-more-div").show();
                     }
-                });
-            })
+                    $scope.pages = rep.data.content.pages; //总页数
+                    $scope.list=rep.data.content.list;
+                }
+            });
         }
     }])
 
@@ -287,6 +325,7 @@
 //        if(urlParams.query!='undefined'){
 //            $("#productName").val(decodeURI(urlParams.query));
 //        }
+        $("#load-more-div").hide();
         //加载全部仓库
         loadWarehouses();
     });
