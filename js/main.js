@@ -2,7 +2,7 @@
 //APP 常量设置
 var remote_url = "https://wei.wiyarn.com/actiz/rs/b?";
 var const_vt = "dlk_weishatest";
-var pageSize=5
+var pageSize = 5;
 
 //货物状态
 
