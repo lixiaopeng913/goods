@@ -16,19 +16,20 @@
     <style>
         .search-div{
             float: left;
-            position: relative;
-            top: .5rem;
-            height: 0.8rem;
+            position: absolute;
+            top: 1rem;
+            height: 1rem;
             width: 100%;
             box-shadow: 0 4px 4px 2px #dbdbdb;
+            z-index: 9999;
         }
 
         .search{
-            position: relative;
+            position: absolute;
             float: left;
             height: 0.62rem;
             width: 3.3rem;
-            left: 0.3rem;
+            left: .3rem;
             border: 1px solid #d4d6df;
             border-radius: 0.62rem;
             background: url(images/search.png) no-repeat 0.2rem center;
@@ -59,10 +60,11 @@
         }
 
         .warehouse-search{
-            position: relative;
+            position: absolute;
             float: right;
+            right: 0rem;
             width: 3.8rem;
-            height: 0.62rem;
+            height: .8rem;
             line-height: 0.62rem;
             background: #f3f5fe;
             border-radius: 0.62rem;
@@ -94,9 +96,10 @@
         }
 
         .no-data{
-            margin-left: 1.35rem;
-            margin-top:4.0rem;
-            height: 6rem;
+            margin-top: 7rem;
+            margin-left: 1.5rem;
+            height: 2.6rem;
+            line-height: 2.6rem;
             background: url(images/nothing.png) no-repeat;
             background-size: 3.33rem 3.25rem;
         }
@@ -122,13 +125,11 @@
     <div class="warehouse-search">
         <select id="warehouse-options" ng-model="warehouseList">
             <option value="">全部仓库</option>
-        </select>
-    </div>
-    <div style="position: absolute;float:right;right: .3rem;width: 1.2rem;height: .8rem;">
-        <input type="button" ng-click="search()" style="border-radius:.5rem;height:.6rem;width: 1.2rem;" value="查询"/>
+        </select><input type="button" ng-click="search()" style="border-radius:.5rem;height:.6rem;width: 1.2rem;" value="查询"/>
     </div>
 </div>
 <!-- 数据部分 -->
+
 <div class="content">
     <div class="no-data"></div>
     <div class="myGoodsRecord" style="position: relative;top: .5rem;" ng-repeat="item in list" ng-cloak="">
