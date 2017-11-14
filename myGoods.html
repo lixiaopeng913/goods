@@ -181,53 +181,54 @@
 
     //请求数据
     angular.module('myGoodsModules', []).controller('myGoodsCtrls', ['$scope','$http',function($scope, $http) {
-
         _url= getURLParams();
         $scope.currentPage = 1;
         $scope.rows = 5;
         $scope.pages;
-        $scope.busy = false;
         $scope.data = [];
-        var params={
-            page:$scope.currentPage,
-            rows:$scope.rows,
-            _vt:const_vt,
-            fromType:2,
-            mobile:true,
-            loc:"zh-Hans",
-            versionID:"1.0.0",
-            _m:"listStoreGoods",
-            _s:"coop",
-            loginId:"ur4qqtjxnm",
-            mtn:"a210213a55154d08a24275cd2d890406",
-            buildID:"201608071700",
-            _svt:'',
-            storeHouseId:storeHouseId,
-            query:productName
-            }
-
-//            var params = {
-//                page:$scope.currentPage,
-//                rows:$scope.rows,
-//                _vt:_url._vt,
-//                fromType:_url.fromType,
-//                mobile:_url.mobile,
-//                loc:_url.loc,
-//                versionID:_url.versionID,
-//                loginId:_url.loginId,
-//                mtn:_url.mtn,
-//                buildID:_url.buildID,
-//                _svt:_url._svt,
-//                _s:"coop",
-//                _m:"listStoreGoods",
-//                storeHouseId:storeHouseId,
-//                query:productName
+//        var params={
+//            page:$scope.currentPage,
+//            rows:$scope.rows,
+//            _vt:const_vt,
+//            fromType:2,
+//            mobile:true,
+//            loc:"zh-Hans",
+//            versionID:"1.0.0",
+//            _m:"listStoreGoods",
+//            _s:"coop",
+//            loginId:"ur4qqtjxnm",
+//            mtn:"a210213a55154d08a24275cd2d890406",
+//            buildID:"201608071700",
+//            _svt:'',
+//            storeHouseId:storeHouseId,
+//            query:productName
 //            }
+
+            var params = {
+                page:$scope.currentPage,
+                rows:$scope.rows,
+                _vt:_url._vt,
+                fromType:_url.fromType,
+                mobile:_url.mobile,
+                loc:_url.loc,
+                versionID:_url.versionID,
+                loginId:_url.loginId,
+                mtn:_url.mtn,
+                buildID:_url.buildID,
+                _svt:_url._svt,
+                _s:"coop",
+                _m:"listStoreGoods",
+                storeHouseId:storeHouseId,
+                query:productName
+            }
 
         $http({method: 'POST', url: remote_url,params}).then(function(rep) {
             if(rep.status==200){
                 if(rep.data.content.total=0){
                     $(".no-data").show();
+                    $("#load-more-div").hide();
+                }else if(rep.data.content.total < $scope.rows) {
+                    $(".no-data").hide();
                     $("#load-more-div").hide();
                 }else {
                     $(".no-data").hide();
@@ -258,10 +259,6 @@
             });
         };
 
-//        $scope.goSearch = function () {
-//            location.href="goods_search.html?query="+$("#productName").val();
-//        }
-
         //货物详情
         $scope.toGoodsDetail=function (productId) {
                 var params = "?_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
@@ -283,6 +280,7 @@
             location.href=delivery_apply;
         }
 
+        //查询
         $scope.search = function () {
             var storeHouseId = $("#warehouse-options").val();
             var productName = $("#productName").val();
@@ -306,8 +304,11 @@
 
             $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                 if(rep.status==200){
-                    if(rep.data.content.pages==0){
+                    if(rep.data.content.total=0){
                         $(".no-data").show();
+                        $("#load-more-div").hide();
+                    }else if(rep.data.content.total < $scope.rows) {
+                        $(".no-data").hide();
                         $("#load-more-div").hide();
                     }else {
                         $(".no-data").hide();
@@ -318,13 +319,11 @@
                 }
             });
         }
+
     }])
 
-
     $(function(){
-//        if(urlParams.query!='undefined'){
-//            $("#productName").val(decodeURI(urlParams.query));
-//        }
+        $(".no-data").hide();
         $("#load-more-div").hide();
         //加载全部仓库
         loadWarehouses();
@@ -332,7 +331,6 @@
 
     //加载全部仓库
     function loadWarehouses() {
-//        var _url = getURLParams();
         //获取仓库列表——初始
         $.ajax({
             type:"post",
@@ -355,12 +353,10 @@
                         list = reps.content;
                     for(var i=0;i<list.length;i++){
                         str += '<option value="'+list[i].storeHouseId +'">'+list[i].storeHouseName+'</option>'
-//                        str += '<li data-id="'+ list[i].storeHouseId +'"><div class="warehouse-option">'+ list[i].storeHouseName +'</div></li>'
                     };
                     $('#warehouse-options').append(str);
                 }
             }
-
         });
     }
 

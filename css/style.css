@@ -79,3 +79,11 @@ body{
 .search>input::-ms-input-placeholder{
     color: #dee0e7;
 }
+
+.no-data{
+    margin-left: 1.35rem;
+    margin-top:4.0rem;
+    height: 6rem;
+    background: url(../images/nothing.png) no-repeat;
+    background-size: 3.33rem 3.25rem;
+}
