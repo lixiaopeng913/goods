@@ -167,11 +167,11 @@
                         </div>
                     </td>
                     <td class="right op"><a href="javascript:void(0)" ng-click="toDeliveryHistory(item.productId,item.storeHouseId,item.orderId,item.productOwnerId)" ng-cloak>提货历史</a></td>
-                    <td class="right op"><a href="javascript:void(0);" ng-click="toDeliveryApply(item.orderstatus)" ng-hide="{{item.deliverableWeight<0}}" ng-cloak>去提货</a></td>
+                    <td class="right op"><a href="javascript:void(0);" ng-click="toDeliveryApply(item)" ng-hide="{{item.deliverableWeight<0}}" ng-cloak>去提货</a></td>
                 </tr>
             </table>
         </div>
-    </div>
+    </div><br>
     <!-- 分页插件 -->
     <div id="load-more-div" style="text-align: center;height: 1.0rem;line-height:1.0rem;">
         <a href="javascript:void(0);" ng-click="loadMore()">点击加载更多</a>
@@ -190,24 +190,6 @@
         $scope.rows = 5;
         $scope.pages;
         $scope.data = [];
-//        var params={
-//            page:$scope.currentPage,
-//            rows:$scope.rows,
-//            _vt:const_vt,
-//            fromType:2,
-//            mobile:true,
-//            loc:"zh-Hans",
-//            versionID:"1.0.0",
-//            _m:"listStoreGoods",
-//            _s:"coop",
-//            loginId:"ur4qqtjxnm",
-//            mtn:"a210213a55154d08a24275cd2d890406",
-//            buildID:"201608071700",
-//            _svt:'',
-//            storeHouseId:storeHouseId,
-//            query:productName
-//            }
-
             var params = {
                 page:$scope.currentPage,
                 rows:$scope.rows,
@@ -278,10 +260,11 @@
             }
 
         //提货申请
-        $scope.toDeliveryApply=function (orderstatus) {
-            var params = "?_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
-            var delivery_apply = 'goods_apply.html'+params;
-            location.href=delivery_apply;
+        $scope.toDeliveryApply=function (item) {
+            var params = "_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
+            params+="&goods="+JSON.stringify(item);
+            var delivery_history = 'goods_apply.html?'+params;
+            location.href=encodeURI(delivery_history);
         }
 
         //查询

@@ -81,7 +81,7 @@
     </div>
         <div class="detailFoot">
             <span class="history" ng-click="toDeliveryHistoryDetail(item.productId,item.storeHouseId,item.orderId,item.productOwnerId)">提货历史</span>
-            <span class="take" ng-click="toGoodsApply(item.productId,item.orderstatus)">去提货</span>
+            <span class="take" ng-click="toGoodsApply(item)">去提货</span>
         </div>
 </div>
     <!-- 分页插件 -->
@@ -146,10 +146,23 @@
                 location.href = delivery_history;
             };
             //跳转到提货申请
-            $scope.toGoodsApply=function (productId,orderstatus) {
-                var goods_apply = "goods_apply.html?"+params+"&productId="+productId+"&orderstatus="+orderstatus;
-                location.href = goods_apply;
-            };
+            $scope.toGoodsApply=function (item) {
+                var params = {
+                    _vt:_url._vt,
+                    fromType:_url.fromType,
+                    mobile:_url.mobile,
+                    loc:_url.loc,
+                    versionID:_url.versionID,
+                    loginId:_url.loginId,
+                    mtn:_url.mtn,
+                    buildID:_url.buildID,
+                    _svt:_url._svt,
+                    _s:"coop",
+                    _m:"",
+                    goods:item
+                }
+                var goods_apply = "goods_apply.html?"+JSON.stringify(params);
+                location.href = encodeURI(goods_apply);
 
             //加载更多
             $scope.loadMore= function () {

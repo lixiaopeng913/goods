@@ -195,7 +195,9 @@
     </div>
 </div>
     <script type="text/javascript">
-        var urlParams=getURLParams();
+        var _url;
+        var goods;
+
         $(function(){
 
         });
@@ -206,15 +208,15 @@
             $.jeDate(a.find("#testico"),{trigger:false,format: 'YYYY-MM-DD'})
         }
 
-        angular.module('goodApplyModules', [])
-                .controller('goodApplyCtrls', ['$scope', '$http', function($scope, $http) {
-
-                    $http({method: 'POST', url: remote_url,searchParams}).then(function(rep) {
-                        if(rep.status==200){
-                            var content=rep.data.content
-
-                        }
-                    })
+        angular.module('goodApplyModules', []).controller('goodApplyCtrls', ['$scope', '$http', function($scope, $http) {
+            _url = getURLParams();
+            goods = decodeURIComponent(_url.goods);
+            console.log("goods==>"+JSON.stringify(goods))
+            $http({method: 'POST', url: remote_url,goods}).then(function(rep) {
+                if(rep.status==200){
+                    $scope.detail = rep.data.content
+                }
+            })
 
                     $scope.submit=function(){
                         var params={
