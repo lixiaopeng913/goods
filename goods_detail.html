@@ -13,7 +13,7 @@
 
 </head>
 <body ng-app="takeDeliveryModules" ng-controller="takeDeliveryCtrls">
-<div id="header" class="header">
+<div id="header" class="header" style="display: none;">
     <div id="return_key" class="return-key">
         <div id="back-img"></div>&nbsp;<span>返回</span>
     </div>
@@ -22,7 +22,7 @@
 </div>
 <div class="content">
     <div class="no-data"></div>
-    <div id="goodDetail" style="width: 100%" ng-repeat="item in list" ng-cloak="">
+    <div id="goodDetail" style="position: relative;top: .5rem;" style="width: 100%" ng-repeat="item in list" ng-cloak="">
         <div class="detailTitle">
             <span class="title">{{item.productName}}</span>
             <span class="batchNum">批号&nbsp;{{item.batchNumber}}</span>
@@ -122,7 +122,7 @@
 
             $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                 if(rep.status==200){
-                    if(rep.data.content.total=0){
+                    if(rep.data.content.total==0){
                         $(".no-data").show();
                         $("#load-more-div").hide();
                     }else if(rep.data.content.total < $scope.rows) {

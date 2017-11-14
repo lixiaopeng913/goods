@@ -1,6 +1,11 @@
 .content{
     margin-left: 0.35rem;
-    margin-top:0.8rem;
+    margin-top:1rem;
+}
+
+.search-button{
+    height: .8rem;
+
 }
 
 .myGoodsRecord{

@@ -17,7 +17,7 @@
         .search-div{
             float: left;
             position: relative;
-            top: 0.15rem;
+            top: .5rem;
             height: 0.8rem;
             width: 100%;
             box-shadow: 0 4px 4px 2px #dbdbdb;
@@ -27,7 +27,7 @@
             position: relative;
             float: left;
             height: 0.62rem;
-            width: 4.2rem;
+            width: 3.3rem;
             left: 0.3rem;
             border: 1px solid #d4d6df;
             border-radius: 0.62rem;
@@ -40,8 +40,8 @@
         .search>input{
             height: 0.56rem;
             line-height: 0.56rem;
-            width: 3rem;
-            font-size: .4rem;
+            width: 2.5rem;
+            font-size: .35rem;
             border: none;
             outline: none;
         }
@@ -61,8 +61,7 @@
         .warehouse-search{
             position: relative;
             float: right;
-            right: 0.2rem;
-            width: 2.7rem;
+            width: 3.8rem;
             height: 0.62rem;
             line-height: 0.62rem;
             background: #f3f5fe;
@@ -71,7 +70,7 @@
         }
 
         .warehouse-search>select{
-            width: 100%;
+            width: 2.33rem;
             padding: 0 0.1rem;
             background: #f3f5fe;
             height: 0.62rem;
@@ -93,6 +92,7 @@
         #goodsName>a:hover{
             color: #000000;
         }
+
         .no-data{
             margin-left: 1.35rem;
             margin-top:4.0rem;
@@ -105,7 +105,7 @@
 </head>
 <body ng-app="myGoodsModules" ng-controller="myGoodsCtrls">
 <!-- 页面头部 -->
-<div id="header" class="header">
+<div id="header" class="header" style="display: none;">
     <div id="return_key" class="return-key">
         <div id="back-img"></div>&nbsp;<span>返回</span>
     </div>
@@ -117,18 +117,21 @@
 <!-- 搜索条件部分 -->
 <div class="search-div">
     <div class="search">
-        <input type="search" id="productName" ng-blur="search()" ng-model="placeName" placeholder="输入货物名称" />
+        <input type="search" id="productName" ng-model="placeName" placeholder="输入货物名称" />
     </div>
     <div class="warehouse-search">
-        <select id="warehouse-options" ng-model="warehouseList" ng-change="search()">
+        <select id="warehouse-options" ng-model="warehouseList">
             <option value="">全部仓库</option>
         </select>
+    </div>
+    <div style="position: absolute;float:right;right: .3rem;width: 1.2rem;height: .8rem;">
+        <input type="button" ng-click="search()" style="border-radius:.5rem;height:.6rem;width: 1.2rem;" value="查询"/>
     </div>
 </div>
 <!-- 数据部分 -->
 <div class="content">
     <div class="no-data"></div>
-    <div class="myGoodsRecord" ng-repeat="item in list" ng-cloak="">
+    <div class="myGoodsRecord" style="position: relative;top: .5rem;" ng-repeat="item in list" ng-cloak="">
         <div class="recordTitle">
             <span class="title" ng-click="toGoodsDetail(item.productId)">{{item.productName}}</span>
             <span class="batchNum">批号&nbsp;{{item.batchNumber}}</span>
@@ -304,7 +307,7 @@
 
             $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                 if(rep.status==200){
-                    if(rep.data.content.total=0){
+                    if(rep.data.content.total==0){
                         $(".no-data").show();
                         $("#load-more-div").hide();
                     }else if(rep.data.content.total < $scope.rows) {

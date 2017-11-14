@@ -12,7 +12,7 @@
     <script type="text/javascript" src="js/angular-1.3.10.min.js" ></script>
 </head>
 <body ng-app="recordDetailModules" ng-controller="recordDetailCtrls">
-<div id="header" class="header">
+<div id="header" class="header" style="display: none;">
     <div id="return_key" class="return-key">
         <div id="back-img"></div>&nbsp;<span>返回</span>
     </div>
@@ -20,7 +20,7 @@
     <hr color="#E5E5E5"/>
 </div>
 
-<div id="recordDetail" ng-cloak="">
+<div id="recordDetail" style="position: relative;top: .5rem;" ng-cloak="">
     <div class="headerContent">
         <p>{{list.storeHouseName}}</p>
         <table>

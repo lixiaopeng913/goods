@@ -14,7 +14,7 @@
 
 </head>
 <body ng-app="deliveryHistoryModules" ng-controller="deliveryHistoryCtrls">
-<div id="header" class="header">
+<div id="header" class="header" style="display: none;">
     <div id="return_key" class="return-key">
         <div id="back-img"></div>&nbsp;<span>返回</span>
     </div>
@@ -24,7 +24,7 @@
 
 <div class="content">
     <div class="no-data"></div>
-    <div class="deliveryHistoryRecord" ng-repeat="node in list" ng-cloak="">
+    <div class="deliveryHistoryRecord" style="position: relative;top: .5rem;" ng-repeat="node in list" ng-cloak="">
         <div class="recordTitle">
             <span class="title" ng-click="toDeliveryHistoryDetail(node.deliveryId)">{{node.productName}}</span>
             <span class="time">申请时间&nbsp;{{node.applyTime}}</span>
@@ -104,7 +104,7 @@
 
         $http({method: 'POST', url: remote_url,params}).then(function(rep) {
             if(rep.status==200){
-                if(rep.data.content.total=0){
+                if(rep.data.content.total==0){
                     $(".no-data").show();
                     $("#load-more-div").hide();
                 }else if(rep.data.content.total < $scope.rows) {
