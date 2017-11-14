@@ -167,13 +167,12 @@
 <script type="text/javascript">
     var storeHouseId = $("#warehouse-options").val();
     var productName = $("#productName").val();
+    var _url;
 
     var myGoodsModule = angular.module('myGoodsModules', ['tm.pagination']);
-
     //请求数据
     myGoodsModule.controller('myGoodsCtrls', ['$scope','$http','$location',function($scope, $http,$location) {
-
-        var _url = getURLParams();
+        _url= getURLParams();
         //分页配置
         $scope.pagination = {
             currentPage: $location.search().currentPage ? $location.search().currentPage : 1,
@@ -251,7 +250,6 @@
             location.href=delivery_apply;
         }
 
-
         $scope.search = function () {
             var storeHouseId = $("#warehouse-options").val();
             var productName = $("#productName").val();
@@ -282,7 +280,6 @@
                 });
             })
         }
-
     }])
 
 
@@ -296,20 +293,21 @@
 
     //加载全部仓库
     function loadWarehouses() {
+//        var _url = getURLParams();
         //获取仓库列表——初始
         $.ajax({
             type:"post",
             url:remote_url,
             async:true,
             data:{
-                fromType:2,
-                mobile:true,
-                loc:"zh-Hans",
-                versionID:"1.0.0",
-                _m:"listStorageHosue",
+                fromType:_url.fromType,
+                mobile:_url.mobile,
+                loc:_url.loc,
+                versionID:_url.versionID,
+                loginId: _url.loginId,
+                mtn: _url.mtn,
                 _s:"coop",
-                loginId: "ur4qqtjxnm",
-                mtn: "a210213a55154d08a24275cd2d890406"
+                _m:"listStorageHosue"
             },
             success:function(rep){
                 var reps = JSON.parse(rep);
