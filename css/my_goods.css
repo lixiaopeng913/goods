@@ -1,7 +1,6 @@
 .content{
     margin-left: 0.35rem;
-    margin-top:0.8rem;
-    background-image: url("/images/nothing.png");
+    margin-top:0.8rem
 }
 .myGoodsRecord{
     border-bottom:2px solid #f3f5fe;
@@ -114,16 +113,6 @@ input,select,textarea{
     height: .3rem;
     background: url("../images/back.png") no-repeat;
     background-size:100% 100%;
-}
-
-#load-more-div>a{
-    text-decoration:none;
-    display:inline-block;
-    color: #BFBFBF;
-}
-
-#load-more-div>a:hover{
-    color: #BFBFBF;
 }
 
 title-hr{
