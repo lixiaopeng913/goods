@@ -81,9 +81,20 @@ body{
 }
 
 .no-data{
-    margin-left: 1.35rem;
-    margin-top:4.0rem;
-    height: 6rem;
+    margin-top: 6rem;
+    margin-left: 1.75rem;
+    height: 2.6rem;
+    line-height: 2.6rem;
     background: url(../images/nothing.png) no-repeat;
-    background-size: 3.33rem 3.25rem;
+    background-size: 2.6rem 2.6rem;
+}
+
+#load-more-div>a{
+    text-decoration:none;
+    display:inline-block;
+    color: #BFBFBF;
+}
+
+#load-more-div>a:hover{
+    color: #BFBFBF;
 }

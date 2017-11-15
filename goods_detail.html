@@ -22,7 +22,7 @@
 </div>
 <div class="content">
     <div class="no-data"></div>
-    <div id="goodDetail" style="position: relative;top: .5rem;" style="width: 100%" ng-repeat="item in list" ng-cloak="">
+    <div id="goodDetail" style="position: relative;top: 1rem;" style="width: 100%" ng-repeat="item in list" ng-cloak="">
         <div class="detailTitle">
             <span class="title">{{item.productName}}</span>
             <span class="batchNum">批号&nbsp;{{item.batchNumber}}</span>
@@ -148,21 +148,22 @@
             //跳转到提货申请
             $scope.toGoodsApply=function (item) {
                 var params = {
-                    _vt:_url._vt,
-                    fromType:_url.fromType,
-                    mobile:_url.mobile,
-                    loc:_url.loc,
-                    versionID:_url.versionID,
-                    loginId:_url.loginId,
-                    mtn:_url.mtn,
-                    buildID:_url.buildID,
-                    _svt:_url._svt,
-                    _s:"coop",
-                    _m:"",
-                    goods:item
+                    _vt: _url._vt,
+                    fromType: _url.fromType,
+                    mobile: _url.mobile,
+                    loc: _url.loc,
+                    versionID: _url.versionID,
+                    loginId: _url.loginId,
+                    mtn: _url.mtn,
+                    buildID: _url.buildID,
+                    _svt: _url._svt,
+                    _s: "coop",
+                    _m: "",
+                    goods: item
                 }
-                var goods_apply = "goods_apply.html?"+JSON.stringify(params);
+                var goods_apply = "goods_apply.html?" + JSON.stringify(params);
                 location.href = encodeURI(goods_apply);
+            }
 
             //加载更多
             $scope.loadMore= function () {

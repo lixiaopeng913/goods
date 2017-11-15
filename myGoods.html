@@ -28,7 +28,7 @@
             position: absolute;
             float: left;
             height: 0.62rem;
-            width: 3.3rem;
+            width: 4.2rem;
             left: .3rem;
             border: 1px solid #d4d6df;
             border-radius: 0.62rem;
@@ -41,7 +41,7 @@
         .search>input{
             height: 0.56rem;
             line-height: 0.56rem;
-            width: 2.5rem;
+            width: 3.2rem;
             font-size: .35rem;
             border: none;
             outline: none;
@@ -62,8 +62,8 @@
         .warehouse-search{
             position: absolute;
             float: right;
-            right: 0rem;
-            width: 3.8rem;
+            right: .1rem;
+            width: 2.7rem;
             height: .8rem;
             line-height: 0.62rem;
             background: #f3f5fe;
@@ -72,7 +72,7 @@
         }
 
         .warehouse-search>select{
-            width: 2.33rem;
+            width: 2.7rem;
             padding: 0 0.1rem;
             background: #f3f5fe;
             height: 0.62rem;
@@ -96,12 +96,12 @@
         }
 
         .no-data{
-            margin-top: 7rem;
-            margin-left: 1.5rem;
+            margin-top: 6rem;
+            margin-left: 1.75rem;
             height: 2.6rem;
             line-height: 2.6rem;
             background: url(images/nothing.png) no-repeat;
-            background-size: 3.33rem 3.25rem;
+            background-size: 2.6rem 2.6rem;
         }
     </style>
 
@@ -120,19 +120,19 @@
 <!-- 搜索条件部分 -->
 <div class="search-div">
     <div class="search">
-        <input type="search" id="productName" ng-model="placeName" placeholder="输入货物名称" />
+        <input type="search" id="productName" ng-blur="search()" ng-model="placeName" placeholder="输入货物名称" />
     </div>
     <div class="warehouse-search">
-        <select id="warehouse-options" ng-model="warehouseList">
-            <option value="">全部仓库</option>
-        </select><input type="button" ng-click="search()" style="border-radius:.5rem;height:.6rem;width: 1.2rem;" value="查询"/>
+        <select id="warehouse-options" ng-model="warehouseList" ng-change="search()">
+
+        </select>
     </div>
 </div>
 <!-- 数据部分 -->
 
 <div class="content">
     <div class="no-data"></div>
-    <div class="myGoodsRecord" style="position: relative;top: .5rem;" ng-repeat="item in list" ng-cloak="">
+    <div class="myGoodsRecord" style="position: relative;top: 1rem;" ng-repeat="item in list" ng-cloak="">
         <div class="recordTitle">
             <span class="title" ng-click="toGoodsDetail(item.productId)">{{item.productName}}</span>
             <span class="batchNum">批号&nbsp;{{item.batchNumber}}</span>
@@ -337,7 +337,7 @@
             success:function(rep){
                 var reps = JSON.parse(rep);
                 if(reps.result){
-                    var str = '<li data-id="0"><div class="warehouse-option"></div>全部仓库</li>',
+                    var str = '<option value="" selected>全部仓库</option>';
                         list = reps.content;
                     for(var i=0;i<list.length;i++){
                         str += '<option value="'+list[i].storeHouseId +'">'+list[i].storeHouseName+'</option>'
