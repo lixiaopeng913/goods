@@ -14,12 +14,16 @@ function back() {
 }
 
 function getURLParams(){
-    var url = location.href;
-    var paraString = url.substring(url.indexOf("?")+1,url.length).split("&");
+    var url = location.href; //获取url中"?"符以及其后的字串
     var paraObj = {};
-    var j;
-    for (var i=0; j=paraString[i]; i++){
-        paraObj[j.substring(0,j.indexOf("="))] = j.substring(j.indexOf("=")+1,j.length);
+    if(url.indexOf("?") != -1)
+    {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++)
+        {
+            paraObj[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        }
     }
     return paraObj;
 }

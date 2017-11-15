@@ -17,7 +17,7 @@
         .search-div{
             float: left;
             position: absolute;
-            top: 1rem;
+            top: 12px;
             height: 1rem;
             width: 100%;
             box-shadow: 0 4px 4px 2px #dbdbdb;
@@ -73,11 +73,12 @@
 
         .warehouse-search>select{
             width: 2.7rem;
-            padding: 0 0.1rem;
+            padding: 0.12rem 0.1rem;
             background: #f3f5fe;
-            height: 0.62rem;
+            height: 0.8rem;
             outline: none;
             border: none;
+            font-size: .35rem;
             text-align-last: center;
         }
 
@@ -132,7 +133,7 @@
 
 <div class="content">
     <div class="no-data"></div>
-    <div class="myGoodsRecord" style="position: relative;top: 1rem;" ng-repeat="item in list" ng-cloak="">
+    <div class="myGoodsRecord" style="position: relative;top: .8rem;" ng-repeat="item in list" ng-cloak="">
         <div class="recordTitle">
             <span class="title" ng-click="toGoodsDetail(item.productId)">{{item.productName}}</span>
             <span class="batchNum">批号&nbsp;{{item.batchNumber}}</span>
@@ -262,9 +263,9 @@
         //提货申请
         $scope.toDeliveryApply=function (item) {
             var params = "_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
-            params+="&goods="+JSON.stringify(item);
+            params+="&goods="+encodeURI(encodeURI((JSON.stringify(item))));
             var delivery_history = 'goods_apply.html?'+params;
-            location.href=encodeURI(delivery_history);
+            location.href=delivery_history;
         }
 
         //查询
@@ -319,6 +320,7 @@
 
     //加载全部仓库
     function loadWarehouses() {
+        _url= getURLParams();
         //获取仓库列表——初始
         $.ajax({
             type:"post",
@@ -347,10 +349,6 @@
             }
         });
     }
-
-    $("#return_key").click(function () {
-        back();
-    });
 
 </script>
 </body>

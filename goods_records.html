@@ -24,7 +24,7 @@
 
 <div class="content">
     <div class="no-data"></div>
-    <div class="deliveryHistoryRecord" style="position: relative;top: 1rem;" ng-repeat="node in list" ng-cloak="">
+    <div class="deliveryHistoryRecord" ng-repeat="node in list" ng-cloak="">
         <div class="recordTitle">
             <span class="title" ng-click="toDeliveryHistoryDetail(node.deliveryId)">{{node.productName}}</span>
             <span class="time">申请时间&nbsp;{{node.applyTime}}</span>
@@ -63,7 +63,7 @@
         </div>
     </div>
     <!-- 分页插件 -->
-    <div id="load-more-div" style="text-align: center;height: 1.0rem;line-height:1.0rem;">
+    <div id="load-more-div" style="text-align: center;height: 1.5rem;line-height:1.5rem;">
         <a href="javascript:void(0);" ng-click="loadMore()">点击加载更多</a>
     </div>
 </div>

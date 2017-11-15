@@ -87,7 +87,7 @@
     <hr color="#E5E5E5"/>
 </div>
 
-<div id="recordDetail" style="position: relative;top: .5rem;" ng-cloak="">
+<div id="recordDetail" style="position: relative;top: 12px;" ng-cloak="">
     <input type="hidden" ng-model="orderstatus" value="{{goods.orderstatus}}">
     <input type="hidden" ng-model="productOwnerId" value="{{goods.productOwnerId}}"/>
     <div class="headerContent" ng-cloak="">
@@ -220,12 +220,12 @@
                 $(this).css('background-color','#F2F2F2');
             });
 
-            goods = jQuery.parseJSON(decodeURI(_url.goods));
+            goods = jQuery.parseJSON(decodeURI(decodeURI(_url.goods)));
         })
 
         angular.module('goodApplyModules', []).controller('goodApplyCtrls', ['$scope', '$http', function($scope, $http) {
             _url = getURLParams();
-            goods = jQuery.parseJSON(decodeURI(_url.goods));
+            goods = jQuery.parseJSON(decodeURI(decodeURI(_url.goods)));
             $scope.goods = goods;
             $scope.weight=$("#weight").val();
             $scope.warehousingFeeJson={"repaymentBalance":0.00,"goodsBack":0.00};

@@ -1,6 +1,6 @@
 .content{
     margin-left: 0.35rem;
-    margin-top:1rem;
+    margin-top:.75rem;
 }
 
 .search-button{
@@ -13,8 +13,8 @@
 }
 
 .myGoodsRecord .recordTitle{
-    height: 1.7rem;
-    line-height: 1.7rem;
+    height: 1rem;
+    line-height: 1rem;
 }
 
 .myGoodsRecord .recordTitle span.title{
