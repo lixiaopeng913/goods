@@ -129,12 +129,12 @@
             </tr>
             <tr>
                 <td class="left"><span>*&nbsp;</span>提货件数</td>
-                <td class="right input"><input type="text" class="input" ng-model="itemNumber" id="itemNumber" ng-blur="calcMoney(3,1);"></td>
+                <td class="right input"><input type="text" class="input" ng-model="itemNumber" id="itemNumber" ng-blur="calcMoney(goods.orderstatus,1);"></td>
             </tr>
             <tr>
                 <td class="left"><span>*&nbsp;</span>提货重量（吨）</td>
                 <td class="right input">
-                    <input type="text" class="input" id="weight" ng-model="weight" ng-blur="calcMoney(3,2);">
+                    <input type="text" class="input" id="weight" ng-blur="calcMoney(goods.orderstatus,2);">
                 </td>
             </tr>
             <tr>
@@ -200,6 +200,7 @@
         </table>
     </div>
     <div class="footContent">
+        <input type="hidden" id="warehousingFeeJson" />
         <button ng-click="submit()">提交</button>
     </div>
 </div>
@@ -226,8 +227,8 @@
             _url = getURLParams();
             goods = jQuery.parseJSON(decodeURI(_url.goods));
             $scope.goods = goods;
-            var warehousingFeeJson;
-
+            $scope.weight=$("#weight").val();
+            $scope.warehousingFeeJson={"repaymentBalance":0.00,"goodsBack":0.00};
             //根据提货件数/重量 计算金额
             $scope.calcMoney=function (orderstatus,calType) {
                 var params = {
@@ -265,9 +266,12 @@
                                 $("#releaseBond").val(obj.releaseBond);
                                 //应付金额
                                 $("#needPayment").val(obj.needPayment);
+                                $("#weight").val(obj.thWeight);
+
+                                $scope.warehousingFeeJson = obj.warehousingFeeJson;
                             }
                         })
-                    }else {
+                    }else if(calType==2) {
                         //计算重量计算金额
                         $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                             if(rep.data.result){
@@ -278,10 +282,11 @@
                                 $("#releaseBond").val(obj.releaseBond);
                                 //应付金额
                                 $("#needPayment").val(obj.needPayment);
+                                $scope.warehousingFeeJson = obj.warehousingFeeJson;
                             }
                         })
                     }
-                    warehousingFeeJson = obj.warehousingFeeJson;
+
                 }
             }
 
@@ -291,7 +296,7 @@
                 }
                 var param_json ={
                     "itemNumber":$scope.itemNumber,
-                    "weight":$scope.weight,
+                    "weight":$("#weight").val(),
                     "name":$scope.name,
                     "idcard":$scope.idCard,
                     "time":$("#testico").val(),
@@ -303,11 +308,13 @@
                     "productOwnerId":$scope.goods.productOwnerId,
                     "batchNum":$scope.goods.batchNumber,
                     "packing_specification":$scope.goods.packingSpecification,
-                    "warehousingFeeJson":warehousingFeeJson,
+                    "warehousingFeeJson":$scope.warehousingFeeJson,
                     "ladingListId":$scope.goods.ladingListId,
                     "repaymentUnitprice":$scope.goods.repaymentUnitprice,
-                    "money":$("#needPayment").val()
+                    "money":100
                 }
+
+                console.log("param_json==> "+JSON.stringify(param_json));
 
                 var params={
                     fromType:_url.fromType,
