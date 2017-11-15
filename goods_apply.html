@@ -294,8 +294,7 @@
                     "weight":$scope.weight,
                     "name":$scope.name,
                     "idcard":$scope.idCard,
-//                    "time":$scope.time=="undefined"?'2017-11-14':$scope.time,
-                    "time":'2017-11-14',
+                    "time":$("#testico").val(),
                     "carnumber":$scope.carNumber,
                     "pid":$scope.goods.pid,
                     "orderId":$scope.goods.orderId,
@@ -303,12 +302,11 @@
                     "storeHouseId":$scope.goods.storeHouseId,
                     "productOwnerId":$scope.goods.productOwnerId,
                     "batchNum":$scope.goods.batchNumber,
-                    "packing_specification":"10 *15",
+                    "packing_specification":$scope.goods.packingSpecification,
                     "warehousingFeeJson":warehousingFeeJson,
-                    "ladingListId":$scope.goods.ladingListId,//应付金额"(代购 代开 代销)
+                    "ladingListId":$scope.goods.ladingListId,
                     "repaymentUnitprice":$scope.goods.repaymentUnitprice,
-                    "money":100
-//                    "money":$scope.money=="undefined"?0:$scope.money
+                    "money":$("#needPayment").val()
                 }
 
                 var params={
@@ -342,6 +340,7 @@
                 });
             }
 
+            //提交检查
             function check() {
                 var thjishshu = $("#itemNumber").val();
                 var weight = $("#weight").val();
