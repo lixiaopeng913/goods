@@ -149,7 +149,7 @@
             $scope.toGoodsApply=function (item) {
                 var params = "_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
                 params+="&goods="+JSON.stringify(item);
-                var goods_apply = "goods_apply.html?" + params;
+                var goods_apply = 'goods_apply.html?'+params;
                 location.href = encodeURI(goods_apply);
             }
 
