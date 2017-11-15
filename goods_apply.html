@@ -345,10 +345,32 @@
             function check() {
                 var thjishshu = $("#itemNumber").val();
                 var weight = $("#weight").val();
+                var name = $("#name").val();
+                var idCard = $("#idCard").val();
                 var time = $("#testico").val();
                 var carNumber = $("#carNumber").val();
-                if(thjishshu.length==0 || weight.length==0 || time.length==0 || carNumber.length==0){
-                    theCommonFn.alertWin('请输入必填项');
+                if(thjishshu.length==0){
+                    theCommonFn.alertWin('请填入提货件数！');
+                    return false;
+                }
+                if(weight.length==0){
+                    theCommonFn.alertWin('请填入提货重量！');
+                    return false;
+                }
+                if(name.length==0){
+                    theCommonFn.alertWin('请填入提货人姓名！');
+                    return false;
+                }
+                if(idCard.length==0){
+                    theCommonFn.alertWin('请填入提货人身份证！');
+                    return false;
+                }
+                if(time.length==0 ){
+                    theCommonFn.alertWin('请填入提货日期！');
+                    return false;
+                }
+                if(carNumber.length==0 ){
+                    theCommonFn.alertWin('请填入提货车牌号！');
                     return false;
                 }
                 return true;
