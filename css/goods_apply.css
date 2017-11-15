@@ -50,10 +50,13 @@
     border-bottom: 1px solid #f3f5fe;
 }
 #recordDetail .middleContent>table td.right input.input{
-    height: 0.36rem;
-    line-height: 0.36rem;
+    height: .75rem;
+    width:3.5rem;
+    line-height: .75rem;
     border: 0px;
     outline-style: none ;
+    border-radius: .1rem;
+    background-color: #EEEBEB;
 }
 #recordDetail .footContent{
     border-top:3px solid #F3F5FE;
