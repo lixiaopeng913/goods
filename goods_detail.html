@@ -21,156 +21,105 @@
     <hr color="#E5E5E5"/>
 </div>
 <div class="content">
-    <div class="no-data"></div>
-    <div id="goodDetail" ng-repeat="item in list" ng-cloak="">
+    <div id="goodDetail" ng-cloak="">
         <div class="detailTitle">
-            <span class="title">{{item.productName}}</span>
-            <span class="batchNum">批号&nbsp;{{item.batchNumber}}</span>
+            <span class="title">{{productName}}</span>
+            <span class="batchNum">批号&nbsp;{{batchNumber}}</span>
         </div>
         <div class="detailContent">
         <table>
             <tr>
                 <td class="left">PID</td>
-                <td class="right">{{item.number}}</td>
+                <td class="right">{{PID}}</td>
             </tr>
             <tr>
                 <td class="left">订单编号</td>
-                <td class="right">{{item.number}}</td>
+                <td class="right">{{number}}</td>
             </tr>
             <tr>
                 <td class="left">仓库名称</td>
-                <td class="right">{{item.storeHouseName}}</td>
+                <td class="right">{{storeHouseName}}</td>
             </tr>
             <tr>
                 <td class="left">包装</td>
-                <td class="right">{{item.packingSpecification}}</td>
+                <td class="right">{{packingSpecification}}</td>
             </tr>
             <tr>
                 <td class="left">库存数量</td>
-                <td class="right">{{item.storeJianshu || 0}}</td>
+                <td class="right">{{storeJianshu || 0}}</td>
             </tr>
             <tr>
                 <td class="left">库存重量（吨）</td>
-                <td class="right">{{item.storeWeight || 0}}</td>
+                <td class="right">{{storeWeight || 0}}</td>
             </tr>
             <tr>
                 <td class="left">入库单价（元）</td>
-                <td class="right">{{item.unitPrice || '0.00'}}</td>
+                <td class="right">{{unitPrice || '0.00'}}</td>
             </tr>
             <tr>
                 <td class="left">可提货重量（吨）</td>
-                <td class="right">{{item.deliverableWeight || '0'}}</td>
+                <td class="right">{{deliverableWeight || 0}}</td>
             </tr>
             <tr>
                 <td class="left">可融资金额（元）</td>
-                <td class="right">{{item.financableMoney || "0.00"}}</td>
+                <td class="right">{{financableMoney || '0.00'}}</td>
             </tr>
             <tr>
                 <td class="left">已融资金额（元）</td>
-                <td class="right">{{item.financedMoney || "0.00"}}</td>
+                <td class="right">{{financedMoney || '0.00'}}</td>
             </tr>
             <tr>
                 <td class="left">货权人</td>
-                <td class="right">{{item.productOwner}}</td>
+                <td class="right">{{productOwner}}</td>
             </tr>
             <tr>
                 <td class="left">订单类型</td>
-                <td class="right">{{item.orderstatus}}</td>
+                <td class="right">{{orderstatus}}</td>
             </tr>
         </table>
     </div>
         <div class="detailFoot">
-            <span class="history" ng-click="toDeliveryHistoryDetail(item.productId,item.storeHouseId,item.orderId,item.productOwnerId)">提货历史</span>
-            <span class="take" ng-click="toGoodsApply(item)">去提货</span>
+            <span class="history" ng-click="toDeliveryHistoryDetail()">提货历史</span>
+            <span class="take" ng-click="toGoodsApply()">去提货</span>
         </div>
 </div>
-    <!-- 分页插件 -->
-    <div id="load-more-div" style="text-align: center;height: 1.5rem;line-height:1.5rem;">
-        <a href="javascript:void(0);" ng-click="loadMore()">点击加载更多</a>
-    </div>
 </div>
     <script type="text/javascript">
         var _url;
-        $(function(){
-            $(".no-data").hide();
-            $("#load-more-div").hide();
-        });
 
-        angular.module('takeDeliveryModules', []).controller('takeDeliveryCtrls', ['$scope', '$http', function($scope, $http) {
-            _url= getURLParams();
-            $scope.currentPage = 1;
-            $scope.rows = 5;
-            $scope.pages;
-            $scope.data = [];
+        angular.module('takeDeliveryModules', []).controller('takeDeliveryCtrls', ['$scope', '$http','$location', function($scope, $http,$location) {
+            _url = getURLParams();
+            $scope.item = jQuery.parseJSON(decodeURI(decodeURI(_url.goods)));
+            $scope.productName = goods.productName;
+            $scope.batchNumber = goods.batchNumber;
+            $scope.PID = goods.pid;
+            $scope.number = goods.number;
+            $scope.storeHouseName = goods.storeHouseName;
+            $scope.packingSpecification = goods.packingSpecification;
+            $scope.storeJianshu = goods.storeJianshu;
+            $scope.storeWeight = goods.storeWeight;
+            $scope.unitPrice = goods.unitPrice;
+            $scope.deliverableWeight = goods.deliverableWeight;
+            $scope.financableMoney = goods.financableMoney;
+            $scope.financedMoney = goods.financedMoney;
+            $scope.productOwner = goods.productOwner;
+            $scope.orderstatus = getOrderStatus(goods.orderstatus);
 
-            var params = {
-                page:$scope.currentPage,
-                rows:$scope.rows,
-                _vt:_url._vt,
-                fromType:_url.fromType,
-                mobile:_url.mobile,
-                loc:_url.loc,
-                versionID:_url.versionID,
-                loginId:_url.loginId,
-                mtn:_url.mtn,
-                buildID:_url.buildID,
-                _svt:_url._svt,
-                _s:"coop",
-                _m:"listStoreGoods",
-                productId:_url.productId
-            }
-
-            $http({method: 'POST', url: remote_url,params}).then(function(rep) {
-                if(rep.status==200){
-                    if(rep.data.content.total==0){
-                        $(".no-data").show();
-                        $("#load-more-div").hide();
-                    }else if(rep.data.content.total < $scope.rows) {
-                        $(".no-data").hide();
-                        $("#load-more-div").hide();
-                    }else if(rep.data.content.total > $scope.rows){
-                        $(".no-data").hide();
-                        $("#load-more-div").show();
-                    }
-                    $scope.pages = rep.data.content.pages; //总页数
-                    $scope.list=rep.data.content.list;
-                    $scope.data = $scope.list;
-                }
-            });
 
             //跳转到提货历史
             $scope.toDeliveryHistoryDetail=function (productId,storeHouseId,orderId,productOwnerId) {
                 //公共参数
-                var params = "_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
-                var delivery_history = 'goods_records.html?'+params+'&productId='+productId+'&storeHouseId='+storeHouseId+'&orderId='+orderId+'&productOwnerId='+productOwnerId;
+                var params = "fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
+                var delivery_history = 'goods_records.html?'+params+'&productId='+$scope.item.productId+'&storeHouseId='+$scope.item.storeHouseId+'&orderId='+$scope.item.orderId+'&productOwnerId='+$scope.item.productOwnerId;
                 location.href = delivery_history;
             };
             //跳转到提货申请
-            $scope.toGoodsApply=function (item) {
-                var params = "_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
-                params+="&goods="+encodeURI(encodeURI((JSON.stringify(item))))
+            $scope.toGoodsApply=function () {
+                var params = "fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
+                params+="&goods="+encodeURI(encodeURI((JSON.stringify($scope.item))))
                 var goods_apply = 'goods_apply.html?'+params;
                 location.href = goods_apply;
             }
-
-            //加载更多
-            $scope.loadMore= function () {
-                $("#load-more-div").show();
-                $("#load-more-div a").text("正在努力加载中...");
-                $scope.currentPage++;
-                params.page = $scope.currentPage;
-                $http({method: 'POST', url: remote_url,params}).then(function(rep) {
-                    if(rep.status==200){
-                        $("#load-more-div a").text("点击加载更多");
-                        for(var i=0;i<$scope.rows;i++){
-                            $scope.data.push(rep.data.content.list[i]);
-                        }
-                        if($scope.currentPage==$scope.pages){
-                            $("#load-more-div a").text("没有更多数据了");
-                        }
-                    }
-                });
-            };
 
         }])
 

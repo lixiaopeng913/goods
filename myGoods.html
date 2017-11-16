@@ -135,7 +135,7 @@
     <div class="no-data"></div>
     <div class="myGoodsRecord" style="position: relative;top: .8rem;" ng-repeat="item in list" ng-cloak="">
         <div class="recordTitle">
-            <span class="title" ng-click="toGoodsDetail(item.productId)">{{item.productName}}</span>
+            <span class="title" ng-click="toGoodsDetail(item)">{{item.productName}}</span>
             <span class="batchNum">批号&nbsp;{{item.batchNumber}}</span>
             </span>
         </div>
@@ -247,22 +247,22 @@
         };
 
         //货物详情
-        $scope.toGoodsDetail=function (productId) {
-                var params = "?_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
-                var detail = 'goods_detail.html'+params+"&page=1&rows=5&productId="+productId;
+        $scope.toGoodsDetail=function (item) {
+                var params = "fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
+                var detail = 'goods_detail.html?'+params+"&goods="+encodeURI(encodeURI((JSON.stringify(item))));
                 location.href = detail;
             };
 
         //提货历史
         $scope.toDeliveryHistory=function (productId,storeHouseId,orderId,productOwnerId) {
-                var params = "?_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
-                var delivery_history = 'goods_records.html'+params+"&page=1&rows=5&productId="+productId+"&storeHouseId="+storeHouseId+"&orderId="+orderId+"&productOwnerId="+productOwnerId;
+                var params = "fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
+                var delivery_history = 'goods_records.html?'+params+"&page=1&rows=5&productId="+productId+"&storeHouseId="+storeHouseId+"&orderId="+orderId+"&productOwnerId="+productOwnerId;
                 location.href=delivery_history;
             }
 
         //提货申请
         $scope.toDeliveryApply=function (item) {
-            var params = "_vt="+_url._vt+"&fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
+            var params = "fromType="+_url.fromType+"&mobile="+_url.mobile+"&loc="+_url.loc+"&versionID="+_url.versionID+"&loginId="+_url.loginId+"&mtn="+_url.mtn+"&buildID="+_url.buildID+"&_svt="+_url._svt+"&_s=coop";
             params+="&goods="+encodeURI(encodeURI((JSON.stringify(item))));
             var delivery_history = 'goods_apply.html?'+params;
             location.href=delivery_history;

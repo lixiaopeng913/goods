@@ -1,11 +1,22 @@
 /****************************************************** APP 常量设置部分 ********************************************************/
 //APP 常量设置
-var remote_url = "https://wei.wiyarn.com/actiz/rs/b?";
-var const_vt = "dlk_weishatest";
-var pageSize = 5;
+var remote_url = "https://wei.wiyarn.com/actiz/rs/b";
 
-//货物状态
-
+//订单状态
+function getOrderStatus(code) {
+    // 1.代购.2.代开证3.质押4.存储
+    if(code==1){
+        return "代购";
+    }else if(code==2){
+        return "代开证";
+    }else if(code==3){
+        return "质押";
+    }else if(code==4){
+        return "存储";
+    }else {
+        return "未知";
+    }
+}
 
 /****************************************************** APP 常量设置部分 ********************************************************/
 
@@ -18,11 +29,10 @@ function getURLParams(){
     var paraObj = {};
     if(url.indexOf("?") != -1)
     {
-        var str = url.substr(1);
-        strs = str.split("&");
-        for(var i = 0; i < strs.length; i ++)
+        var paramArray = url.substr(url.indexOf("?") + 1).split("&");
+        for(var i = 0; i < paramArray.length; i ++)
         {
-            paraObj[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+            paraObj[paramArray[i].split("=")[0]]=unescape(paramArray[i].split("=")[1]);
         }
     }
     return paraObj;
