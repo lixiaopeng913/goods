@@ -260,7 +260,7 @@
             </tr>
             <tr>
                 <td class="left">提货人手机号</td>
-                <td class="right"><input type="text" class="input" ng-model="telephone"></td>
+                <td class="right"><input type="text" id="phone" class="input" ng-model="telephone"></td>
             </tr>
             <tr>
                 <td class="left"><span>*&nbsp;</span>提货日期</td>
@@ -322,6 +322,18 @@
             $scope.warehousingFeeJson={"repaymentBalance":0.00,"goodsBack":0.00};
             //根据提货件数/重量 计算金额
             $scope.calcMoney=function (orderstatus,calType) {
+                var jianshu=$("#itemNumber").val();
+                var weight = $("#weight").val();
+                if(!checkNumber(jianshu)){
+                    theCommonFn.alertWin('提货件数请输入整数！');
+                    $("#itemNumber").focus();
+                    return ;
+                }
+                if(weight.length>0 && !checkFloat(weight)){
+                    theCommonFn.alertWin('提货重量格式不正确！');
+                    $("#weight").focus();
+                    return ;
+                }
                 var params = {
                     fromType:_url.fromType,
                     mobile:_url.mobile,
@@ -434,6 +446,7 @@
                             theCommonFn.delay2('5000');
                         }else {
                             $("#result-error").show();
+                            $("#summitBtn").removeAttr("disabled");
                             setTimeout("$('#result-error').hide();",3000);
                         }
                     } catch (e) {
@@ -450,6 +463,8 @@
                 var idCard = $("#idCard").val();
                 var time = $("#testico").val();
                 var carNumber = $("#carNumber").val();
+                var phone = $("#phone").val();
+
                 if(thjishshu.length==0){
                     theCommonFn.alertWin('请填入提货件数！');
                     return false;
@@ -472,7 +487,18 @@
                 if(idCard.length==0){
                     theCommonFn.alertWin('请填入提货人身份证！');
                     return false;
+                }else if(!checkID(idCard)){
+                    theCommonFn.alertWin('提货人身份证格式错误！');
+                    $("#idCard").focus();
+                    return false;
                 }
+
+                if(!checkPhone(phone)){
+                    theCommonFn.alertWin('提货人身份证格式错误！');
+                    $("#phone").focus();
+                    return false;
+                }
+
                 if(time.length==0 ){
                     theCommonFn.alertWin('请填入提货日期！');
                     return false;

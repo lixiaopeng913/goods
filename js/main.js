@@ -37,3 +37,36 @@ function getURLParams(){
     }
     return paraObj;
 }
+
+function checkNumber(obj){
+    var re=/^\d*$/;
+    if (obj.match(re) == null)
+        return false;
+    else
+        return true;
+}
+
+function checkFloat(obj) {
+    var re=/^\d*\.?\d{1,2}$/;
+    if (obj.match(re) == null)
+        return false;
+    else
+        return true;
+}
+
+//验证手机号
+function checkPhone(obj){
+    var reg = /^1[34578]\d{9}$/;
+    if(!(reg.test(obj))){
+        return false;
+    }
+}
+
+//验证身份证
+function checkID(obj){
+    var reg15 = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
+    var reg18 = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
+    if(!(reg15.test(obj)) || !(reg18.test(obj))){
+        return false;
+    }
+}
