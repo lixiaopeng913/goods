@@ -200,7 +200,7 @@ var theCommonFn = {
 	 		try { 
                   window.AndroidWebView.finishWebView();
             }catch(e) {  
-                  alert('无法关闭(安卓）'); 
+                  console.log(e);
               } 
         }else if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
         	try {

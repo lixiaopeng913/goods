@@ -90,20 +90,20 @@
         angular.module('takeDeliveryModules', []).controller('takeDeliveryCtrls', ['$scope', '$http','$location', function($scope, $http,$location) {
             _url = getURLParams();
             $scope.item = jQuery.parseJSON(decodeURI(decodeURI(_url.goods)));
-            $scope.productName = goods.productName;
-            $scope.batchNumber = goods.batchNumber;
-            $scope.PID = goods.pid;
-            $scope.number = goods.number;
-            $scope.storeHouseName = goods.storeHouseName;
-            $scope.packingSpecification = goods.packingSpecification;
-            $scope.storeJianshu = goods.storeJianshu;
-            $scope.storeWeight = goods.storeWeight;
-            $scope.unitPrice = goods.unitPrice;
-            $scope.deliverableWeight = goods.deliverableWeight;
-            $scope.financableMoney = goods.financableMoney;
-            $scope.financedMoney = goods.financedMoney;
-            $scope.productOwner = goods.productOwner;
-            $scope.orderstatus = getOrderStatus(goods.orderstatus);
+            $scope.productName = $scope.item.productName;
+            $scope.batchNumber = $scope.item.batchNumber;
+            $scope.PID = $scope.item.pid;
+            $scope.number = $scope.item.number;
+            $scope.storeHouseName = $scope.item.storeHouseName;
+            $scope.packingSpecification = $scope.item.packingSpecification;
+            $scope.storeJianshu = $scope.item.storeJianshu;
+            $scope.storeWeight = $scope.item.storeWeight;
+            $scope.unitPrice = $scope.item.unitPrice;
+            $scope.deliverableWeight = $scope.item.deliverableWeight;
+            $scope.financableMoney = $scope.item.financableMoney;
+            $scope.financedMoney = $scope.item.financedMoney;
+            $scope.productOwner = $scope.item.productOwner;
+            $scope.orderstatus = getOrderStatus($scope.item.orderstatus);
 
 
             //跳转到提货历史

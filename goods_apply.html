@@ -75,9 +75,104 @@
             text-align: center;
             text-align-last: center;
         }
+        #result-success{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            display:none;
+        }
+        .result{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+        }
+        .result-bg{
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            opacity: 0.6;
+
+        }
+        #result-pic{
+            width: 2.4rem;
+            height: 2.4rem;
+            margin-bottom: 0.5rem;
+            margin: 0 auto;
+        }
+
+        .result-show{
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 100%;
+            height: 4rem;
+            text-align: center;
+            color: #01dbc5;
+            font-size: 0.28rem;
+        }
+
+        .result-showfail{
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 100%;
+            height: 4rem;
+            text-align: center;
+            color: red;
+            font-size: 0.28rem;
+        }
+
+        #result-error{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            display:none;
+        }
+
     </style>
 </head>
 <body ng-app="goodApplyModules" ng-controller="goodApplyCtrls">
+<div id="result-success">
+    <div class="result-bg"></div>
+    <div class="result-show">
+        <div>
+            <img src="images/success.png" id="result-pic" />
+        </div>
+        <div>
+            <!--<p id="result-fail">失败原因——申请提交失败！</p>-->
+            <p id="result-in">提交成功！</p>
+        </div>
+    </div>
+</div>
+
+<!--失败窗口-->
+<div id="result-error">
+    <div class="result-bg"></div>
+    <div class="result-showfail">
+        <div>
+            <img src="images/failure.png" id="result-pic" />
+        </div>
+        <div>
+            <p id="result-in">提交失败！</p>
+        </div>
+    </div>
+</div>
+
 <div id="header" class="header" style="display: none;">
     <div id="return_key" class="return-key">
         <div id="back-img"></div>&nbsp;<span>返回</span>
@@ -140,18 +235,18 @@
                     <p ng-model="repaymentUnitprice">{{item.repaymentUnitprice || '0.00' }}</p>
                 </td>
             </tr>
-            <tr ng-hide="{{goods.orderstatus=4}}">
+            <tr ng-hide="{{item.orderstatus>3}}">
                 <td class="left">应回贷款金额（元）</td>
                 <td class="right">
-                    <input type="text" id="needBackGoodsMoney" class="input"/>
+                    <input type="text" id="needBackGoodsMoney" class="input" />
                 </td>
             </tr>
-            <tr ng-hide="{{goods.orderstatus=4}}">
+            <tr ng-hide="{{item.orderstatus>3}}">
                 <td class="left">保证金释放金额（元）</td>
                 <td class="right"><input type="text" id="releaseBond" class="input" /></td>
             </tr>
             </tr>
-            <tr ng-hide="{{goods.orderstatus=4}}">
+            <tr ng-hide="{{item.orderstatus>3}}">
                 <td class="left">应付金额（元）</td>
                 <td class="right"><input type="text" id="needPayment" class="input" /></td>
             </tr>
@@ -197,8 +292,7 @@
         </table>
     </div>
     <div class="footContent">
-        <input type="hidden" id="warehousingFeeJson" />
-        <button ng-click="submit()">提交</button>
+        <button id="summitBtn" ng-click="submit()">提交</button>
     </div>
 </div>
     <script type="text/javascript">
@@ -258,12 +352,12 @@
                             if(rep.data.result){
                                 obj = rep.data.content;
                                 //应回货款金额
-                                $("#needBackGoodsMoney").val(obj.neededrepayment);
+                                $("#needBackGoodsMoney").val(obj.neededrepayment=='undefined'?'0.00':obj.neededrepayment);
                                 //保证金释放金额
-                                $("#releaseBond").val(obj.releaseBond);
+                                $("#releaseBond").val(obj.releaseBond=='undefined'?'0.00':obj.releaseBond);
                                 //应付金额
-                                $("#needPayment").val(obj.needPayment);
-                                $("#weight").val(obj.thWeight);
+                                $("#needPayment").val(obj.needPayment=='undefined'?'0.00':obj.needPayment);
+                                $("#weight").val(obj.thWeight=='undefined'?'0.00':obj.thWeight);
 
                                 $scope.warehousingFeeJson = obj.warehousingFeeJson;
                             }
@@ -274,11 +368,11 @@
                             if(rep.data.result){
                                 obj = rep.data.content;
                                 //应回货款金额
-                                $("#needBackGoodsMoney").val(obj.neededrepayment);
+                                $("#needBackGoodsMoney").val(obj.neededrepayment=='undefined'?'0.00':obj.neededrepayment);
                                 //保证金释放金额
-                                $("#releaseBond").val(obj.releaseBond);
+                                $("#releaseBond").val(obj.releaseBond=='undefined'?'0.00':obj.releaseBond);
                                 //应付金额
-                                $("#needPayment").val(obj.needPayment);
+                                $("#needPayment").val(obj.needPayment=='undefined'?'0.00':obj.needPayment);
                                 $scope.warehousingFeeJson = obj.warehousingFeeJson;
                             }
                         })
@@ -291,6 +385,7 @@
                 if(!check()){
                     return;
                 }
+                $("#summitBtn").attr('disabled',"true");
                 var param_json ={
                     "itemNumber":$scope.itemNumber,
                     "weight":$("#weight").val(),
@@ -330,9 +425,16 @@
                 $http({method: 'POST', url: remote_url,params}).then(function(rep) {
                     try {
                         if(rep.data.result){
-                            theCommonFn.alertWin("保存成功！");
+                            $("#result-success").show();
+                            $("#summitBtn").removeAttr("disabled");
+                            $("body input").val("");
+                            theCommonFn.delay2('3000');
+                            theCommonFn.waitAndClosePrompts('1','7000');
+                            theCommonFn.delay2('5000');
+                            theCommonFn.closeWindow();
                         }else {
-                            theCommonFn.alertWin("保存失败！");
+                            $("#result-error").show();
+                            setTimeout("$('#result-error').hide();",3000);
                         }
                     } catch (e) {
                         theCommonFn.alertWin('服务器出错！');

@@ -22,19 +22,13 @@
 
 <div id="recordDetail" style="position: absolute;top: 12px;" ng-cloak="">
     <div class="headerContent">
-        <p>{{list.storeHouseName}}</p>
         <table>
             <tr>
-                <td class="left">地址</td>
-                <td class="right"><p>{{list.address.split('联系人')[0]}}</p></td>
+                <td class="left">仓库名称</td>
+                <td class="right"><p>{{list.storeHouseName}}</p></td>
             </tr>
             <tr>
-                <td class="left">仓库联系人</td>
-                <td class="right">{{list.address.split('联系人')[1].slice(1,-11)}}</td>
-            </tr>
-            <tr>
-                <td class="left">电话</td>
-                <td class="right">{{list.address.split('联系人')[1].slice(-11)}}</td>
+                <td class="right" style="text-align: center" colspan="2">{{list.address}}</td>
             </tr>
         </table>
     </div>
