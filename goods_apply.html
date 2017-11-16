@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/goods_apply.css" />
-    <link rel="stylesheet" href="css/zepto.mdatetimer.css" />
     <link rel="stylesheet" type="text/css" href="css/jedate.css">
 
     <script type="text/javascript" src="js/selfFit.js" ></script>
@@ -88,16 +87,14 @@
 </div>
 
 <div id="recordDetail" style="position: relative;top: 12px;" ng-cloak="">
-    <input type="hidden" ng-model="orderstatus" value="{{goods.orderstatus}}">
-    <input type="hidden" ng-model="productOwnerId" value="{{goods.productOwnerId}}"/>
     <div class="headerContent" ng-cloak="">
         <table>
             <tr>
                 <td class="left">交货仓库</td>
-                <td class="right">{{goods.storeHouseName}}</td>
+                <td class="right">{{item.storeHouseName}}</td>
             </tr>
             <tr>
-                <td colspan="3" style="text-align: center">{{goods.storeHouseAddress}}</td>
+                <td colspan="3" style="text-align: center">{{item.storeHouseAddress}}</td>
             </tr>
         </table>
     </div>
@@ -105,42 +102,42 @@
         <table>
             <tr>
                 <td class="left">PID</td>
-                <td class="right"><p ng-model="pid">{{goods.pid}}</p></td>
+                <td class="right"><p ng-model="pid">{{item.pid}}</p></td>
             </tr>
             <tr>
                 <td class="left">商品名称</td>
-                <td class="right"><p ng-model="productName" >{{goods.productName}}</p></td>
+                <td class="right"><p ng-model="productName" >{{item.productName}}</p></td>
             </tr>
             <tr>
                 <td class="left">批号</td>
-                <td class="right"><p ng-model="batchNum">{{goods.batchNumber}}</p></td>
+                <td class="right"><p ng-model="batchNum">{{item.batchNumber}}</p></td>
             </tr>
             <tr>
                 <td class="left">库存件数</td>
-                <td class="right"><p ng-model="storeJianshu">{{goods.storeJianshu}}</p></td>
+                <td class="right"><p ng-model="storeJianshu">{{item.storeJianshu}}</p></td>
             </tr>
             <tr>
                 <td class="left">库存重量（吨）</td>
-                <td class="right"><p ng-model="storeWeight">{{goods.storeWeight}}</p></td>
+                <td class="right"><p ng-model="storeWeight">{{item.storeWeight}}</p></td>
             </tr>
             <tr>
                 <td class="left">包装规格</td>
-                <td class="right"><p ng-model="packingSpecification">{{goods.packingSpecification}}</p></td>
+                <td class="right"><p ng-model="packingSpecification">{{item.packingSpecification}}</p></td>
             </tr>
             <tr>
                 <td class="left"><span>*&nbsp;</span>提货件数</td>
-                <td class="right input"><input type="text" class="input" ng-model="itemNumber" id="itemNumber" ng-blur="calcMoney(goods.orderstatus,1);"></td>
+                <td class="right input"><input type="text" class="input" ng-model="itemNumber" id="itemNumber" ng-blur="calcMoney(item.orderstatus,1);"></td>
             </tr>
             <tr>
                 <td class="left"><span>*&nbsp;</span>提货重量（吨）</td>
                 <td class="right input">
-                    <input type="text" class="input" id="weight" ng-blur="calcMoney(goods.orderstatus,2);">
+                    <input type="text" class="input" id="weight" ng-blur="calcMoney(item.orderstatus,2);">
                 </td>
             </tr>
             <tr>
                 <td class="left">回款单价（元/吨）</td>
                 <td class="right">
-                    <p ng-model="repaymentUnitprice">{{goods.repaymentUnitprice || '0.00' }}</p>
+                    <p ng-model="repaymentUnitprice">{{item.repaymentUnitprice || '0.00' }}</p>
                 </td>
             </tr>
             <tr ng-hide="{{goods.orderstatus=4}}">
@@ -188,7 +185,7 @@
                 <td class="right">
                     <div class="warehouse-search">
                         <select id="warehouse-options">
-                            <option value="{{node.id}}" ng-repeat="node in goods.groupDeliveryModeList">{{node.name}}</option>
+                            <option value="{{node.id}}" ng-repeat="node in item.groupDeliveryModeList">{{node.name}}</option>
                         </select>
                     </div>
                 </td>
@@ -226,7 +223,7 @@
         angular.module('goodApplyModules', []).controller('goodApplyCtrls', ['$scope', '$http', function($scope, $http) {
             _url = getURLParams();
             goods = jQuery.parseJSON(decodeURI(decodeURI(_url.goods)));
-            $scope.goods = goods;
+            $scope.item = goods;
             $scope.weight=$("#weight").val();
             $scope.warehousingFeeJson={"repaymentBalance":0.00,"goodsBack":0.00};
             //根据提货件数/重量 计算金额
@@ -245,11 +242,11 @@
                     _m:"calculateMoney",
                     orderstatus:orderstatus,
                     calType:calType,
-                    storeHouseId:$scope.goods.storeHouseId,
-                    batchNum:$scope.goods.batchNumber,
-                    repaymentUnitprice:$scope.goods.repaymentUnitprice,
-                    orderId:$scope.goods.orderId,
-                    productId:$scope.goods.productId,
+                    storeHouseId:$scope.item.storeHouseId,
+                    batchNum:$scope.item.batchNumber,
+                    repaymentUnitprice:$scope.item.repaymentUnitprice,
+                    orderId:$scope.item.orderId,
+                    productId:$scope.item.productId,
                     thjianshu:$scope.itemNumber,
                     thweight:$scope.weight
                 }
@@ -301,25 +298,22 @@
                     "idcard":$scope.idCard,
                     "time":$("#testico").val(),
                     "carnumber":$scope.carNumber,
-                    "pid":$scope.goods.pid,
-                    "orderId":$scope.goods.orderId,
-                    "productId":$scope.goods.productId,
-                    "storeHouseId":$scope.goods.storeHouseId,
-                    "productOwnerId":$scope.goods.productOwnerId,
-                    "batchNum":$scope.goods.batchNumber,
-                    "packing_specification":$scope.goods.packingSpecification,
+                    "pid":$scope.item.pid,
+                    "orderId":$scope.item.orderId,
+                    "productId":$scope.item.productId,
+                    "storeHouseId":$scope.item.storeHouseId,
+                    "productOwnerId":$scope.item.productOwnerId,
+                    "batchNum":$scope.item.batchNumber,
+                    "packing_specification":$scope.item.packingSpecification,
                     "warehousingFeeJson":$scope.warehousingFeeJson,
-                    "ladingListId":$scope.goods.ladingListId,
-                    "repaymentUnitprice":$scope.goods.repaymentUnitprice,
+                    "ladingListId":$scope.item.ladingListId,
+                    "repaymentUnitprice":$scope.item.repaymentUnitprice,
                     "money":100
                 }
-
-                console.log("param_json==> "+JSON.stringify(param_json));
 
                 var params={
                     fromType:_url.fromType,
                     mobile:_url.mobile,
-                    _vt:_url._vt,
                     loc:_url.loc,
                     versionID:_url.versionID,
                     loginId:_url.loginId,
@@ -328,10 +322,9 @@
                     _svt:_url._svt,
                     _s:"coop",
                     _m:"createDelivery",
-                    orderstatus:$scope.goods.orderstatus,
+                    orderstatus:$scope.item.orderstatus,
                     paramJson:param_json
                 }
-
 
                 //发送提交请求
                 $http({method: 'POST', url: remote_url,params}).then(function(rep) {
@@ -358,11 +351,18 @@
                 if(thjishshu.length==0){
                     theCommonFn.alertWin('请填入提货件数！');
                     return false;
+                }else if(thjishshu.length>0 && thjishshu > $scope.item.storeJianshu){
+                    theCommonFn.alertWin('提货件数不得大于库存件数！');
+                    return false;
                 }
                 if(weight.length==0){
                     theCommonFn.alertWin('请填入提货重量！');
                     return false;
+                }else if(weight.length>0 && weight > $scope.item.storeWeight){
+                    theCommonFn.alertWin('提货重量不得大于库存重量！');
+                    return false;
                 }
+
                 if(name.length==0){
                     theCommonFn.alertWin('请填入提货人姓名！');
                     return false;
