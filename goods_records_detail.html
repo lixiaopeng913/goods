@@ -10,6 +10,32 @@
     <script type="text/javascript" src="js/main.js" ></script>
     <script type="text/javascript" src="js/jquery-3.2.1.min.js" ></script>
     <script type="text/javascript" src="js/angular-1.3.10.min.js" ></script>
+
+    <style>
+        .warehouse-search{
+            height: 0.62rem;
+            line-height: 0.62rem;
+            background: #f3f5fe;
+            border-radius: 0.1rem;
+            overflow: hidden;
+        }
+
+        .warehouse-search>select{
+            width: 2rem;
+            padding: 0 0.1rem;
+            background: #f3f5fe;
+            height: 0.62rem;
+            outline: none;
+            border: none;
+            text-align-last: center;
+        }
+
+        .warehouse-search>select>option{
+            width: 1.7rem;
+            text-align: center;
+            text-align-last: center;
+        }
+    </style>
 </head>
 <body ng-app="recordDetailModules" ng-controller="recordDetailCtrls">
 <div id="header" class="header" style="display: none;">
@@ -48,11 +74,11 @@
             </tr>
             <tr>
                 <td class="left">库存件数</td>
-                <td class="right"><p>{{list.storeJianshu}}</p></td>
+                <td class="right"><p>{{list.storeJianshu  || '0'}}</p></td>
             </tr>
             <tr>
                 <td class="left">库存重量（吨）</td>
-                <td class="right">{{list.storeWeight}}</td>
+                <td class="right">{{list.storeWeight  || '0'}}</td>
             </tr>
             <tr>
                 <td class="left">包装规格</td>
@@ -60,27 +86,27 @@
             </tr>
             <tr>
                 <td class="left">提货件数</td>
-                <td class="right"><p>{{list.itemNumber}}</p></td>
+                <td class="right"><p>{{list.itemNumber  || '0'}}</p></td>
             </tr>
             <tr>
                 <td class="left">提货重量（吨）</td>
-                <td class="right">{{list.weight}}</td>
+                <td class="right">{{list.weight  || '0'}}</td>
             </tr>
             <tr>
                 <td class="left">回款单价（元/吨）</td>
-                <td class="right">{{list.repaymentUnitPrice}}</td>
+                <td class="right">{{list.repaymentUnitPrice || '0.00'}}</td>
             </tr>
             <tr>
                 <td class="left">应回贷款金额（元）</td>
-                <td class="right">{{list.needBackGoodsMoney}}</td>
+                <td class="right">{{list.needBackGoodsMoney  || '0.00'}}</td>
             </tr>
             <tr>
                 <td class="left">保证金释放金额（元）</td>
-                <td class="right">{{list.releaseBond}}</td>
+                <td class="right">{{list.releaseBond  || '0.00'}}</td>
             </tr>
             <tr>
                 <td class="left">应付金额（元）</td>
-                <td class="right">{{list.money}}</td>
+                <td class="right">{{list.money  || '0.00'}}</td>
             </tr>
             <tr>
                 <td class="left">提货人姓名</td>
@@ -100,7 +126,7 @@
             </tr>
             <tr>
                 <td class="left">提货方式</td>
-                <td class="right">{{list.type}}</td>
+                <td class="right">{{list.type()}}</td>
             </tr>
             <tr>
                 <td class="left">提货车牌号</td>

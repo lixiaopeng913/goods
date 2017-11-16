@@ -193,29 +193,6 @@ var theCommonFn = {
 	    }
 	},
 
-
-	//h5页面关闭
-	closeWindow:function(){
-		if (/(Android)/i.test(navigator.userAgent)) { 
-	 		try { 
-                  window.AndroidWebView.finishWebView();
-            }catch(e) {  
-                  console.log(e);
-              } 
-        }else if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
-        	try {
-        	    bridge.callHandler('pushBack', {}, function responseCallback(responseData) {
-                    log("JS received response:", responseData); 
-                })
-        	}catch(e) {  
-                alert('识别为ios端,但是无法关闭'); 
-            }
-        }else{
-            alert('识别为pc端,页面不关闭');
-             // window.location="https://www.baidu.com"; 
-        }
-    },
-
 //关闭失败窗口
 	delay:function(seconds){
 		setTimeout(function () {

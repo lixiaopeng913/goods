@@ -57,7 +57,28 @@
                 </tr>
                 <tr>
                     <td class="left">当前状态</td>
-                    <td class="right">{{node.deliveryStatus}}</td>
+                    <td class="right">
+                        <div ng-switch="node.deliveryStatus">
+                            <div ng-switch-when="0">
+                                <span>待支付</span>
+                            </div>
+                            <div ng-switch-when="1">
+                                <span>已支付</span>
+                            </div>
+                            <div ng-switch-when="2">
+                                <span>审核中</span>
+                            </div>
+                            <div ng-switch-when="3">
+                                <span>审核通过</span>
+                            </div>
+                            <div ng-switch-when="4">
+                                <span>已出库</span>
+                            </div>
+                            <div ng-switch-when="5">
+                                <span>取消</span>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>

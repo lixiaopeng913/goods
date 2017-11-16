@@ -229,26 +229,26 @@
                     <input type="text" class="input" id="weight" ng-blur="calcMoney(item.orderstatus,2);">
                 </td>
             </tr>
-            <tr>
+            <tr ng-hide="{{item.orderstatus>3}}">
                 <td class="left">回款单价（元/吨）</td>
                 <td class="right">
-                    <p ng-model="repaymentUnitprice">{{item.repaymentUnitprice || '0.00' }}</p>
+                    <p ng-model="repaymentUnitprice">{{item.repaymentUnitprice || '0.00' }} </p>
                 </td>
             </tr>
             <tr ng-hide="{{item.orderstatus>3}}">
                 <td class="left">应回贷款金额（元）</td>
                 <td class="right">
-                    <input type="text" id="needBackGoodsMoney" class="input" />
+                    <input type="text" id="needBackGoodsMoney" class="input" readonly/>
                 </td>
             </tr>
             <tr ng-hide="{{item.orderstatus>3}}">
                 <td class="left">保证金释放金额（元）</td>
-                <td class="right"><input type="text" id="releaseBond" class="input" /></td>
+                <td class="right"><input type="text" id="releaseBond" class="input" readonly /></td>
             </tr>
             </tr>
             <tr ng-hide="{{item.orderstatus>3}}">
                 <td class="left">应付金额（元）</td>
-                <td class="right"><input type="text" id="needPayment" class="input" /></td>
+                <td class="right"><input type="text" id="needPayment" class="input" readonly/></td>
             </tr>
             <tr>
                 <td class="left"><span>*&nbsp;</span>提货人姓名</td>
@@ -342,7 +342,7 @@
                     orderId:$scope.item.orderId,
                     productId:$scope.item.productId,
                     thjianshu:$scope.itemNumber,
-                    thweight:$scope.weight
+                    thweight:$("#weight").val()
                 }
                 if(orderstatus!=4){
                     var obj={};
@@ -389,6 +389,7 @@
                 var param_json ={
                     "itemNumber":$scope.itemNumber,
                     "weight":$("#weight").val(),
+                    "thweight":$("#weight").val(),
                     "name":$scope.name,
                     "idcard":$scope.idCard,
                     "time":$("#testico").val(),
@@ -403,7 +404,7 @@
                     "warehousingFeeJson":$scope.warehousingFeeJson,
                     "ladingListId":$scope.item.ladingListId,
                     "repaymentUnitprice":$scope.item.repaymentUnitprice,
-                    "money":100
+                    "money":$("#needPayment").val()
                 }
 
                 var params={
@@ -431,7 +432,6 @@
                             theCommonFn.delay2('3000');
                             theCommonFn.waitAndClosePrompts('1','7000');
                             theCommonFn.delay2('5000');
-                            theCommonFn.closeWindow();
                         }else {
                             $("#result-error").show();
                             setTimeout("$('#result-error').hide();",3000);
