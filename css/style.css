@@ -81,6 +81,7 @@ body{
 }
 
 .no-data{
+    display: none;
     margin-top: 6rem;
     margin-left: 1.75rem;
     height: 2.6rem;

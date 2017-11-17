@@ -50,31 +50,25 @@
             background-size: 100% 100%;
         }
         .warehouse-search{
-            position: relative;
-            float: right;
-            right: 0.2rem;
-            width: 3.55rem;
+            width: 4.55rem;
             height: 0.62rem;
             line-height: 0.62rem;
             background: #f3f5fe;
-            border-radius: 0.1rem;
+            border-radius: 0.2rem;
             overflow: hidden;
         }
 
         .warehouse-search>select{
-            width: 100%;
+            /*width: 100%; #F2F2F2 */
+            width: 3.5rem;
             padding: 0 0.1rem;
-            background: #f3f5fe;
+            background: #F2F2F2;
             height: 0.62rem;
-            outline: none;
-            border: none;
-            text-align-last: center;
+            outline: 1rem;
+            border: .2rem;
         }
 
-        .warehouse-search>select>option{
-            text-align: center;
-            text-align-last: center;
-        }
+
         #result-success{
             width: 100%;
             height: 100%;
@@ -84,14 +78,7 @@
             top: 0;
             display:none;
         }
-        .result{
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            z-index: 999;
-            left: 0;
-            top: 0;
-        }
+
         .result-bg{
             width: 100%;
             height: 100%;
@@ -364,12 +351,12 @@
                             if(rep.data.result){
                                 obj = rep.data.content;
                                 //应回货款金额
-                                $("#needBackGoodsMoney").val(obj.neededrepayment=='undefined'?'0.00':obj.neededrepayment);
+                                $("#needBackGoodsMoney").val(typeof(obj.neededrepayment)=='undefined'?'0.00':obj.neededrepayment);
                                 //保证金释放金额
-                                $("#releaseBond").val(obj.releaseBond=='undefined'?'0.00':obj.releaseBond);
+                                $("#releaseBond").val(typeof(obj.releaseBond)=='undefined'?'0.00':obj.releaseBond);
                                 //应付金额
-                                $("#needPayment").val(obj.needPayment=='undefined'?'0.00':obj.needPayment);
-                                $("#weight").val(obj.thWeight=='undefined'?'0.00':obj.thWeight);
+                                $("#needPayment").val(typeof(obj.needPayment)=='undefined'?'0.00':obj.needPayment);
+                                $("#weight").val(typeof(obj.thWeight)=='undefined'?'0.00':obj.thWeight);
 
                                 $scope.warehousingFeeJson = obj.warehousingFeeJson;
                             }
@@ -380,11 +367,11 @@
                             if(rep.data.result){
                                 obj = rep.data.content;
                                 //应回货款金额
-                                $("#needBackGoodsMoney").val(obj.neededrepayment=='undefined'?'0.00':obj.neededrepayment);
+                                $("#needBackGoodsMoney").val(typeof(obj.neededrepayment)=='undefined'?'0.00':obj.neededrepayment);
                                 //保证金释放金额
-                                $("#releaseBond").val(obj.releaseBond=='undefined'?'0.00':obj.releaseBond);
+                                $("#releaseBond").val(typeof(obj.releaseBond)=='undefined'?'0.00':obj.releaseBond);
                                 //应付金额
-                                $("#needPayment").val(obj.needPayment=='undefined'?'0.00':obj.needPayment);
+                                $("#needPayment").val(typeof(obj.needPayment)=='undefined'?'0.00':obj.needPayment);
                                 $scope.warehousingFeeJson = obj.warehousingFeeJson;
                             }
                         })
@@ -493,8 +480,8 @@
                     return false;
                 }
 
-                if(!checkPhone(phone)){
-                    theCommonFn.alertWin('提货人身份证格式错误！');
+                if(phone.length>0 && !checkPhone(phone)){
+                    theCommonFn.alertWin('提货人手机号格式错误！');
                     $("#phone").focus();
                     return false;
                 }
