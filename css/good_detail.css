@@ -33,16 +33,13 @@
     font-size:0.3rem;
 
 }
-.detailFoot{
-    position: absolute;
-    bottom: 0;
+#goodDetail .detailFoot{
+    background-color:#00a796;
+    height:1.25rem;
     line-height:1.25rem;
-    width: 100%;
-    height: 1.25rem;
 }
-.detailFoot span.history{
-    margin-left: 0rem;
-    width:2.8rem;
+#goodDetail .detailFoot span.history{
+    width:3.0rem;
     display:inline-block;
     text-align:center;
     color:#00a796;
@@ -51,9 +48,8 @@
     padding-top:1px;
 
 }
-.detailFoot span.take{
-    width:4.56rem;
-    background-color:#00a796;
+#goodDetail .detailFoot span.take{
+    width:3.65rem;
     display:inline-block;
     text-align:center;
     color:#fff;
